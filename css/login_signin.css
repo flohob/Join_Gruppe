@@ -32,8 +32,8 @@ font-weight: 400;
 }
 
 .middle-container {
-    height: 62vh;
-    width: 90vh;
+    height: 630px;
+    width: 598px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -83,6 +83,7 @@ font-weight: 400;
     display: flex;
     gap: 30px;
     padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .Login_seperator {
@@ -94,7 +95,7 @@ font-weight: 400;
     align-items: center;
     width: 100vw;
     justify-content: space-between;
-    padding: 0px 64px 48px 64px;
+    padding: 56px 64px 48px 64px;
 }
 
 .SignIn_Section_Login {
@@ -106,7 +107,8 @@ font-weight: 400;
 .End_section_login {
     display: flex;
     gap: 120px;
-    margin-top: 60px;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 .Login_Logo {
