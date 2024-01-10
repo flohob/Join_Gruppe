@@ -20,7 +20,7 @@ font-weight: 400;
     gap: 5px;
 }
 
-.main_container {
+.main_container_Login {
     height: 100vh;
     width: 100%;
     display: flex;
@@ -31,7 +31,7 @@ font-weight: 400;
 
 }
 
-.middle-container {
+.middle-container_Login {
     height: 630px;
     width: 598px;
     display: flex;
