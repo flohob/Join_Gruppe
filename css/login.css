@@ -17,7 +17,7 @@ font-weight: 400;
     justify-content: center;
     align-items: center;
     text-align: center;
-    gap: 15px;
+    gap: 5px;
 }
 
 .main_container {
@@ -27,12 +27,13 @@ font-weight: 400;
     justify-content: center;
     align-items: center;
     background-color: #F6F7F8;
+    flex-direction: column;
 
 }
 
 .middle-container {
-    height: 70vh;
-    width: 80vh;
+    height: 62vh;
+    width: 90vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -82,4 +83,32 @@ font-weight: 400;
     display: flex;
     gap: 30px;
     padding-top: 20px;
+}
+
+.Login_seperator {
+    padding-bottom: 32px;
+}
+
+.Upper_Section_Login {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    justify-content: space-between;
+    padding: 0px 64px 48px 64px;
+}
+
+.SignIn_Section_Login {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.End_section_login {
+    display: flex;
+    gap: 120px;
+    margin-top: 60px;
+}
+
+.Login_Logo {
+    height: 90px;
 }
