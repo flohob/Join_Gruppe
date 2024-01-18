@@ -1,0 +1,135 @@
+.summary_container {
+  margin-left: 380px;
+  margin-top: 264.5px;
+  height: 591px;
+  width: 912px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.number {
+  color: black !important;
+  font-size: 48px !important;
+  font-weight: 700 !important;
+}
+
+.headline {
+  display: flex;
+  width: 745px;
+  height: 77px;
+  gap: 22px;
+  font-size: 48px;
+  align-items: center;
+}
+
+.headline_name {
+  font-size: 64px;
+  color: rgba(69, 137, 255, 1);
+  font-weight: 700;
+}
+
+.task_container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 442px;
+  justify-content: space-between;
+  align-content: space-between
+}
+
+.task_container img {
+  height: 76px;
+  width: 76px;
+}
+
+.task_urgent {
+  cursor: pointer;
+  color: white;
+  width: 576px;
+  height: 135px;
+  background-color: rgba(69, 137, 255, 1);
+  border-radius: 30px;
+  padding: 28px 48px;
+  gap: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+#task_urgent_number {
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.task_urgent span {
+  font-size: 23px;
+  font-weight: 400;
+}
+
+.task_urgent_spacer {
+  height: 145px;
+  border-left: 3px solid white;
+  border-radius: 30px;
+}
+
+.task_urgent_right {
+  display: flex;
+  flex-direction: column;
+  width: 274px;
+  height: 81px;
+  gap: 13px;
+}
+
+#task_urgent_date {
+  font-size: 33px;
+  font-weight: 700;
+}
+
+.task_urgent_info {
+  width: 140px;
+  height: 113px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+}
+
+.tasks_img {
+  width: 124px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.task_board {
+  width: 128px !important;
+  height: 111px !important;
+}
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  cursor: pointer;
+  gap: 7px;
+  width: 128px;
+  height: 139px;
+  padding: 40px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+}
+.tasks:hover {
+  background-color: rgba(210, 227, 255, 1);
+}
+
+.tasks span {
+  font-size: 23px;
+  font-weight: 400;
+  color: rgba(69, 137, 255, 1);
+}
