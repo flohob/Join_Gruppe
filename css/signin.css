@@ -89,6 +89,7 @@ body {
         font-size: 50px;
         font-weight: 700;
         color: rgb(42, 54, 71);
+        margin-top: 26px;
     }
     
     .Input_Login_Email {
@@ -124,6 +125,7 @@ body {
         align-items: center;
         width: 100%;
         justify-content: left;
+        margin-top: 36px;
         
     }
     
@@ -142,8 +144,8 @@ body {
     }
     
     .Login_Logo {
-        height: 121.97px;
-        width: 100.03px;
+        height: 100.97px;
+        width: 85.03px;
         margin-left: 120px;
     }
 

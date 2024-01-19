@@ -4,7 +4,7 @@ margin: 0;
 background-color: #F6F7F8;
 flex-direction: column;
 color: rgb(42, 54, 71);
-font-family: 'Inter';
+font-family: 'Opens Sans';
 font-style: normal;
 font-size: 16px;
 font-weight: 400; 
@@ -18,6 +18,7 @@ font-weight: 400;
     align-items: center;
     text-align: center;
     gap: 5px;
+    
 }
 
 .main_container_Login {
@@ -40,6 +41,7 @@ font-weight: 400;
     align-items: center;
     background-color: white;
     border-radius: 20px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
     
     
 }
@@ -48,7 +50,7 @@ font-weight: 400;
     width: clamp(12.5rem, -0.357rem + 64.29vw, 23.75rem);
     height: 40px;
     border: none;
-    border-bottom: 2px solid rgb(168, 168, 168);
+    border-bottom: 2px solid rgba(209, 209, 209, 1);
     margin-bottom: 20px;
     cursor: pointer;
     padding-left: 10px;
@@ -59,9 +61,8 @@ font-weight: 400;
 }
 
 .Headlight_Login {
-    
-    font-size: 60px;
-    font-weight: 700;
+    font-size: 48px;
+    font-weight: 600;
     color: rgb(42, 54, 71);
 }
 
@@ -69,7 +70,7 @@ font-weight: 400;
     width: clamp(12.5rem, -0.357rem + 64.29vw, 23.75rem);
     height: 40px;
     border: none;
-    border-bottom: 2px solid rgb(168, 168, 168);
+    border-bottom: 2px solid rgba(209, 209, 209, 1);
     margin-bottom: 20px;
     cursor: pointer;
     padding-left: 10px;
@@ -77,6 +78,10 @@ font-weight: 400;
     background-repeat: no-repeat;
     background-position-x: 95%;
     background-position-y:center;
+}
+
+input::placeholder {
+  color: rgba(209, 209, 209, 1);
 }
 
 .Login_Guest_btn {
