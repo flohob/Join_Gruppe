@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="./js/includeHTML.js"></script>
+
   </head>
   <body onload="includeHTML()">
     <div w3-include-html="sidebar.html"></div>
@@ -50,36 +51,35 @@
       </div>
       <div class="title_gap">
         <div><span>Assigned to</span><span class="task_optional"> (optional)</span></div>
-        <select id="task_contacts" class="task_select" aria-placeholder="Select contacts to assign">
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
-        </select>
+        <div class="dropdown contact">
+            <input type="text" placeholder="Select contacts to assign">
+        </div>
       </div>
       <div class="title_gap">
         <span>Category</span>
-        <select id="task_category" class="task_select" aria-placeholder="Select task category">
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
-        </select>
+        <div class="dropdown category">
+            <input type="text" placeholder="Select task category">
+        </div>
       </div>
       <div class="title_gap">
-        <div><span>Subtasks</span><span class="task_optional"> (optional)</span></div>
-        <select id="task_subtasks" class="subtask_select" aria-placeholder="Add new subtask">
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
-        </select>
+        <div><span>Subtask</span><span class="task_optional"> (optional)</span></div>
+        <div class="dropdown subtask">
+            <input type="text" placeholder="Add new subtask">
+            <div id="subtask_confirm_cancel" class="d-none">
+            <div class="confirm"></div>
+            <div class="spacer"></div>
+            <div class="cancel"></div>
+            </div>
+        </div>
       </div>
-    </div>
+
     <div class="add_task_option">
-      <button>
-        <span>Clear</span>
+      <button class="option_button" id="task_cancel">
+       Clear
         <img src="./assets/add_task/cancel_blue.png" />
       </button>
-      <button>
-        <span>Create Task</span>
+      <button class="option_button" id="task_confirm">
+        Create Task
         <img src="./assets/add_task/confirm_white.png" />
       </button>
     </div>
