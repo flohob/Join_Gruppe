@@ -1,44 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign in</title>
-    <link rel="shortcut icon" href="assets/Login/Login_Logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/login_signin.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-</head>
-<body>
+    <link
+      rel="shortcut icon"
+      href="assets/Login/Login_Logo.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="css/signin.css" />
+    <link rel="stylesheet" href="./fonts/fonts.css" />
+  </head>
+  <body>
     <div class="main_container_Login">
       <div class="Upper_Section_Login">
-        <img class="Login_Logo" src="assets/Login/Login_Logo.png" alt="Join_Logo">
+        <img class="Login_Logo" src="./assets/logo.png" alt="Logo" />
       </div>
-        <div class="middle-container_Login">
-            <h1 class="Headlight_Login">Sign in</h1>
-            <img class="Login_seperator" src="assets/Login/Vector 5.png" alt="underline">
-     <form class="login_container" onsubmit="loginUser(); return false;">
-        <div>
-          <input type="name" name="Name" class="Input_Login" id="" placeholder="Full Name">
-        <input class="Input_Login_Email" type="email" id="email1" placeholder="Email">
+      <div class="middle-container_Login">
+        <div class="SignIn_Headline">
+        <img src="assets/Login/arrow-left-line.png" alt="">
+        <span class="Headlight_Login">Sign up</span>
         </div>
-        <input type="password" class="Input_Login" id="password1" placeholder="Password">
-        <input type="password" class="Input_Login" name="confirm" id="" placeholder="Confirm">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <img
+          class="Login_seperator"
+          src="assets/Login/Vector 5.png"
+          alt="underline"
+        />
+        <form class="login_container" onsubmit="loginUser(); return false;">
+          <div>
+            <input
+              type="name"
+              name="Name"
+              class="Input_Login_FullName"
+              id=""
+              placeholder="Name"
+            />
+            <input
+              class="Input_Login_Email"
+              type="email"
+              id="email1"
+              placeholder="Email"
+            />
+          </div>
+          <input
+            type="password"
+            class="Input_Login"
+            id="password1"
+            placeholder="Password"
+          />
+          <input
+            type="password"
+            class="Input_Login"
+            name="confirm"
+            id="password2"
+            placeholder="Confirm"
+          />
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
             <label class="form-check-label" for="flexCheckDefault">
-              I accept the <a href='#'>Privacy policy </a>
+              I accept the <a href="#">Privacy policy </a>
             </label>
           </div>
           <div class="Login_Guest_btn">
-            <button type="button" class="btn btn-primary btn-lg">Sign up</button>
-    </div>
-  </form>
-    </div>
-    <div class="End_section_login">
-      <p>Legal Notice</p>
-      <p>Privacy Policy</p>
+            <button type="button" class="SignIn_btn">
+              Sign up
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="End_section_login">
+        <p>Legal Notice</p>
+        <p>Privacy Policy</p>
       </div>
     </div>
-    
-</body>
+  </body>
 </html>

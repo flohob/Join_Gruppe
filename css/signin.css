@@ -1,0 +1,172 @@
+body { 
+    display: flex;
+    margin: 0;
+    background-color: #F6F7F8;
+    flex-direction: column;
+    color: rgb(42, 54, 71);
+    font-style: normal;
+    font-size: 16px;
+    font-weight: 400; 
+    font-family: 'Open Sans';
+    width: 100%;
+    
+    }
+    
+    
+    .login_container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 5px;
+        
+    }
+    
+    .main_container_Login {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(69, 137, 255, 1);
+        flex-direction: column;
+    
+    }
+    
+    .middle-container_Login {
+        height: 630px;
+        width: 598px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        border-radius: 20px;
+        
+        
+    }
+
+    .SignIn_Headline {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+        margin-right: 166px;
+    }
+    
+
+    .Input_Login_FullName {
+        width: clamp(12.5rem, -0.357rem + 64.29vw, 23.75rem);
+        height: 40px;
+        border:none;
+        border-bottom: 2px solid rgba(209, 209, 209, 1);
+        margin-bottom: 20px;
+        cursor: pointer;
+        padding-left: 10px;
+        background-image: url('/assets/Login/person.png');
+        background-repeat: no-repeat;
+        background-position-x: 95%;
+        background-position-y:center;
+    }
+    
+    .Input_Login {
+        width: clamp(12.5rem, -0.357rem + 64.29vw, 23.75rem);
+        height: 40px;
+        border:none;
+        border-bottom: 2px solid rgba(209, 209, 209, 1);
+        margin-bottom: 20px;
+        cursor: pointer;
+        padding-left: 10px;
+        background-image: url('/assets/Login/lock.png');
+        background-repeat: no-repeat;
+        background-position-x: 95%;
+        background-position-y:center;
+    }
+    
+    .Headlight_Login {
+        font-size: 50px;
+        font-weight: 700;
+        color: rgb(42, 54, 71);
+    }
+    
+    .Input_Login_Email {
+        width: clamp(12.5rem, -0.357rem + 64.29vw, 23.75rem);
+        height: 40px;
+        border:none;
+        border-bottom: 2px solid rgba(209, 209, 209, 1);
+        margin-bottom: 20px;
+        cursor: pointer;
+        padding-left: 10px;
+        background-image: url('/assets/Login/mail.png');
+        background-repeat: no-repeat;
+        background-position-x: 95%;
+        background-position-y:center;
+    }
+    
+    .Login_Guest_btn {
+        display: flex;
+        gap: 30px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        width: 106px;
+        height: 43px;
+        margin-top:20px ;
+    }
+    
+    .Login_seperator {
+        padding: 6px 0px 48px 0px;
+    }
+    
+    .Upper_Section_Login {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: left;
+        
+    }
+    
+    .SignIn_Section_Login {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+    }
+    
+    .End_section_login {
+        display: flex;
+        gap: 64px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        color: #F6F7F8;
+    }
+    
+    .Login_Logo {
+        height: 121.97px;
+        width: 100.03px;
+        margin-left: 120px;
+    }
+
+    .SignIn_btn {
+        color:rgba(255, 255, 255, 1);
+        background-color: rgba(69, 137, 255, 1);
+        border-radius: 8px;
+        padding: 10px 20px 10px 20px;
+        font-size: 16px;
+        font-weight: 400;
+        font-family: 'Open Sans';;
+        border: none;
+    }
+
+    .form-check-label {
+        margin: 10px 0px;
+    }
+
+    .form-check-label a {
+        text-decoration: none;
+    }
+
+    input::placeholder {
+        font-size: 19px;
+        color: rgba(209, 209, 209, 1);
+    }

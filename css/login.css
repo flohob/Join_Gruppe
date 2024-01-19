@@ -47,19 +47,19 @@ font-weight: 400;
 .Input_Login {
     width: clamp(12.5rem, -0.357rem + 64.29vw, 23.75rem);
     height: 40px;
-    border-radius: 8px;
-    border: 2px solid rgb(168, 168, 168);
+    border: none;
+    border-bottom: 2px solid rgb(168, 168, 168);
     margin-bottom: 20px;
     cursor: pointer;
     padding-left: 10px;
-    background-image: url('assets/Login/lock.png');
+    background-image: url('/assets/Login/lock.png');
     background-repeat: no-repeat;
     background-position-x: 95%;
     background-position-y:center;
 }
 
 .Headlight_Login {
-    padding: 30px;
+    
     font-size: 60px;
     font-weight: 700;
     color: rgb(42, 54, 71);
@@ -68,12 +68,12 @@ font-weight: 400;
 .Input_Login_Email {
     width: clamp(12.5rem, -0.357rem + 64.29vw, 23.75rem);
     height: 40px;
-    border-radius: 8px;
-    border: 2px solid rgb(168, 168, 168);
+    border: none;
+    border-bottom: 2px solid rgb(168, 168, 168);
     margin-bottom: 20px;
     cursor: pointer;
     padding-left: 10px;
-    background-image: url('assets/Login/mail.png');
+    background-image: url('/assets/Login/mail.png');
     background-repeat: no-repeat;
     background-position-x: 95%;
     background-position-y:center;
@@ -100,7 +100,7 @@ font-weight: 400;
 
 .SignIn_Section_Login {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 32px;
 }
 
