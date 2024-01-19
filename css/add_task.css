@@ -1,0 +1,114 @@
+.add_task_container{
+    margin-left: 232px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 440px;
+    height: 864px;
+    padding: 64px 24px 0 24px;
+    gap: 24px;
+}
+
+.add_task_container input{
+    width: 408px;
+    height: 38px;
+    padding: 13px 16px;
+    border: none;
+    border-bottom: 1px solid rgba(209, 209, 209, 1);
+    font-size: 32px;
+}
+
+.add_task_container input::placeholder{
+    color: rgba(209, 209, 209, 1);
+}
+
+.add_task_container input:focus-visible{
+    outline: none;
+    border-bottom: 1px solid rgba(69, 137, 255, 1);
+}
+
+.title_gap{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.add_task_container span{
+    font-size: 19px;
+    font-weight: 700;
+    color: rgba(66, 82, 110, 1);
+}
+
+.task_optional{
+    font-weight: 400 !important;
+}
+
+.task_description_container{
+ position: relative;
+}
+
+#task_description{
+    resize: none;
+    width: 412px;
+    height: 75px;
+    border: 1px solid rgba(209, 209, 209, 1);
+    border-radius: 0 10px 10px 10px;
+    position: relative;
+    font-size: 19px;
+    padding: 18px 10px 10px 16px;
+}
+
+#task_description::placeholder{
+    font-family: 'Open Sans';
+    color: rgba(209, 209, 209, 1);
+}
+
+#task_description:focus-visible{
+    outline: none;
+    border: 1px solid rgba(69, 137, 255, 1);
+}
+
+.resizer{
+    position: absolute;
+    bottom: 15px;
+    right: 10px;
+}
+
+#task_date{
+    width: 408px;
+    height: 24px;
+    padding: 12px 18px;
+    font-size: 19px;
+    color: rgba(209, 209, 209, 1);
+    font-family: 'Open Sans';
+}
+
+.priority_button_container{
+    width: 440px;
+    height: 51px;
+    display: flex;
+    gap: 16px;
+}
+
+.button_prio{
+    width: 136px;
+    height: 51px;
+    padding: 18px 10px;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    box-shadow: 0   0   4px rgba(0, 0, 0, 0.1);
+    gap: 10px;
+    font-size: 19px;
+};
+
+.task_select{
+    width: 440px;
+    height: 48px;
+    padding: 12px 16px;
+    border: none;
+    border-bottom: 1px solid rgba(209, 209, 209, 1);
+}
