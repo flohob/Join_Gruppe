@@ -100,7 +100,7 @@ input::placeholder {
     align-items: center;
     width: 100vw;
     justify-content: space-between;
-    padding: 56px 64px 48px 64px;
+    padding: 56px 64px 48px 110px;
 }
 
 .SignIn_Section_Login {
@@ -117,5 +117,6 @@ input::placeholder {
 }
 
 .Login_Logo {
-    height: 90px;
+    height: 100.97px;
+        width: 85.03px;
 }
