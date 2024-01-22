@@ -8,6 +8,8 @@
     <!-- stylesheets -->
     <link rel="stylesheet" href="./fonts/fonts.css" />
     <link rel="stylesheet" href="./css/add_task.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./css/scrollbar.css">
 
     <!-- Scripts -->
     <script src="./js/includeHTML.js"></script>
@@ -29,23 +31,32 @@
         <div class="title_gap">   
             <span>Due date</span>
             <div class="date-div">             
-                <input type="date" name="Date" id="task_date" placeholder="Hallo">
+                <input type="date" name="Date" id="task_date" class="custom-date-input"  max="2099-12-31" >
             </div>         
         </div>
         <div class="title_gap">
         <span>Priority</span>
         <div class="priority_button_container">
-        <button class="button_prio urgent">
+        <button class="button_prio hover_urgent ">
           Urgent
-          <img src="./assets/add_task/Prio_high.png" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="21px" fill="#FF3D00" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708z"/>
+            <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+          </svg>
         </button>
         <button class="button_prio medium">
           Medium
-          <img src="./assets/add_task/Prio_medium.png" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="21px" fill="none" stroke="white" stroke-width="1" viewBox="0 0 16 16">
+            <line x1="0" y1="5" x2="15" y2="5"/>
+            <line x1="0" y1="10" x2="15" y2="10"/>
+          </svg>
         </button>
-        <button class="button_prio low">
+        <button class="button_prio hover_low">
           Low
-          <img src="./assets/add_task/Prio_low.png" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="21px" fill="#7AE229" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+            <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+          </svg>
         </button>
         </div>
       </div>
@@ -53,12 +64,17 @@
         <div><span>Assigned to</span><span class="task_optional"> (optional)</span></div>
         <div class="dropdown contact">
             <input type="text" placeholder="Select contacts to assign">
+            <div id="dropdown_contacts"> </div>
         </div>
       </div>
       <div class="title_gap">
         <span>Category</span>
         <div class="dropdown category">
             <input type="text" placeholder="Select task category">
+            <div id="dropdown_category">
+              <span>Technical Task</span>
+              <span>User Story</span>
+            </div>
         </div>
       </div>
       <div class="title_gap">
@@ -72,11 +88,10 @@
             </div>
         </div>
       </div>
-
     <div class="add_task_option">
       <button class="option_button" id="task_cancel">
        Clear
-        <img src="./assets/add_task/cancel_blue.png" />
+        <div class="cancel_img"></div>
       </button>
       <button class="option_button" id="task_confirm">
         Create Task

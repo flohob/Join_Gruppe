@@ -1,3 +1,11 @@
+html {
+  height: 100vh;
+}
+
+body {
+  height: 100vh;
+}
+
 .d-none {
   display: none !important;
 }
@@ -20,6 +28,10 @@
   border: none;
   border-bottom: 1px solid rgba(209, 209, 209, 1);
   font-size: 32px;
+}
+
+.add_task_container input:hover{
+  border-bottom: 1px solid rgba(69, 137, 255, 1);
 }
 
 .add_task_container input::placeholder {
@@ -79,12 +91,20 @@
 }
 
 #task_date {
+  cursor: pointer;
   width: 408px;
   height: 24px;
   padding: 12px 18px;
   font-size: 19px;
   color: rgba(209, 209, 209, 1);
   font-family: "Open Sans";
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  -webkit-appearance: none;
+  background-image: url('/assets/add_task/calender.png');
+  background-repeat: no-repeat;
+  background-position: right center
 }
 
 .priority_button_container {
@@ -109,6 +129,32 @@
   font-size: 19px;
 }
 
+.medium{
+  background-color: #FFA800;
+  color: white;
+}
+
+.urgent{
+  background-color: #FF3D00;
+  color: white;
+}
+
+.low{
+  background-color: #7AE229;
+}
+
+.hover_urgent:hover{
+  border-bottom: 2px solid #FF3D00;
+}
+
+.hover_medium:hover{
+  border-bottom: 2px solid #FFA800;
+}
+
+.hover_low:hover{
+  border-bottom: 2px solid #7AE229;
+}
+
 .dropdown {
   position: relative;
 }
@@ -131,6 +177,71 @@
 
 .dropdown input:hover {
   background-image: url("/assets/add_task/arrow_drop_down_hover.png");
+}
+
+#dropdown_contacts {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 416px;
+  max-height: 280px;
+  z-index: 1;
+  overflow-y: auto;
+  border-radius: 0 0 8px 8px;
+}
+
+.dropdown_contact{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 16px;
+  width: 408px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.dropdown_contact:hover{
+background-color: rgba(210, 227, 255, 1);
+}
+
+.contact_name{
+  display: flex;
+  align-items: center;
+  height: 42px;
+  gap: 16px;
+}
+
+.dropdown_contact img{
+  height: 24px;
+  width: 24px;
+}
+
+#dropdown_category{
+  display: none !important;
+  position: absolute;
+  background-color: white;
+  min-width: 416px;
+  max-height: 280px;
+  z-index: 1;
+  overflow-y: auto;
+  border-radius: 0 0 8px 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+#dropdown_category span{
+  width: 408px;
+  height: 23px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 19px;
+  font-weight: 400;
+  color: black;
+  font-family: 'Open Sans';
+}
+
+#dropdown_category span:hover{
+  background-color: rgba(210, 227, 255, 1);
 }
 
 .subtask input {
@@ -181,60 +292,70 @@
   cursor: pointer;
 }
 
-.confirm:hover{
-    background-image: url('/assets/add_task/confirm_hover.png');
+.confirm:hover {
+  background-image: url("/assets/add_task/confirm_hover.png");
 }
 
-.cancel:hover{
-    background-image: url('/assets/add_task/cancel_hover.png');
+.cancel:hover {
+  background-image: url("/assets/add_task/cancel_hover.png");
 }
 
-.add_task_option{
-    position: absolute;
-    bottom: 42px;
-    right: 42px;
-    display: flex;
-    gap: 25px;
+.add_task_option {
+  position: absolute;
+  bottom: 42px;
+  right: 42px;
+  display: flex;
+  gap: 25px;
 }
 
-.option_button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 16px 10px;
-    gap: 4px;
-    border-radius: 10px;
-    font-size: 23px;
+.option_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 10px;
+  gap: 4px;
+  border-radius: 10px;
+  font-size: 23px;
 }
 
-.option_button img{
-    width: 24px;
-    height: 24px;
+.option_button img {
+  width: 24px;
+  height: 24px;
 }
 
-#task_cancel{
-    width: 136px;
-    height: 61px;
-    border: 1px solid rgba(100, 113, 136, 1);
-    background-color: white;
-    color: rgba(100, 113, 136, 1);
+.cancel_img {
+  width: 24px;
+  height: 24px;
+  background-image: url("/assets/add_task/cancel_gray.png");
 }
 
-#task_cancel:hover{
-    border-color: rgba(0, 93, 255, 1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    color: rgba(0, 93, 255, 1);
+#task_cancel {
+  width: 136px;
+  height: 61px;
+  border: 1px solid rgba(100, 113, 136, 1);
+  background-color: white;
+  color: rgba(100, 113, 136, 1);
 }
 
-#task_confirm{
-    width: 174px;
-    height: 60px;
-    border: none;
-    background-color: rgba(69, 137, 255, 1);
-    color: white;
+#task_cancel:hover {
+  border-color: rgba(0, 93, 255, 1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: rgba(0, 93, 255, 1);
 }
 
-#task_confirm:hover{
-    background-color: rgba(0, 93, 255, 1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+#task_cancel:hover .cancel_img {
+  background-image: url("/assets/add_task/cancel_blue.png");
+}
+
+#task_confirm {
+  width: 174px;
+  height: 60px;
+  border: none;
+  background-color: rgba(69, 137, 255, 1);
+  color: white;
+}
+
+#task_confirm:hover {
+  background-color: rgba(0, 93, 255, 1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
