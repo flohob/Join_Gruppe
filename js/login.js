@@ -6,7 +6,6 @@ function addUser() {
     let email = document.getElementById('email1').value;
     let password = document.getElementById('password1').value;
     users.push({email: email, password: password});
-    console.log(users);
     window.location.href = 'login.html'
     console.log(users);
 }

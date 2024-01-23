@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts</title>
+<link rel="stylesheet" href="css/contact.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+     <!-- Scripts -->
+     <script src="./js/includeHTML.js"></script>
+</head>
+<body onload="includeHTML()">
+    <div w3-include-html="sidebar.html"></div>
+
+    <div class="contact_container">
+        <div class="addcontact_container">
+            <button class="addcontact_btn">Add new contact</button>
+        </div>
+    </div>
+
+    <div class="overlay_addcontact">
+        <div class="overlay_addcontact_content">
+        <div class="upper_overlay_container">
+            <img src="assets/Login/Capa 2.png" alt="">
+            <h2>Add contact</h2>
+            <span>Tasks are better with a Team</span>
+        </div>
+        <div class="Profile_picture_addcontact">
+            <img src="" alt="">
+        </div>
+        <div class="addcontact_form">
+            <form class="addcontact_form" action="">
+                <input class="addcontact_fullname" type="name" placeholder="Full Name">
+                <input class="addcontact_email" type="email" placeholder="Emailadress">
+                <input class="addcontact_number" type="number" placeholder="Phone Number">
+            </form>
+            <div class="addcontact_overlay_btn">
+                <button class="btn btn-outline-secondary">Delete</button>
+                <button class="btn btn-primary btn-lg">Save</button>
+                
+            </div>
+        </div>
+        </div>
+    </div>
+
+   
+    
+</body>
+</html>
