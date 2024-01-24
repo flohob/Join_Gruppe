@@ -13,90 +13,109 @@
 
     <!-- Scripts -->
     <script src="./js/includeHTML.js"></script>
+    <script src="/js/add_task.js"></script>
 
   </head>
   <body onload="includeHTML()">
     <div w3-include-html="sidebar.html"></div>
     <div class="add_task_container">
-        <input type="text" id="task_title" placeholder="Enter a title" />
+      <form id="title">
+        <input type="text" id="task_title" placeholder="Enter a title" required/>
+        <div id="title_reqiuered" class="field_requiered d-none">This field is required</div>
+      </form>
+      <form id="description">
         <div class="title_gap">
-            <div>
-                <span>Description</span><span class="task_optional"> (optional)</span>
-            </div>
-        <div class="task_description_container">
-        <textarea id="task_description" cols="30" rows="10" placeholder="Enter a description"></textarea>
-        <img class="resizer" src="./assets/add_task/resizer.png">
-    </div>
+          <div>
+            <span>Description</span><span class="task_optional"> (optional)</span>
+          </div>
+          <div class="task_description_container">
+            <textarea id="task_description" cols="30" rows="10" placeholder="Enter a description" required></textarea>
+            <img class="resizer" src="./assets/add_task/resizer.png">
+          </div>
+          <div id="description_reqiuered" class="field_requiered d-none">This field is required</div>
         </div>
+      </form>
+      <form id="date">
         <div class="title_gap">   
-            <span>Due date</span>
-            <div class="date-div">             
-                <input type="date" name="Date" id="task_date" class="custom-date-input"  max="2099-12-31" >
-            </div>         
+          <span>Due date</span>
+          <div class="date-div">             
+            <input type="date" onchange="changeTextColor()" id="task_date" class="custom-date-input" max="2099-12-31" required>
+            <div id="date_reqiuered" class="field_requiered d-none">This field is required</div>
+          </div>         
         </div>
-        <div class="title_gap">
+      </form>
+      <div class="title_gap">
         <span>Priority</span>
         <div class="priority_button_container">
-        <button class="button_prio hover_urgent ">
-          Urgent
-          <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="21px" fill="#FF3D00" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708z"/>
-            <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
-          </svg>
-        </button>
-        <button class="button_prio medium">
-          Medium
-          <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="21px" fill="none" stroke="white" stroke-width="1" viewBox="0 0 16 16">
-            <line x1="0" y1="5" x2="15" y2="5"/>
-            <line x1="0" y1="10" x2="15" y2="10"/>
-          </svg>
-        </button>
-        <button class="button_prio hover_low">
-          Low
-          <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="21px" fill="#7AE229" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-            <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-          </svg>
-        </button>
+          <button onclick="changePrio('urgent')" id="urgent" class="button_prio hover_urgent ">
+            Urgent
+            <svg id="urgent_svg" xmlns="http://www.w3.org/2000/svg" width="30px" height="21px" fill="#FF3D00" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708z"/>
+              <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+            </svg>
+          </button>
+          <button onclick="changePrio('medium')" id="medium" class="button_prio hover_medium medium">
+            Medium
+            <svg id="medium_svg" xmlns="http://www.w3.org/2000/svg" width="45px" height="30px" fill="white" class="bi bi-pause" viewBox="0 0 16 16">
+              <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5"/>
+            </svg>
+          </button>
+          <button onclick="changePrio('low')" id="low" class="button_prio hover_low">
+            Low
+            <svg id="low_svg" xmlns="http://www.w3.org/2000/svg" width="30px" height="21px" fill="#7AE229" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+              <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+            </svg>
+          </button>
         </div>
       </div>
       <div class="title_gap">
-        <div><span>Assigned to</span><span class="task_optional"> (optional)</span></div>
+        <div>
+          <span>Assigned to</span><span class="task_optional"> (optional)</span>
+        </div>
         <div class="dropdown contact">
-            <input type="text" placeholder="Select contacts to assign">
-            <div id="dropdown_contacts"> </div>
+          <input onclick="toggleContDrop()" onkeydown="searchContact()" id="task_contacts" type="text" placeholder="Select contacts to assign">
+          <div id="dropdown_contacts" class="d-none"> </div>
         </div>
       </div>
-      <div class="title_gap">
-        <span>Category</span>
-        <div class="dropdown category">
-            <input type="text" placeholder="Select task category">
-            <div id="dropdown_category">
-              <span>Technical Task</span>
-              <span>User Story</span>
+      <form id="category">
+        <div class="title_gap">
+          <span>Category</span>
+          <div class="dropdown category">
+            <input onclick="toggleCatDrop()" onkeydown="searchCategory()" id="task_category" type="text" placeholder="Select task category" required>
+            <div id="category_reqiuered" class="field_requiered d-none">This field is required</div>
+            <div id="dropdown_category" class="d-none">
             </div>
+          </div>
         </div>
-      </div>
+      </form>
       <div class="title_gap">
-        <div><span>Subtask</span><span class="task_optional"> (optional)</span></div>
+        <div>
+          <span>Subtask</span><span class="task_optional"> (optional)</span>
+        </div>
         <div class="dropdown subtask">
-            <input type="text" placeholder="Add new subtask">
-            <div id="subtask_confirm_cancel" class="d-none">
-            <div class="confirm"></div>
+          <input onclick="toggleSubDrop()" onkeydown="searchSubtask()" id="task_subtask" type="text" placeholder="Add new subtask">
+          <div id="subtask_confirm_cancel">
+            <div class="confirm" onclick="addSubtask()"></div>
             <div class="spacer"></div>
-            <div class="cancel"></div>
-            </div>
+            <div class="cancel" onclick="removeSubInput()"></div>
+          </div>
         </div>
       </div>
-    <div class="add_task_option">
-      <button class="option_button" id="task_cancel">
-       Clear
-        <div class="cancel_img"></div>
-      </button>
-      <button class="option_button" id="task_confirm">
-        Create Task
-        <img src="./assets/add_task/confirm_white.png" />
-      </button>
+      <div class="add_task_option">
+        <button onclick="clearForm()" class="option_button" id="task_cancel">
+          Clear
+          <div class="cancel_img"></div>
+        </button>
+        <button onclick="checkForms()" class="option_button" id="task_confirm">
+          Create Task
+          <img src="./assets/add_task/confirm_white.png" />
+        </button>
+      </div>
+      <div id="task_added">
+        Task added to board
+        <img src="/assets/add_task/board_white.png">
+      </div>
     </div>
   </body>
 </html>

@@ -40,7 +40,7 @@ body {
 
 .add_task_container input:focus-visible {
   outline: none;
-  border-bottom: 1px solid rgba(69, 137, 255, 1);
+  border-bottom: 1px solid rgba(69, 137, 255, 1) !important;
 }
 
 .title_gap {
@@ -81,7 +81,7 @@ body {
 
 #task_description:focus-visible {
   outline: none;
-  border: 1px solid rgba(69, 137, 255, 1);
+  border: 1px solid rgba(69, 137, 255, 1) !important;
 }
 
 .resizer {
@@ -155,6 +155,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   border-bottom: 2px solid #7AE229;
 }
 
+#medium_svg{
+  transform: rotate(90deg);
+}
+
 .dropdown {
   position: relative;
 }
@@ -179,8 +183,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   background-image: url("/assets/add_task/arrow_drop_down_hover.png");
 }
 
+.dropdown input:focus-visible{
+  background-image: url('/assets/add_task/arrow_dropdown_close.png');
+}
+
+.dropdown input:focus-visible:hover{
+  background-image: url('/assets/add_task/arrow_dropdown_close_hover.png');
+}
+
 #dropdown_contacts {
-  display: none;
   position: absolute;
   background-color: white;
   min-width: 416px;
@@ -217,7 +228,6 @@ background-color: rgba(210, 227, 255, 1);
 }
 
 #dropdown_category{
-  display: none !important;
   position: absolute;
   background-color: white;
   min-width: 416px;
@@ -257,11 +267,15 @@ background-color: rgba(210, 227, 255, 1);
 }
 
 .subtask input:focus-visible {
-  background-image: url();
+  background-image: none;
+}
+
+.subtask input:focus-visible:hover{
+  background-image: none;
 }
 
 #subtask_confirm_cancel {
-  display: flex;
+  display: none;
   gap: 2px;
   position: absolute;
   right: 0;
@@ -358,4 +372,40 @@ background-color: rgba(210, 227, 255, 1);
 #task_confirm:hover {
   background-color: rgba(0, 93, 255, 1);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+#task_added{
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background-color: rgba(69, 137, 255, 1);
+  border-radius: 20px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  width: 326px;
+  height: 74px;
+  color: white;
+  font-size: 23px;
+  position: absolute;
+  right: 35%;
+  top: 100%;
+  transition: top 0.5s ease-in-out;
+}
+
+#task_added.show{
+  top: 25%;
+}
+
+.requiered{
+  border-bottom: 1px solid rgba(255, 129, 144, 1) !important;
+}
+
+.requiered_description{
+  border: 1px solid rgba(255, 129, 144, 1) !important;
+}
+
+.field_requiered{
+  color: rgba(255, 129, 144, 1);
+  font-size: 13px;
 }
