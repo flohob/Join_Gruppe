@@ -3,6 +3,14 @@ body {
     font-family: 'Opens Sans';
 }
 
+.d-none {
+    display: none !important;
+}
+
+.overall_main {
+    display: flex;
+}
+
 .contact_container {
     margin-left: 232px;
     display: flex;
@@ -74,14 +82,16 @@ body {
 }
 
 .overlay_addcontact_content {
-    height: 784px;
-    width: 525px;
+    height: 95%;
+    width: 30%;
     background-color:rgba(255, 255, 255, 1);
     border-radius: 10px;
     border: none;
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-height: 730px;
+    min-width: 500px;
     
 }
 
@@ -91,7 +101,25 @@ body {
     align-items: center;
     width: 100%;
     background-color: rgba(0, 93, 255, 1);
-    padding: 50px 0px 50px 0px;
+    padding: 20px 0px 50px 0px;
+    border-radius: 10px;
+    gap: 5px;
+    color: white;
+}
+
+.close_overlay:hover {
+cursor: pointer;
+transform: scale(1.1);
+}
+
+
+.Profile_picture_addcontact {
+    padding: 10px 0px 5px 0px;
+}
+
+.Profile_picture_addcontact img {
+    width: 120px;
+    height: 120px;
 }
 
 .addcontact_form form {
@@ -116,7 +144,7 @@ body {
     margin-bottom: 20px;
     cursor: pointer;
     padding-left: 10px;
-    background-image: url('/assets/Login/mail.png');
+    background-image: url('/assets/Login/person.png');
     background-repeat: no-repeat;
     background-position-x: 95%;
     background-position-y:center;
@@ -144,8 +172,91 @@ body {
     margin-bottom: 20px;
     cursor: pointer;
     padding-left: 10px;
-    background-image: url('/assets/Login/mail.png');
+    background-image: url('/assets/Login/call.png');
     background-repeat: no-repeat;
     background-position-x: 95%;
     background-position-y:center;
 } 
+
+.addcontact_overlay_btn {
+    padding: 15px 0px 0px 0px;
+    display: flex;
+    gap: 12px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.overlay_headlight1 {
+    font-size: 38px;
+}
+
+.overlay_headlight2 {
+    font-size: 17px;
+}
+
+.closing_btn_addcontact {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    padding-right: 38px;
+}
+
+.delete_btn_overlay {
+color: rgba(100, 113, 136, 1);
+border: 2px solid grey;
+border-radius: 6px;
+height: 42px;
+width: 120px;
+background-color: white;
+background-image: url('/assets/Login/Vector.png');
+background-repeat: no-repeat;
+background-position-x: 90%;
+background-position-y:center;
+font-size: 17px;
+font-weight: bold;
+}
+
+.save_btn_overlay {
+color: white;
+border: none;
+border-radius: 6px;
+height: 42px;
+width: 120px;
+background-color: rgba(0, 93, 255, 1);
+background-image: url('/assets/Login/check.png');
+background-repeat: no-repeat;
+background-position-x: 90%;
+background-position-y:center;
+font-size: 17px;
+font-weight: bold;
+
+}
+
+.save_btn_overlay:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: ease-in-out;
+}
+
+.delete_btn_overlay:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: ease-in-out;
+}
+
+.contact_info_main {
+    width: 100%;
+}
+
+.Profile_picture_info {
+    display: flex;
+    align-items: center;
+    gap: 25%;
+}
+
+.main_icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}

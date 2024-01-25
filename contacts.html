@@ -1,50 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contacts</title>
-<link rel="stylesheet" href="css/contact.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-     <!-- Scripts -->
-     <script src="./js/includeHTML.js"></script>
-</head>
-<body onload="includeHTML()">
+    <link rel="stylesheet" href="css/contact.css" />
+    <!-- Scripts -->
+    <script src="./js/includeHTML.js"></script>
+    <script src="js/contacts.js"></script>
+  </head>
+  <body onload="includeHTML()">
     <div w3-include-html="sidebar.html"></div>
 
-    <div class="contact_container">
+    <div class="overall_main">
+      <div class="contact_container">
         <div class="addcontact_container">
-            <button class="addcontact_btn">Add new contact</button>
+          <button onclick="showOverlay()" class="addcontact_btn">
+            Add new contact
+          </button>
         </div>
+      </div>
+
+      <div class="contact_info_main">
+        <div class="contact_info_upper">
+          <div class="Profile_picture_info">
+            <img src="assets/Login/Frame 79.png" alt="">
+            <div>
+            <h2>Florian Hobiger</h2>
+            <div class="main_icons">
+                <img src="assets/Login/edit.png" alt="" /> <span>Edit</span>
+                <img src="assets/Login/delete.png" alt="" /> <span>Delete</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact_info_lower">
+          <span>Contact Information</span>
+          <h2>Email</h2>
+          <span>flocki88@live.at</span>
+          <h2>Phone</h2>
+          <span>06645897895</span>
+        </div>
+      </div>
     </div>
 
-    <div class="overlay_addcontact">
-        <div class="overlay_addcontact_content">
+    <!-- Overlay Addcontact -->
+    <div id="overlay_addcontact_main" class="overlay_addcontact d-none">
+      <div class="overlay_addcontact_content">
         <div class="upper_overlay_container">
-            <img src="assets/Login/Capa 2.png" alt="">
-            <h2>Add contact</h2>
-            <span>Tasks are better with a Team</span>
+          <div class="closing_btn_addcontact">
+            <img
+              onclick="closeOverlay()"
+              class="close_overlay"
+              src="assets/Login/close.png"
+              alt=""
+            />
+          </div>
+          <img src="assets/Login/Capa 1 (1).png" alt="" />
+          <span class="overlay_headlight1">Add contact</span>
+          <span class="overlay_headlight2">Tasks are better with a Team</span>
         </div>
         <div class="Profile_picture_addcontact">
-            <img src="" alt="">
+          <img src="assets/Login/Frame 79.png" alt="" />
         </div>
         <div class="addcontact_form">
-            <form class="addcontact_form" action="">
-                <input class="addcontact_fullname" type="name" placeholder="Full Name">
-                <input class="addcontact_email" type="email" placeholder="Emailadress">
-                <input class="addcontact_number" type="number" placeholder="Phone Number">
-            </form>
-            <div class="addcontact_overlay_btn">
-                <button class="btn btn-outline-secondary">Delete</button>
-                <button class="btn btn-primary btn-lg">Save</button>
-                
-            </div>
+          <form class="addcontact_form" action="">
+            <input
+              class="addcontact_fullname"
+              type="name"
+              placeholder="Full Name"
+            />
+            <input
+              class="addcontact_email"
+              type="email"
+              placeholder="Emailadress"
+            />
+            <input
+              class="addcontact_number"
+              type="tel"
+              placeholder="Phone Number"
+            />
+          </form>
+          <div class="addcontact_overlay_btn">
+            <button class="delete_btn_overlay">Delete</button>
+            <button class="save_btn_overlay">Save</button>
+          </div>
         </div>
-        </div>
+      </div>
     </div>
 
-   
-    
-</body>
+    <!-- Overlay Edit Contact -->
+    <div id="overlay_editcontact_main" class="overlay_addcontact d-none">
+      <div class="overlay_addcontact_content">
+        <div class="upper_overlay_container">
+          <div class="closing_btn_addcontact">
+            <img
+              onclick="closeOverlay()"
+              class="close_overlay"
+              src="assets/Login/close.png"
+              alt=""
+            />
+          </div>
+          <img src="assets/Login/Capa 1 (1).png" alt="" />
+          <span class="overlay_headlight1">Edit Contact</span>
+        </div>
+        <div class="Profile_picture_addcontact">
+          <img src="assets/Login/Frame 79.png" alt="" />
+        </div>
+        <div class="addcontact_form">
+          <form class="addcontact_form" action="">
+            <input
+              class="addcontact_fullname"
+              type="name"
+              placeholder="Full Name"
+            />
+            <input
+              class="addcontact_email"
+              type="email"
+              placeholder="Emailadress"
+            />
+            <input
+              class="addcontact_number"
+              type="tel"
+              placeholder="Phone Number"
+            />
+          </form>
+          <div class="addcontact_overlay_btn">
+            <button class="delete_btn_overlay">Delete</button>
+            <button class="save_btn_overlay">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
