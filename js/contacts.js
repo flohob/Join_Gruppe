@@ -12,8 +12,7 @@ contacts = [ {
   },];
 
   function initContacts() {
-    saveContacts();
-    loadContacts()
+    loadContacts();
   }
 
   async function saveContacts() {
@@ -29,6 +28,7 @@ async function loadContacts() {
     try {
         const loadedContacts = await getItem('contacts');
         if (loadedContacts.data.value) {
+          console.log(loadedContacts);
             contacts = JSON.parse(loadedContacts.data.value);
             console.log('Contacts loaded successfully.');
         }
@@ -49,6 +49,7 @@ function saveContact() {
     };
     contacts.push(newContact);
     saveContacts();
+    loadContacts();
     toggleOverlay();
   }
 
