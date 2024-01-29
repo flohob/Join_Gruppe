@@ -1,32 +1,58 @@
-let users = [
-    {'email': 'guest@email.at' , 'password': 'guest'}
-];
+let users = [];
 
-function addUser() {
-    let email = document.getElementById('email1').value;
-    let password = document.getElementById('password1').value;
-    users.push({email: email, password: password});
-    window.location.href = 'login.html'
-    console.log(users);
+async function init(){
+    await loadUsers();
 }
 
-//Auslagern in eine register.js
-function loginUser() {
-let email = document.getElementById('email2').value;
-let password = document.getElementById('password2').value;
-
-let user = users.find(u => u.email == email && u.password == password)
-
-if(user) {
-    window.location.href = 'summary.html'
-} else {
-    alert('Bitte registieren sie sich')
-}
+async function loadUsers() {
+    try {
+        const loadedUsers = await getItem('users');
+        if (loadedUsers.data.value) {
+            users = JSON.parse(loadedUsers.data.value);
+        }
+    } catch (e) {
+        console.error('Loading error:', e);
+    }
 }
 
-function guestlogin() {
-    document.getElementById('email2').value = users[0].email;
-    document.getElementById('password2').value = users[0].password;
-    loginUser();
+
+
+async function register() {
+    const emailExists = users.some(user => user.email === email1.value);
+
+    if (emailExists) {
+        console.error('E-Mail bereits registriert.');
+    } else {
+        users.push({
+            email: email1.value,
+            password: password1.value,
+        });
+
+        // Speichern der aktualisierten Benutzerliste
+        await setItem('users', JSON.stringify(users));
+
+        // Erfolgsmeldung oder Weiterleitung
+        console.log('Registrierung erfolgreich.');
+        window.location.href = 'login.html';
+    }
 }
 
+
+
+
+async function loginUser() {
+    let email = document.getElementById('email2').value;
+    let password = document.getElementById('password2').value;
+
+    await loadUsers(); // Laden der Benutzer vom Backend
+
+
+
+    let user = users.find(u => u.email === email && u.password === password);
+
+    if (user) {
+        window.location.href = 'summary.html';
+    } else {
+        alert('Falsche E-Mail-Adresse oder Passwort');
+    }
+}

@@ -11,9 +11,10 @@
     />
     <link rel="stylesheet" href="css/signin.css" />
     <link rel="stylesheet" href="./fonts/fonts.css" />
-    <script src="/js/login.js"></script>
-  </head>6
-  <body>
+    <script src="js/storage.js"></script>
+    <script src="js/login.js"></script>
+  </head>
+  <body onload="init()">
     <div class="main_container_Login">
       <div class="Upper_Section_Login">
         <img class="Login_Logo" src="./assets/logo.png" alt="Logo" />
@@ -28,7 +29,7 @@
           src="assets/Login/Vector 5.png"
           alt="underline"
         />
-        <form class="login_container" onsubmit="loginUser(); return false;">
+        <form class="login_container" onsubmit="register(); return false;">
           <div>
             <input
               type="name"
@@ -69,7 +70,7 @@
             </label>
           </div>
           <div class="Login_Guest_btn">
-            <button onclick="addUser()" type="button" class="SignIn_btn">
+            <button type="submit" class="SignIn_btn">
               Sign up
             </button>
           </div>
@@ -80,5 +81,6 @@
         <p>Privacy Policy</p>
       </div>
     </div>
+    
   </body>
 </html>
