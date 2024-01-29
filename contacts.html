@@ -7,15 +7,16 @@
     <link rel="stylesheet" href="css/contact.css" />
     <!-- Scripts -->
     <script src="./js/includeHTML.js"></script>
+    <script src="js/storage.js"></script>
     <script src="js/contacts.js"></script>
   </head>
-  <body onload="includeHTML()">
+  <body onload="includeHTML(), initContacts()">
     <div w3-include-html="sidebar.html"></div>
 
     <div class="overall_main">
       <div class="contact_container">
         <div class="addcontact_container">
-          <button onclick="showOverlay()" class="addcontact_btn">
+          <button onclick="toggleOverlay()" class="addcontact_btn">
             Add new contact
           </button>
         </div>
@@ -44,50 +45,53 @@
       </div>
     </div>
 
-    <!-- Overlay Addcontact -->
-    <div id="overlay_addcontact_main" class="overlay_addcontact d-none">
-      <div class="overlay_addcontact_content">
-        <div class="upper_overlay_container">
-          <div class="closing_btn_addcontact">
-            <img
-              onclick="closeOverlay()"
-              class="close_overlay"
-              src="assets/Login/close.png"
-              alt=""
-            />
-          </div>
-          <img src="assets/Login/Capa 1 (1).png" alt="" />
-          <span class="overlay_headlight1">Add contact</span>
-          <span class="overlay_headlight2">Tasks are better with a Team</span>
-        </div>
-        <div class="Profile_picture_addcontact">
-          <img src="assets/Login/Frame 79.png" alt="" />
-        </div>
-        <div class="addcontact_form">
-          <form class="addcontact_form" action="">
-            <input
-              class="addcontact_fullname"
-              type="name"
-              placeholder="Full Name"
-            />
-            <input
-              class="addcontact_email"
-              type="email"
-              placeholder="Emailadress"
-            />
-            <input
-              class="addcontact_number"
-              type="tel"
-              placeholder="Phone Number"
-            />
-          </form>
-          <div class="addcontact_overlay_btn">
-            <button class="delete_btn_overlay">Delete</button>
-            <button class="save_btn_overlay">Save</button>
-          </div>
-        </div>
+   <!-- Overlay Addcontact -->
+<div id="overlay_addcontact_main" class="overlay_addcontact d-none">
+  <div class="overlay_addcontact_content">
+    <div class="upper_overlay_container">
+      <div class="closing_btn_addcontact">
+        <img
+          onclick="toggleOverlay()"
+          class="close_overlay"
+          src="assets/Login/close.png"
+          alt=""
+        />
+      </div>
+      <img src="assets/Login/Capa 1 (1).png" alt="" />
+      <span class="overlay_headlight1">Add contact</span>
+      <span class="overlay_headlight2">Tasks are better with a Team</span>
+    </div>
+    <div class="Profile_picture_addcontact">
+      <img src="assets/Login/Frame 79.png" alt="" />
+    </div>
+    <div class="addcontact_form">
+      <form id="addContactForm" class="addcontact_form" action="">
+        <input
+          id="addcontact_fullname"
+          class="addcontact_fullname"
+          type="name"
+          placeholder="Full Name"
+        />
+        <input
+          id="addcontact_email"
+          class="addcontact_email"
+          type="email"
+          placeholder="Email Address"
+        />
+        <input
+          id="addcontact_number"
+          class="addcontact_number"
+          type="tel"
+          placeholder="Phone Number"
+        />
+      </form>
+      <div class="addcontact_overlay_btn">
+        <button onclick="deleteContact()" class="delete_btn_overlay">Delete</button>
+        <button onclick="saveContact()" class="save_btn_overlay">Save</button>
       </div>
     </div>
+  </div>
+</div>
 
     <!-- Overlay Edit Contact -->
     <div id="overlay_editcontact_main" class="overlay_addcontact d-none">
@@ -95,7 +99,7 @@
         <div class="upper_overlay_container">
           <div class="closing_btn_addcontact">
             <img
-              onclick="closeOverlay()"
+              onclick="toggleOverlay()"
               class="close_overlay"
               src="assets/Login/close.png"
               alt=""

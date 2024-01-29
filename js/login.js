@@ -15,11 +15,8 @@ async function loadUsers() {
     }
 }
 
-
-
 async function register() {
     const emailExists = users.some(user => user.email === email1.value);
-
     if (emailExists) {
         console.error('E-Mail bereits registriert.');
     } else {
@@ -27,29 +24,18 @@ async function register() {
             email: email1.value,
             password: password1.value,
         });
-
-        // Speichern der aktualisierten Benutzerliste
         await setItem('users', JSON.stringify(users));
-
-        // Erfolgsmeldung oder Weiterleitung
         console.log('Registrierung erfolgreich.');
         window.location.href = 'login.html';
     }
 }
 
 
-
-
 async function loginUser() {
     let email = document.getElementById('email2').value;
     let password = document.getElementById('password2').value;
-
     await loadUsers(); // Laden der Benutzer vom Backend
-
-
-
     let user = users.find(u => u.email === email && u.password === password);
-
     if (user) {
         window.location.href = 'summary.html';
     } else {
