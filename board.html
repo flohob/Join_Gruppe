@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board</title>
+
+        <!-- stylesheets -->
+        <link rel="stylesheet" href="./fonts/fonts.css" />
+        <link rel="stylesheet" href="./css/board.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="./css/scrollbar.css">
+
+         <!-- Scripts -->
+        <script src="./js/includeHTML.js"></script>
+
+</head>
+<body onload="includeHTML()">
+    <div w3-include-html="sidebar.html"></div>
+    <div class="find_task">
+        <input type="text" placeholder="Find task">
+        <button>Add task 
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+                <path d="M8.5 1V16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <path d="M16 8.6416L1 8.6416" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+        </button>
+    </div>
+    <div class="titles">
+        <div class="to_do">
+            <span class="title">To do <img src="./assets/board/plus button.png"></span>
+            <div id="task_todo">
+                <div class="card">
+                    <div class="task_category">Category</div>
+                    <p class="task_title">Kochwelt Page & Recipe Recommender</p>
+                    <p class="task_description">Build start page with recipe recommendation...</p>
+                    <div>
+                        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar w-75"></div>
+                        </div>
+                        <span class="task_subtask">0/2 Subtasks</span>
+                    </div>
+                    <div class="task_contacts_prio">Kontakte und prio</div>
+                </div>
+            </div>
+        </div>
+        <div class="in_progress">
+            <span class="title">In Progress <img src="./assets/board/plus button.png"></span>
+            <div id="task_in_progress">
+                <div class="no_task">
+                    <span>No tasks In progress</div>
+                    </span>
+            </div>
+        </div>
+        <div class="await_feedback">
+            <span class="title">Await feedback <img src="./assets/board/plus button.png"></span>
+            <div id="task_await_feedback"></div>
+        </div>
+        <div class="done">
+            <span class="title">Done <img src="./assets/board/plus button.png"></span>
+            <div id="task_done"></div>
+        </div>
+    </div>
+
+    <div class="card_big d-none">
+        <div class="task_category_big_container">
+        <div class="task_category_big">Category</div>
+        <img src="/assets/add_task/cancel_blue.png">
+        </div>
+        <div class="task_title_big">Kochwelt Page & Recipe Recommender</div>
+        <div class="task_description_big">Build start page with recipe recommendation</div>
+        <div class="task_date_big">
+            <span>Due date:</span><span> 10/05/2023</span> 
+        </div>
+        <div class="task_prio_big">
+            <span>Priority:</span><span>Medium svg</span>
+        </div>
+        <div class="task_contacts_big">
+            <span>Assigned To:</span>
+            <div class="contact_big">
+                svg (bild) Name
+            </div>
+            <div class="contact_big">
+                svg (bild) Name
+            </div>
+            <div class="contact_big">
+                svg (bild) Name
+            </div>
+        </div>
+        <div class="task_subtasks_big">
+            <span>Subtasks</span>
+            <div class="task_subtask_big">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect x="4" y="4" width="16" height="16" rx="3" stroke="#4589FF" stroke-width="2"/>
+                </svg>
+                <span>Start Page Layout</span>
+            </div>
+            <div class="task_subtask_big">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                    <path d="M17 8V14C17 15.6569 15.6569 17 14 17H4C2.34315 17 1 15.6569 1 14V4C1 2.34315 2.34315 1 4 1H12" stroke="#4589FF" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M5 9L9 13L17 1.5" stroke="#4589FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Implement Recipe Recommendation</span>
+            </div>
+        </div>
+        <div class="task_delete_edit_big">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <mask id="mask0_34268_471" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+                <rect width="24" height="24" fill="#D9D9D9"/>
+                </mask>
+                <g mask="url(#mask0_34268_471)">
+                <path d="M7 21C6.45 21 5.97917 20.8042 5.5875 20.4125C5.19583 20.0208 5 19.55 5 19V6C4.71667 6 4.47917 5.90417 4.2875 5.7125C4.09583 5.52083 4 5.28333 4 5C4 4.71667 4.09583 4.47917 4.2875 4.2875C4.47917 4.09583 4.71667 4 5 4H9C9 3.71667 9.09583 3.47917 9.2875 3.2875C9.47917 3.09583 9.71667 3 10 3H14C14.2833 3 14.5208 3.09583 14.7125 3.2875C14.9042 3.47917 15 3.71667 15 4H19C19.2833 4 19.5208 4.09583 19.7125 4.2875C19.9042 4.47917 20 4.71667 20 5C20 5.28333 19.9042 5.52083 19.7125 5.7125C19.5208 5.90417 19.2833 6 19 6V19C19 19.55 18.8042 20.0208 18.4125 20.4125C18.0208 20.8042 17.55 21 17 21H7ZM7 6V19H17V6H7ZM9 16C9 16.2833 9.09583 16.5208 9.2875 16.7125C9.47917 16.9042 9.71667 17 10 17C10.2833 17 10.5208 16.9042 10.7125 16.7125C10.9042 16.5208 11 16.2833 11 16V9C11 8.71667 10.9042 8.47917 10.7125 8.2875C10.5208 8.09583 10.2833 8 10 8C9.71667 8 9.47917 8.09583 9.2875 8.2875C9.09583 8.47917 9 8.71667 9 9V16ZM13 16C13 16.2833 13.0958 16.5208 13.2875 16.7125C13.4792 16.9042 13.7167 17 14 17C14.2833 17 14.5208 16.9042 14.7125 16.7125C14.9042 16.5208 15 16.2833 15 16V9C15 8.71667 14.9042 8.47917 14.7125 8.2875C14.5208 8.09583 14.2833 8 14 8C13.7167 8 13.4792 8.09583 13.2875 8.2875C13.0958 8.47917 13 8.71667 13 9V16Z" fill="#4589FF"/>
+                </g>
+            </svg>
+            <span>Delete</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="2" height="24" viewBox="0 0 2 24" fill="none">
+                <path d="M1 0V24" stroke="#D1D1D1"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <mask id="mask0_34268_477" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+                <rect width="24" height="24" fill="#D9D9D9"/>
+                </mask>
+                <g mask="url(#mask0_34268_477)">
+                <path d="M5 19H6.4L15.025 10.375L13.625 8.975L5 17.6V19ZM19.3 8.925L15.05 4.725L16.45 3.325C16.8333 2.94167 17.3042 2.75 17.8625 2.75C18.4208 2.75 18.8917 2.94167 19.275 3.325L20.675 4.725C21.0583 5.10833 21.2583 5.57083 21.275 6.1125C21.2917 6.65417 21.1083 7.11667 20.725 7.5L19.3 8.925ZM17.85 10.4L7.25 21H3V16.75L13.6 6.15L17.85 10.4Z" fill="#4589FF"/>
+                </g>
+            </svg>
+            <span>Edit</span>
+        </div>
+    </div>
+</body>
+</html>
