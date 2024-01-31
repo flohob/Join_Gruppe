@@ -68,10 +68,27 @@ function renderContacts() {
   // Iteriere über jeden Kontakt und füge das HTML dem Div hinzu
   for (let i = 0; i < contacts.length; i++) {
     const contact = contacts[i];
+
+    // Extrahiere die ersten Buchstaben des Vor- und Nachnamens
+    const initials = contact.name.split(' ').map(word => word[0]).join('');
+
     const contactHtml = `
       <div class="contact">
-        <h1>${contact.name}</h1>
-        <p>${contact.email}</p>
+        <div>
+          <svg width="56px" height="56px" xmlns="http://www.w3.org/2000/svg">
+          <!-- Äußerer Kreis -->
+                <circle cx="28px" cy="28px" r="25px" stroke="white" stroke-width="3" fill="transparent" />
+            <!-- Innerer Kreis -->
+            <circle cx="28px" cy="28px" r="21px" fill="yellow" />
+            <text class="svg_text" x="28px" y="30px" alignment-baseline="middle" text-anchor="middle">
+              ${initials}
+            </text>
+          </svg>
+        </div>
+        <div>
+          <span>${contact.name}</span>
+          <p>${contact.email}</p>
+        </div>
       </div>
     `;
 
@@ -79,6 +96,7 @@ function renderContacts() {
     contactContentDiv.innerHTML += contactHtml;
   }
 }
+
 
 function sortJSON () {
   contacts.sort((a, b) => a.name[0].localeCompare(b.name[0]));
@@ -94,3 +112,4 @@ function toggleOverlay() {
       overlay.classList.add('d-none');
   }
 }
+

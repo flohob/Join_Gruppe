@@ -17,7 +17,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 440px;
-    height: 864px;
+   
     padding: 64px 24px 0 24px;
     gap: 24px;
     border-right: 1px solid rgba(0, 0, 0, 0.1);
@@ -26,9 +26,13 @@ body {
 .addcontact_container {
     display: flex;
     justify-content: center;
-  
-    height: 104px;
+    height: 80px;
     width: 440px;
+}
+
+#contact_content_2 {
+    overflow-y: auto;
+  max-height: 520px;
 }
 
 .addcontact_btn {
@@ -246,6 +250,7 @@ font-weight: bold;
 
 .contact_info_main {
     width: 100%;
+    max-height: 700px;
 }
 
 .Profile_picture_info {
@@ -259,4 +264,25 @@ font-weight: bold;
     justify-content: center;
     align-items: center;
     gap: 10px;
+}
+
+.contact {
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 15px 40px;
+    gap: 40px;
+    align-items: center;
+    border-radius: 10px;
+    margin: 12px 0;
+    font-size: 15px;
+    border-top: 0.5px solid grey;
+    border-radius: 0px;
+}
+
+.contact:hover {
+    background-color:rgb(69, 132, 241);
+    border-radius: 10px;
+    cursor: pointer;
 }
