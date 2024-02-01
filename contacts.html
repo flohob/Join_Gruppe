@@ -27,26 +27,6 @@
       </div>
 
       <div class="contact_info_main">
-        <div class="contact_info_upper">
-          <div class="Profile_picture_info">
-            <img src="assets/Login/Frame 79.png" alt="">
-            <div>
-            <h2>Florian Hobiger</h2>
-            <div class="main_icons">
-                <img src="assets/Login/edit.png" alt="" /> <span>Edit</span>
-                <img src="assets/Login/delete.png" alt="" /> <span>Delete</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="contact_info_lower">
-          <span>Contact Information</span>
-          <h2>Email</h2>
-          <span>flocki88@live.at</span>
-          <h2>Phone</h2>
-          <span>06645897895</span>
-        </div>
-      </div>
     </div>
 
    <!-- Overlay Addcontact -->
@@ -103,7 +83,7 @@
         <div class="upper_overlay_container">
           <div class="closing_btn_addcontact">
             <img
-              onclick="toggleOverlay()"
+              onclick="toggleEditOverlay()"
               class="close_overlay"
               src="assets/Login/close.png"
               alt=""
@@ -118,24 +98,27 @@
         <div class="addcontact_form">
           <form class="addcontact_form" action="">
             <input
+            id="editcontact_fullname"
               class="addcontact_fullname"
               type="name"
               placeholder="Full Name"
             />
             <input
+            id="editcontact_email"
               class="addcontact_email"
               type="email"
               placeholder="Emailadress"
             />
             <input
+            id="editcontact_phone"
               class="addcontact_number"
               type="tel"
               placeholder="Phone Number"
             />
           </form>
           <div class="addcontact_overlay_btn">
-            <button class="delete_btn_overlay">Delete</button>
-            <button class="save_btn_overlay">Save</button>
+            <button class="delete_btn_overlay" onclick="deleteContact()">Delete</button>
+            <button class="save_btn_overlay" onclick="saveEditedContact()">Save</button>
           </div>
         </div>
       </div>
