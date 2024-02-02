@@ -98,3 +98,8 @@ body{
     height: 17px;
     padding: 8px;
 }
+
+.sidebar_links a:hover {
+    cursor: pointer;
+    color:rgba(69, 137, 255, 1);
+}
