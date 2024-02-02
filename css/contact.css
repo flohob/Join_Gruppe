@@ -17,7 +17,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 440px;
-   
+   height: 80vh;
     padding: 64px 24px 0 24px;
     gap: 24px;
     border-right: 1px solid rgba(0, 0, 0, 0.1);
@@ -303,4 +303,9 @@ font-weight: bold;
     background-color:rgb(69, 132, 241);
     border-radius: 10px;
     cursor: pointer;
+}
+
+.svg_text {
+    font-family: 'Opens Sans';
+    font-weight: 100;
 }
