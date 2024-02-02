@@ -305,7 +305,34 @@ font-weight: bold;
     cursor: pointer;
 }
 
-.svg_text {
-    font-family: 'Opens Sans';
-    font-weight: 100;
+
+
+.initials_pic {
+    border-radius: 100%;
+    background-color: lightgoldenrodyellow;
+    height: 55px;
+    width: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid white;
+}
+
+.initials_pic span {
+    font-size: 18px;
+}
+
+.initials_pic_big {
+    border-radius: 100%;
+    background-color: lightgoldenrodyellow;
+    height: 85px;
+    width: 85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.initials_pic_big span {
+
+font-size: 30px;
 }

@@ -89,16 +89,8 @@ function renderContacts() {
 
     const contactHtml = `
       <div class="contact" onclick="showContactInfo(${i})">
-        <div>
-          <svg width="56px" height="56px" xmlns="http://www.w3.org/2000/svg">
-            <!-- Äußerer Kreis -->
-            <circle cx="28px" cy="28px" r="25px" stroke="white" stroke-width="3" fill="transparent" />
-            <!-- Innerer Kreis mit individueller Farbe -->
-            <circle cx="28px" cy="28px" r="21px" fill="getRandomColor()" />
-            <text class="svg_text" x="28px" y="30px" alignment-baseline="middle" text-anchor="middle">
-              ${initials}
-            </text>
-          </svg>
+        <div class="initials_pic">
+             <span>${initials}</span>
         </div>
         <div>
           <span>${contact.name}</span>
@@ -123,15 +115,9 @@ function showContactInfo(index) {
   const contactInfoHtml = `
     <div class="contact_info_upper">
       <div class="Profile_picture_info">
-        <svg width="56px" height="56px" xmlns="http://www.w3.org/2000/svg">
-          <!-- Äußerer Kreis -->
-          <circle cx="28px" cy="28px" r="25px" stroke="white" stroke-width="3" fill="transparent" />
-          <!-- Innerer Kreis -->
-          <circle cx="28px" cy="28px" r="21px"/>
-          <text class="svg_text" x="28px" y="30px" alignment-baseline="middle" text-anchor="middle">
-            ${contact.name.split(' ').map(word => word[0]).join('')}
-          </text>
-        </svg>
+      <div class="initials_pic_big">
+            <span>${contact.name.split(' ').map(word => word[0]).join('')}</span>
+            </div>
         <div>
           <h2>${contact.name}</h2>
           <div class="main_icons" onclick="editContact(${index})">
