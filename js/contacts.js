@@ -1,18 +1,5 @@
 let currentEditIndex;
-let contacts = [ {
-  id: generateUniqueId(),
-  name: "Pascal Ganglberger",
-  email: "pascal@example.com",
-  phone: "+49 123 456789",
-  color: getRandomColor(),
-}, 
-{
-  id: generateUniqueId(),
-  name: "Florian Hobiger",
-  email: "florian@example.com",
-  phone: "+49 123 456789",
-  color: getRandomColor(),
-},];
+let contacts = [];
 
 
 function initContacts() {
@@ -46,17 +33,24 @@ function saveContact() {
   const fullName = document.getElementById('addcontact_fullname').value;
   const email = document.getElementById('addcontact_email').value;
   const phoneNumber = document.getElementById('addcontact_number').value;
-  const newContact = {
-    id: generateUniqueId(), 
-    name: fullName,
-    email: email,
-    phone: phoneNumber,
-    color: getRandomColor(),
-  };
-  contacts.push(newContact);
-  saveContacts();
-  toggleOverlay();
-  loadContacts();
+
+  // Überprüfen, ob alle Felder ausgefüllt sind
+  if (fullName && email && phoneNumber) {
+    const newContact = {
+      id: generateUniqueId(),
+      name: fullName,
+      email: email,
+      phone: phoneNumber,
+      color: getRandomColor(),
+    };
+    contacts.push(newContact);
+    saveContacts();
+    toggleOverlay();
+    loadContacts();
+  } else {
+    // Zeigen Sie eine Benachrichtigung an oder tun Sie etwas anderes, um den Benutzer darauf hinzuweisen, dass alle Felder erforderlich sind
+    alert('Bitte füllen Sie alle Felder aus.');
+  }
 }
 
 
@@ -76,6 +70,7 @@ function getRandomColor() {
 
 function renderContacts() {
   const contactContentDiv = document.getElementById('contact_content_2');
+  sortJSON();
 
   // Leere das Div, bevor du neue Kontakte hinzufügst
   contactContentDiv.innerHTML = '';
@@ -89,12 +84,12 @@ function renderContacts() {
 
     const contactHtml = `
       <div class="contact" onclick="showContactInfo(${i})">
-        <div class="initials_pic">
+        <div class="initials_pic" style="background-color: ${contact.color}">
              <span>${initials}</span>
         </div>
         <div>
           <span>${contact.name}</span>
-          <p>${contact.email}</p>
+          <a href="#">${contact.email}</a>
         </div>
       </div>
     `;
@@ -115,10 +110,10 @@ function showContactInfo(index) {
   const contactInfoHtml = `
     <div class="contact_info_upper">
       <div class="Profile_picture_info">
-      <div class="initials_pic_big">
+      <div class="initials_pic_big" style="background-color: ${contact.color}">
             <span>${contact.name.split(' ').map(word => word[0]).join('')}</span>
             </div>
-        <div>
+        <div class="flex_align">
           <h2>${contact.name}</h2>
           <div class="main_icons" onclick="editContact(${index})">
             <img src="assets/Login/edit.png"  alt="" /> <span>Edit</span>
@@ -130,12 +125,14 @@ function showContactInfo(index) {
     <div class="contact_info_lower">
       <h3>Contact Information</h3>
       <h2>Email</h2>
-      <span>${contact.email}</span>
+      <a href="#">${contact.email}</a>
       <h2>Phone</h2>
       <span>${contact.phone}</span>
     </div>
   `;
   contactInfoDiv.innerHTML = contactInfoHtml;
+  document.getElementById('editContactInitials').textContent = contact.name.split(' ').map(word => word[0]).join('')
+  document.getElementById('editContactInitialsColor').style.backgroundColor = contact.color;
 }
 
 function editContact(index) {
@@ -146,6 +143,7 @@ function editContact(index) {
   document.getElementById('editcontact_phone').value = contact.phone;
   currentEditIndex = index;
   toggleEditOverlay();
+
 }
 
 function saveEditedContact() {
@@ -188,5 +186,11 @@ function toggleEditOverlay() {
   } else {
       overlay.classList.add('d-none');
   }
+}
+
+function clearButton() {
+document.getElementById('addcontact_fullname').value = "";
+document.getElementById('addcontact_email').value = "";
+document.getElementById('addcontact_number').value = "";
 }
 

@@ -116,6 +116,15 @@ input::placeholder {
     margin-bottom: 40px;
 }
 
+.End_section_login a {
+    text-decoration: none;
+    color: black;
+}
+
+.End_section_login a:hover {
+    color: rgba(0, 93, 255, 1);;
+}
+
 .Login_Logo {
     height: 100.97px;
         width: 85.03px;

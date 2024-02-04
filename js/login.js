@@ -1,4 +1,6 @@
-let users = [];
+let users = [
+    
+];
 
 async function init(){
     await loadUsers();

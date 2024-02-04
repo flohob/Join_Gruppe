@@ -55,73 +55,77 @@
           class="addcontact_fullname"
           type="name"
           placeholder="Full Name"
+          required
         />
         <input
           id="addcontact_email"
           class="addcontact_email"
           type="email"
           placeholder="Email Address"
+          required
         />
         <input
           id="addcontact_number"
           class="addcontact_number"
           type="tel"
           placeholder="Phone Number"
+          required
         />
       </form>
       <div class="addcontact_overlay_btn">
-        <button class="delete_btn_overlay">Delete</button>
+        <button onclick="clearButton()" class="delete_btn_overlay">Clear</button>
         <button onclick="saveContact()" class="save_btn_overlay">Save</button>
       </div>
     </div>
   </div>
 </div>
 
-    <!-- Overlay Edit Contact -->
-    <div id="overlay_editcontact_main" class="overlay_addcontact d-none">
-      <div class="overlay_addcontact_content">
-        <div class="upper_overlay_container">
-          <div class="closing_btn_addcontact">
-            <img
-              onclick="toggleEditOverlay()"
-              class="close_overlay"
-              src="assets/Login/close.png"
-              alt=""
-            />
-          </div>
-          <img src="assets/Login/Capa 1 (1).png" alt="" />
-          <span class="overlay_headlight1">Edit Contact</span>
-        </div>
-        <div class="Profile_picture_addcontact">
-          <img src="assets/Login/Frame 79.png" alt="" />
-        </div>
-        <div class="addcontact_form">
-          <form class="addcontact_form" action="">
-            <input
-            id="editcontact_fullname"
-              class="addcontact_fullname"
-              type="name"
-              placeholder="Full Name"
-            />
-            <input
-            id="editcontact_email"
-              class="addcontact_email"
-              type="email"
-              placeholder="Emailadress"
-            />
-            <input
-            id="editcontact_phone"
-              class="addcontact_number"
-              type="tel"
-              placeholder="Phone Number"
-            />
-          </form>
-          <div class="addcontact_overlay_btn">
-            <button class="delete_btn_overlay" onclick="deleteContact()">Delete</button>
-            <button class="save_btn_overlay" onclick="saveEditedContact()">Save</button>
-          </div>
-        </div>
+   <!-- Overlay Edit Contact -->
+<div id="overlay_editcontact_main" class="overlay_addcontact d-none">
+  <div class="overlay_addcontact_content">
+    <div class="upper_overlay_container">
+      <div class="closing_btn_addcontact">
+        <img
+          onclick="toggleEditOverlay()"
+          class="close_overlay"
+          src="assets/Login/close.png"
+          alt=""
+        />
+      </div>
+      <img src="assets/Login/Capa 1 (1).png" alt="" />
+      <span class="overlay_headlight1">Edit Contact</span>
+    </div>
+    <div class="initials_pic_big2" id="editContactInitialsColor">
+      <span id="editContactInitials">AB</span>
+    </div>
+    <div class="addcontact_form">
+      <form class="addcontact_form" action="">
+        <input
+          id="editcontact_fullname"
+          class="addcontact_fullname"
+          type="name"
+          placeholder="Full Name"
+        />
+        <input
+          id="editcontact_email"
+          class="addcontact_email"
+          type="email"
+          placeholder="Email Address"
+        />
+        <input
+          id="editcontact_phone"
+          class="addcontact_number"
+          type="tel"
+          placeholder="Phone Number"
+        />
+      </form>
+      <div class="addcontact_overlay_btn">
+        <button class="delete_btn_overlay" onclick="deleteContact()">Delete</button>
+        <button class="save_btn_overlay" onclick="saveEditedContact()">Save</button>
       </div>
     </div>
+  </div>
+</div>
+
   </body>
 </html>
