@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sidebar</title>
+    <script src="/js/login.js"></script>
+    <script src="js/sidebar.js"></script>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="./fonts/fonts.css">
@@ -17,15 +19,22 @@
         <div class="sidebar_top_right">
             <span>Kanban Project Management Tool</span>
             <img src="./assets/sidebar/help.png" alt="Help">
-            <svg width="56px" height="56px" xmlns="http://www.w3.org/2000/svg">
+            <div onclick="toggleEditOverlayLogout()">
+            <svg id="svgText" width="56px" height="56px" xmlns="http://www.w3.org/2000/svg">
                 <!-- Äußerer Kreis -->
                 <circle cx="28px" cy="28px" r="25px" stroke="white" stroke-width="3" fill="transparent" />
                 <!-- Innerer Kreis -->
                 <circle cx="28px" cy="28px" r="21px" fill="white" />
-                <text class="svg_text" x="28px" y="30px"  alignment-baseline="middle" text-anchor="middle" >
+                <text  class="svg_text" x="28px" y="30px"  alignment-baseline="middle" text-anchor="middle" >
                     SM
                   </text>
               </svg>
+              <div id="overlay_Logout" class="overlay_logout d-none">
+                <a href="login.html">Logout</a><br>
+                <a href="privacypolicy.html">Privacy Policy</a><br>
+                <a href="legalnotice.html">Legal Notice</a>
+              </div>
+              </div>
         </div>
     </div>
     <div class="sidebar_left">

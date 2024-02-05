@@ -8,6 +8,10 @@ body{
     
 }
 
+.d-none {
+    display: none !important;
+}
+
 .sidebar_top{
     background-color: rgba(69, 137, 255, 1);
     display: flex;
@@ -102,4 +106,32 @@ body{
 .sidebar_links a:hover {
     cursor: pointer;
     color:rgba(69, 137, 255, 1);
+}
+
+.overlay_logout {
+  position: absolute;
+  background-color: darkgrey;
+    padding: 10px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-right: 10px;
+    width: 113px;
+    top: 109px;
+    right: 60px;
+    height: 113px;
+
+}
+
+.overlay_logout a {
+    font-size: 16px;
+    display: flex;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
+.overlay_logout a:hover {
+    color: rgba(69, 137, 255, 1); 
+    transform: scale(1.015);
 }

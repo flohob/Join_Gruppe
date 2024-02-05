@@ -36,11 +36,20 @@ async function register() {
 async function loginUser() {
     let email = document.getElementById('email2').value;
     let password = document.getElementById('password2').value;
-    await loadUsers(); // Laden der Benutzer vom Backend
+    await loadUsers();
+
     let user = users.find(u => u.email === email && u.password === password);
+
     if (user) {
         window.location.href = 'summary.html';
     } else {
         alert('Falsche E-Mail-Adresse oder Passwort');
     }
+}
+
+
+function guestLogin() {
+    document.getElementById('email2').value = users[2].email;
+    document.getElementById('password2').value = users[2].password;
+    loginUser();
 }
