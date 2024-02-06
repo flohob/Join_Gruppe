@@ -11,7 +11,7 @@ body {
     width: 100%;
     }
 
-    .d-none {
+    .d-none1 {
         display: none;
     }
     
@@ -129,6 +129,7 @@ body {
         width: 100%;
         justify-content: left;
         margin-top: 36px;
+        margin-bottom: 20px;
         
     }
     
@@ -175,3 +176,85 @@ body {
         font-size: 19px;
         color: rgba(209, 209, 209, 1);
     }
+
+    @media (min-width: 501px) and (max-width: 870px) {
+        .middle-container_Login {
+            width: 498px;
+        }
+    
+        .SignIn_Section_Login {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .Login_Logo {
+            margin-left: 0;
+
+        }
+
+        .Upper_Section_Login {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 470px) {
+        .middle-container_Login {
+            width: 317px;
+            height: 500px;
+        }
+
+        .Login_Logo {
+            margin-left: 0;
+        }
+
+        .main_container_Login {
+           
+        }
+    
+        .SignIn_Section_Login {
+           display: none;
+        }
+
+        .Login_Guest_btn {
+            padding-top: 0;
+        }
+
+
+        .End_section_login {
+            margin-bottom: 0;
+            margin-top: 17px;
+        }
+    
+        .Upper_Section_Login {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            margin-top: 15px;
+            padding: 0;
+            width: auto;
+        }
+
+        .SignIn_Headline {
+            margin-right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+
+        }
+
+        .Login_seperator {
+            margin-left: 12px;
+        }
+    
+        .Login_Logo {
+            height: 64.97px;
+            width: 50.03px;
+        }
+    }
+    
+    

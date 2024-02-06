@@ -9,7 +9,6 @@ function initContacts() {
 async function saveContacts() {
   try {
       await setItem('contacts', JSON.stringify(contacts));
-      console.log('Contacts saved successfully.');
   } catch (error) {
       console.error('Saving error:', error);
   }
@@ -47,6 +46,8 @@ function saveContact() {
     saveContacts();
     toggleOverlay();
     loadContacts();
+    showContactInfo(contacts.length - 1); // Hier wird showContactInfo mit dem Index des neu hinzugefügten Kontakts aufgerufen
+   clearButton();
   } else {
     // Zeigen Sie eine Benachrichtigung an oder tun Sie etwas anderes, um den Benutzer darauf hinzuweisen, dass alle Felder erforderlich sind
     alert('Bitte füllen Sie alle Felder aus.');
@@ -67,7 +68,6 @@ function getRandomColor() {
   return color;
 }
 
-
 function renderContacts() {
   const contactContentDiv = document.getElementById('contact_content_2');
   sortJSON();
@@ -75,9 +75,22 @@ function renderContacts() {
   // Leere das Div, bevor du neue Kontakte hinzufügst
   contactContentDiv.innerHTML = '';
 
+  let currentLetter = '';
   // Iteriere über jeden Kontakt und füge das HTML dem Div hinzu
   for (let i = 0; i < contacts.length; i++) {
     const contact = contacts[i];
+
+    // Extrahiere den aktuellen Buchstaben des Vor- und Nachnamens
+    const firstLetter = contact.name[0].toUpperCase();
+
+    // Wenn sich der Buchstabe ändert, füge einen neuen Abschnitt hinzu
+    if (firstLetter !== currentLetter) {
+      const sectionHtml = `<div class="contact-section" id="section_${firstLetter}">
+                            <h2>${firstLetter}</h2>
+                          </div>`;
+      contactContentDiv.innerHTML += sectionHtml;
+      currentLetter = firstLetter;
+    }
 
     // Extrahiere die ersten Buchstaben des Vor- und Nachnamens
     const initials = contact.name.split(' ').map(word => word[0]).join('');
@@ -85,20 +98,20 @@ function renderContacts() {
     const contactHtml = `
       <div class="contact" onclick="showContactInfo(${i})">
         <div class="initials_pic" style="background-color: ${contact.color}">
-             <span>${initials}</span>
+          <span>${initials}</span>
         </div>
-        <div>
+        <div class="info">
           <span>${contact.name}</span>
           <a href="#">${contact.email}</a>
         </div>
       </div>
     `;
 
-    // Füge das Kontakt-HTML dem Div hinzu
-    contactContentDiv.innerHTML += contactHtml;
+    // Füge das Kontakt-HTML dem entsprechenden Abschnitt hinzu
+    const sectionId = `section_${firstLetter}`;
+    document.getElementById(sectionId).insertAdjacentHTML('beforeend', contactHtml);
   }
 }
-
 
 
 function showContactInfo(index) {
@@ -155,6 +168,7 @@ function saveEditedContact() {
   contacts[currentEditIndex].phone = editedPhone;
   saveContacts();
   renderContacts();
+  showContactInfo(currentEditIndex); // Hier wird showContactInfo mit dem Index des bearbeiteten Kontakts aufgerufen
   toggleEditOverlay();
 }
 
@@ -163,11 +177,13 @@ function deleteContact() {
     contacts.splice(currentEditIndex, 1);
     saveContacts();
     renderContacts();
+    showContactInfo(contacts.length > 0 ? 0 : null); // Hier wird showContactInfo mit dem Index des ersten verbleibenden Kontakts aufgerufen oder null, wenn keine Kontakte mehr vorhanden sind
+    toggleEditOverlay();
   }
 }
 
-function sortJSON () {
-  contacts.sort((a, b) => a.name[0].localeCompare(b.name[0]));
+function sortJSON() {
+  contacts.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 function toggleOverlay() {

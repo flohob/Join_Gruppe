@@ -4,6 +4,7 @@ let users = [
 
 async function init(){
     await loadUsers();
+    showSignInsmall();
 }
 
 async function loadUsers() {
@@ -53,3 +54,11 @@ function guestLogin() {
     document.getElementById('password2').value = users[2].password;
     loginUser();
 }
+
+function showSignInsmall () {
+    if (window.innerWidth < 500) {
+    document.getElementById('signinsmall').classList.remove('d-none');
+} else {
+    document.getElementById('signinsmall').classList.add('d-none');
+}}
+
