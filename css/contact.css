@@ -384,3 +384,8 @@ cursor: pointer;
     margin-bottom: 5px;
     color: #333; /* Farbe nach Bedarf anpassen */
   }
+
+  .rotate-animation {
+    animation: rotateImage 2s ease-in-out forwards;
+  }
+  

@@ -2,9 +2,10 @@ let users = [
     
 ];
 
+let currentUser;
+
 async function init(){
     await loadUsers();
-    showSignInsmall();
 }
 
 async function loadUsers() {
@@ -24,6 +25,7 @@ async function register() {
         console.error('E-Mail bereits registriert.');
     } else {
         users.push({
+            name: name1.value,
             email: email1.value,
             password: password1.value,
         });
@@ -42,11 +44,13 @@ async function loginUser() {
     let user = users.find(u => u.email === email && u.password === password);
 
     if (user) {
+        currentUser = user; // Aktualisiere currentUser mit dem gefundenen Benutzer
         window.location.href = 'summary.html';
     } else {
         alert('Falsche E-Mail-Adresse oder Passwort');
     }
 }
+
 
 
 function guestLogin() {
@@ -55,10 +59,6 @@ function guestLogin() {
     loginUser();
 }
 
-function showSignInsmall () {
-    if (window.innerWidth < 500) {
-    document.getElementById('signinsmall').classList.remove('d-none');
-} else {
-    document.getElementById('signinsmall').classList.add('d-none');
-}}
+
+
 
