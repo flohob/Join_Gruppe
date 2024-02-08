@@ -13,8 +13,8 @@
 
     <!-- Scripts -->
     <script src="./js/includeHTML.js"></script>
-    <script src="/js/add_task.js"></script>
     <script src="/js/contacts.js"></script>
+    <script src="/js/add_task.js"></script>
     <script src="js/sidebar.js"></script>
 
   </head>
@@ -25,7 +25,6 @@
         <input type="text" id="task_title" placeholder="Enter a title" required/>
         <div id="title_reqiuered" class="field_requiered d-none">This field is required</div>
       </form>
-      <form id="description">
         <div class="title_gap">
           <div>
             <span>Description</span><span class="task_optional"> (optional)</span>
@@ -33,10 +32,7 @@
           <div class="task_description_container">
             <textarea id="task_description" cols="30" rows="10" placeholder="Enter a description" required></textarea>
             <img class="resizer" src="./assets/add_task/resizer.png">
-          </div>
-          <div id="description_reqiuered" class="field_requiered d-none">This field is required</div>
-        </div>
-      </form>
+            </div>
       <form id="date">
         <div class="title_gap">   
           <span>Due date</span>
@@ -84,9 +80,11 @@
         <div class="title_gap">
           <span>Category</span>
           <div class="dropdown category">
-            <input onclick="toggleCatDrop()" onkeydown="searchCategory()" id="task_category" type="text" placeholder="Select task category" required>
+            <input onclick="toggleCatDrop()" id="task_category" type="text" placeholder="Select task category" required>
             <div id="category_reqiuered" class="field_requiered d-none">This field is required</div>
             <div id="dropdown_category" class="d-none">
+              <span onclick="selectCategory('Technical Task')">Technical Task</span>
+              <span onclick="selectCategory('User Story')">User Story</span>
             </div>
           </div>
         </div>
@@ -96,7 +94,7 @@
           <span>Subtask</span><span class="task_optional"> (optional)</span>
         </div>
         <div class="dropdown subtask">
-          <input onclick="toggleSubDrop()" onkeydown="searchSubtask()" id="task_subtask" type="text" placeholder="Add new subtask">
+          <input onclick="toggleSubDrop()" id="task_subtask" type="text" placeholder="Add new subtask">
           <div id="subtask_confirm_cancel">
             <div class="confirm" onclick="addSubtask()"></div>
             <div class="spacer"></div>

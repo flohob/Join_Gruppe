@@ -1,25 +1,25 @@
 let contactsOpen = false;
 let categoryOpen = false;
+let selectedContacts = [];
 let subtasks = [];
+let prioity = "medium";
+let tasks= [];
+
 
 function checkForms() {
   let checkTitle = document.getElementById("title");
-  let checkDescription = document.getElementById("description");
   let checkDate = document.getElementById("date");
   let selectedCategory = document.getElementById("category");
 
   if (checkTitle.checkValidity()) {
     removeRequiered("title");
-    if (checkDescription.checkValidity()) {
-      removeRequiered("description");
-      if (checkDate.checkValidity()) {
-        removeRequiered("date");
+    if (checkDate.checkValidity()) {
+      removeRequiered("date");
         if (selectedCategory.checkValidity()) {
           removeRequiered("category");
           addTask();
         } else addRequiered("category");
-      } else addRequiered("date");
-    } else addRequiered("description");
+    } else addRequiered("date");
   } else addRequiered("title");
 }
 
@@ -44,7 +44,6 @@ function removeRequiered(where) {
 function clearForm() {
   document.getElementById("task_title").value = "";
   document.getElementById("task_description").value = "";
-  document.getElementById("task_date").value = "";
   changePrio("medium");
   document.getElementById("task_contacts").value = "";
   document.getElementById("task_category").value = "";
@@ -64,6 +63,7 @@ function changeTextColor() {
 
 function changePrio(prio) {
   clearPrio();
+  prioity = prio;
   let selectedPrio = document.getElementById(`${prio}`);
   selectedPrio.classList.add(`${prio}`);
   selectedPrio.classList.remove(`hover_${prio}`);
@@ -83,6 +83,7 @@ function clearPrio() {
   low.classList.remove("low");
   low.classList.add("hover_low");
   document.getElementById(`low_svg`).style.fill = "#7AE229";
+  prioity = 'medium';
 }
 
 function toggleContDrop() {
@@ -102,8 +103,36 @@ function openContacts(contactsContainer) {
     .getElementById("task_contacts")
     .setAttribute("placeholder", "Search contacts");
   contactsOpen = true;
-  /* hier eine for schleife für alle kontakte einfügen */
-  contactsContainer.innerHTML += renderDropdownContacts();
+  contactsContainer.innerHTML = "";
+  for (let index = 0; index < contacts.length; index++) {
+    const contact = contacts[index];
+    let initials = getInitials(contact);
+    contactsContainer.innerHTML += renderDropdownContacts(contact, initials, i);
+  }
+}
+
+function getInitials(contact){
+  let namesSplit = contact.name.split(" ")
+  let firstName = namesSplit[0].charAt(0);
+    let lastName = namesSplit[1].charAt(0);
+    return(firstName + lastName)
+}
+
+function contactSelectToggle(i){
+ let img = document.getElementById(`contactSelect(${i})`);
+ let notSelectedImg = "/assets/add_task/not_selected.png";  
+ let selectedImg = "/assets/add_task/selected.png";
+ let activImg = notSelectedImg;
+
+ if(activImg === notSelectedImg){
+  img.src = selectedImg;
+  activImg = selectedImg
+  selectedContacts.push(contacts[i])
+ } else {
+  img.src = notSelectedImg;
+  activImg = notSelectedImg;
+  selectedContacts.slice(contacts[i])
+ }
 }
 
 function closeContacts(contactsContainer) {
@@ -115,7 +144,16 @@ function closeContacts(contactsContainer) {
 }
 
 function searchContacts() {
-  /* warten bis contacts fertig ist */
+  let input = document.getElementById('task_contacts').value.toLowerCase()
+  let contactsContainer = document.getElementById("dropdown_contacts");
+  contactsContainer.innerHTML = ""
+  for (let index = 0; index < contacts.length; index++) {
+    const contact = contacts[index].name.toLowerCase();
+      if(contact.includes(input)){
+        let initials = getInitials(contact)
+        contactsContainer.innerHTML += renderDropdownContacts(contact, initials, index);
+      }
+  }
 }
 
 function toggleCatDrop() {
@@ -134,8 +172,6 @@ function openCategory(categoryContainer) {
   document
     .getElementById("task_category")
     .setAttribute("placeholder", "Search category");
-  /* hier eine for schleife für alle kategorien einfügen */
-  categoryContainer.innerHTML += renderDropdownCategory();
   categoryOpen = true;
 }
 
@@ -147,8 +183,9 @@ function closeCategory(categoryContainer) {
   categoryOpen = false;
 }
 
-function searchCategory() {
-  /* mit florian besprechen */
+function selectCategory(category){
+document.getElementById('task_category').value = category;
+toggleCatDrop()
 }
 
 function toggleSubDrop() {
@@ -171,10 +208,12 @@ function addSubtask() {
       text.value = "";
       removeRequiered("title");
       document.getElementById("subtask_confirm_cancel").style.display = "none"
+      renderSubtask()
     } else {
       addRequiered("title");
+      document.getElementById("subtask_confirm_cancel").style.display = "none";
     }
-  }
+  }  else document.getElementById("subtask_confirm_cancel").style.display = "none";
 }
 
 function removeSubInput(){
@@ -182,26 +221,39 @@ function removeSubInput(){
  document.getElementById("subtask_confirm_cancel").style.display = "none"
 }
 
-function renderDropdownCategory() {
-  return `    <span>Technical Task</span>
-              <span>User Story</span>
-              `;
+function addTask(){
+  let description = document.getElementById('task_description').value
+  let title = document.getElementById('task_title').value
+  let date = document.getElementById('task_date').value
+  let category = document.getElementById('task_category').value
+  if(description === ""){description = 'Keine Beschreibung'}
+  let task = {
+    'title': title,
+    'description': description,
+    'date': date,
+    'priority': prioity,
+    'contacts': selectedContacts,
+    'category': category,
+    'subtask': subtasks,
+    'position': 'todo',
+  }
+  tasks.push(task)
 }
 
-function renderDropdownContacts() {
+function renderDropdownContacts(contact, initials, i) {
   return `<div class="dropdown_contact">
                 <div class="contact_name">
                   <svg width="42px" height="42px" xmlns="http://www.w3.org/2000/svg">
                     <!-- Äußerer Kreis -->
                     <circle cx="21px" cy="21px" r="20px" stroke="white" stroke-width="3" fill="transparent" />
                     <!-- Innerer Kreis -->
-                    <circle cx="21px" cy="21px" r="19px" fill="#4589FF" />
+                    <circle cx="21px" cy="21px" r="19px" fill="${contact.color}" />
                     <text fill="white" x="21px" y="23px"  alignment-baseline="middle" text-anchor="middle" >
-                        SM
+                        ${initials}
                       </text>
                   </svg>
-                  <span>Sofia Müller (You)</span>
+                  <span>${contact.name}</span>
                 </div>
-                <img src="/assets/add_task/not_selected.png">
+                <img id="contactSelect(${i})" onclick="contactSelectToggle(${i})" src="/assets/add_task/not_selected.png">
               </div>`;
 }
