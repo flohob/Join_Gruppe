@@ -21,6 +21,7 @@ async function loadUsers() {
 
 async function register() {
     const emailExists = users.some(user => user.email === email1.value);
+    passwordCheck();
     if (emailExists) {
         console.error('E-Mail bereits registriert.');
     } else {
@@ -60,5 +61,16 @@ function guestLogin() {
 }
 
 
+function passwordCheck () {
+    let pw1 = document.getElementById('password1').value;
+    let pw2 = document.getElementById('password2').value;
+
+    if (pw1 !== pw2) {
+        alert("Passwords do not match!");
+        return false;
+    }
+
+    return true;
+}
 
 

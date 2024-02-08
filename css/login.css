@@ -10,6 +10,10 @@ font-size: 16px;
 font-weight: 400; 
 }
 
+.noshow {
+    display: none !important;
+}
+
 
 .login_container {
     display: flex;
@@ -152,6 +156,7 @@ input::placeholder {
         display: flex;
         align-items: center;
         margin-bottom: 32px;
+        margin-right: 200px;
 
         margin-top: 20px;
         padding: 0;
@@ -162,6 +167,10 @@ input::placeholder {
         height: 64.97px;
         width: 50.03px;
     }
+
+    .SignIn_Section_Login2 {
+        display: flex !important;
+     }
 }
 
 

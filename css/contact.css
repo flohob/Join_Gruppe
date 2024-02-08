@@ -7,8 +7,13 @@ body {
     display: none !important;
 }
 
+.noshow {
+    display: none;
+}
+
 .overall_main {
     display: flex;
+    width: 100%;
 }
 
 .contact_container {
@@ -388,4 +393,71 @@ cursor: pointer;
   .rotate-animation {
     animation: rotateImage 2s ease-in-out forwards;
   }
+
+
   
+@media (max-width: 1150px) {
+    .Profile_picture_info {
+        display: flex;
+    align-items: flex-start;
+    gap: 5%;
+    margin-left: 16%;
+    margin-top: 60px;
+    flex-direction: column;
+}
+
+.contact_container {
+    margin-left: 231px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 424px;
+    height: 80vh;
+    padding: 64px 0px 0 0px;
+    gap: 24px;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    }
+   
+}
+
+@media (max-width: 1000px) {
+
+.sidebar {
+    display: none;
+}
+
+.mobilebar_resp {
+    display: flex !important;
+}
+
+.contact_container {
+    margin-left: 25px;
+}
+
+}
+
+@media (max-width: 1000px) {
+    #contact_content_2 {
+        width: 85%;
+    }
+
+    .contact_info_main {
+        display: none;
+    }
+    .contact_container {
+        margin-left: 25px;
+        width: 100%;
+    }
+
+    .addcontact_container {
+        width: 350px;
+    }
+
+    .contact_container {
+        margin-left: 0px;
+        padding: 16px 0px 0 0px;
+        height: 70vh;
+    }
+}
+
+ 
