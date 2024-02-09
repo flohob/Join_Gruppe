@@ -390,6 +390,10 @@ cursor: pointer;
     position: absolute;
   }
 
+  .mobile_back:hover {
+    transform: scale(1.015);
+  }
+
   .contact-section {
     margin-top: 15px;
   }
