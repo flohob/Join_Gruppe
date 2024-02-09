@@ -105,7 +105,8 @@ function renderContacts() {
           <a href="#">${contact.email}</a>
         </div>
       </div>
-    `;
+    `
+    ;
 
     // Füge das Kontakt-HTML dem entsprechenden Abschnitt hinzu
     const sectionId = `section_${firstLetter}`;
@@ -117,11 +118,13 @@ function renderContacts() {
 function showContactInfo(index) {
   const contact = contacts[index];
   const contactInfoDiv = document.querySelector('.contact_info_main');
+  toggleOverlay_mobile();
   contactInfoDiv.innerHTML = '';
 
   // Fülle die "contact_info_main" mit den Informationen des ausgewählten Kontakts
   const contactInfoHtml = `
     <div class="contact_info_upper">
+    <img onclick="mobileclose()" class="mobile_back" src="assets/Login/arrow-left-line.png">
       <div class="Profile_picture_info">
       <div class="initials_pic_big" style="background-color: ${contact.color}">
             <span>${contact.name.split(' ').map(word => word[0]).join('')}</span>
@@ -142,7 +145,8 @@ function showContactInfo(index) {
       <h2>Phone</h2>
       <span>${contact.phone}</span>
     </div>
-  `;
+  `
+  ;
   contactInfoDiv.innerHTML = contactInfoHtml;
   document.getElementById('editContactInitials').textContent = contact.name.split(' ').map(word => word[0]).join('')
   document.getElementById('editContactInitialsColor').style.backgroundColor = contact.color;
@@ -210,5 +214,22 @@ document.getElementById('addcontact_email').value = "";
 document.getElementById('addcontact_number').value = "";
 }
 
+function toggleOverlay_mobile() {
+  var contactContainer = document.getElementById('contact_container');
+  var showInfo = document.getElementById('info_main');
 
+  if (window.innerWidth < 1000) {
+    // Wenn Fensterbreite unter 1000px ist
+    contactContainer.classList.add('d-none');
+    showInfo.classList.add('show');
+  }
+}
+
+function mobileclose () {
+  var contactContainer = document.getElementById('contact_container');
+  var showInfo = document.getElementById('info_main');
+
+  contactContainer.classList.remove('d-none');
+    showInfo.classList.remove('show');
+}
 

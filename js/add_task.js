@@ -257,3 +257,5 @@ function renderDropdownContacts(contact, initials, i) {
                 <img id="contactSelect(${i})" onclick="contactSelectToggle(${i})" src="/assets/add_task/not_selected.png">
               </div>`;
 }
+
+

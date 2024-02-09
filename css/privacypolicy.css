@@ -94,11 +94,50 @@ body {
     align-items: center;
 }
 
-
+.noshow {
+    display: none;
+}
 
 .legalNoticePosition {
     background-color: #4589FF;
     color: white;
     padding: 8px;
     border-radius: 20px;
+}
+
+@media (max-width: 1000px) {
+
+    .sidebar {
+        display: none;
+    }
+    
+    .mobilebar_resp {
+        display: flex !important;
+    }
+
+    .policyConten {
+        margin-left: 20px;
+        max-height: 90vh;
+        
+        overflow-y: scroll;}
+
+        .NoticeContent {
+            margin-left: 20px;
+            max-height: 90vh;
+            overflow-y: scroll;
+        }
+
+        .PrivacyTitel {
+            font-size: 40px;
+        }
+
+        .text_PP {
+            width: 90%;
+            overflow-x: hidden;
+        }
+
+        .NoticeTitel {
+            font-size: 40px;
+        }
+
 }

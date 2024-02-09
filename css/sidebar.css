@@ -135,3 +135,30 @@ body{
     color: rgba(69, 137, 255, 1); 
     transform: scale(1.015);
 }
+
+.overlay_logout2 {
+    position: absolute;
+    background-color: darkgrey;
+    padding: 10px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-right: 10px;
+    width: 110px;
+    top: 72px;
+    right: 18px;
+    height: 113px;
+}
+
+.overlay_logout2 a {
+    font-size: 16px;
+    display: flex;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
+.overlay_logout2 a:hover {
+    color: rgba(69, 137, 255, 1); 
+    transform: scale(1.015);
+}

@@ -8,6 +8,15 @@
         }
       }   
 
+      function toggleEditOverlayLogout2() {
+        let overlay = document.getElementById('overlay_Logout2');
+        if (overlay.classList.contains('d-none')) {
+            overlay.classList.remove('d-none');
+        } else {
+            overlay.classList.add('d-none');
+        }
+      }  
+
     
       function updateSvgText() {
         // Überprüfen, ob currentUser vorhanden ist

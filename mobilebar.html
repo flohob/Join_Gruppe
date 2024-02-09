@@ -6,13 +6,16 @@
     <title>Mobile Bar</title>
     <link rel="stylesheet" href="css/mobilebar.css">
     <link rel="stylesheet" href="./fonts/fonts.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <script src="js/login.js"></script>
+    <script src="js/sidebar.js"></script>
 
     <script src="js/includeHTML.js"></script>
 </head>
 <body onload="includeHTML()">
     <div class="mobilebar_headline" id="mobilebar_headline">
         <img src="assets/Login/Capa 1 (1).png" alt="">
-        <div class="topright">
+        <div onclick="toggleEditOverlayLogout2()" class="topright">
             GU
         </div>
 
@@ -35,6 +38,13 @@
         </a>
     </div>
     
+
+    <div id="overlay_Logout2" class="overlay_logout2 d-none">
+        <a href="login.html">Logout</a><br>
+        <a href="privacypolicy.html">Privacy Policy</a><br>
+        <a href="legalnotice.html">Legal Notice</a>
+      </div>
+      </div>
     
 </body>
 </html>
