@@ -409,6 +409,19 @@ cursor: pointer;
     animation: rotateImage 2s ease-in-out forwards;
   }
 
+  .slide-in {
+    animation: slideInAnimation 2s forwards;
+}
+
+@keyframes slideInAnimation {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
 
   
 @media (max-width: 1150px) {

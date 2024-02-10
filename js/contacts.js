@@ -71,19 +71,11 @@ function getRandomColor() {
 function renderContacts() {
   const contactContentDiv = document.getElementById('contact_content_2');
   sortJSON();
-
-  // Leere das Div, bevor du neue Kontakte hinzufügst
   contactContentDiv.innerHTML = '';
-
   let currentLetter = '';
-  // Iteriere über jeden Kontakt und füge das HTML dem Div hinzu
   for (let i = 0; i < contacts.length; i++) {
     const contact = contacts[i];
-
-    // Extrahiere den aktuellen Buchstaben des Vor- und Nachnamens
     const firstLetter = contact.name[0].toUpperCase();
-
-    // Wenn sich der Buchstabe ändert, füge einen neuen Abschnitt hinzu
     if (firstLetter !== currentLetter) {
       const sectionHtml = `<div class="contact-section" id="section_${firstLetter}">
                             <h2>${firstLetter}</h2>
@@ -91,8 +83,6 @@ function renderContacts() {
       contactContentDiv.innerHTML += sectionHtml;
       currentLetter = firstLetter;
     }
-
-    // Extrahiere die ersten Buchstaben des Vor- und Nachnamens
     const initials = contact.name.split(' ').map(word => word[0]).join('');
 
     const contactHtml = `
@@ -105,10 +95,7 @@ function renderContacts() {
           <a href="#">${contact.email}</a>
         </div>
       </div>
-    `
-    ;
-
-    // Füge das Kontakt-HTML dem entsprechenden Abschnitt hinzu
+    `;
     const sectionId = `section_${firstLetter}`;
     document.getElementById(sectionId).insertAdjacentHTML('beforeend', contactHtml);
   }
@@ -120,8 +107,6 @@ function showContactInfo(index) {
   const contactInfoDiv = document.querySelector('.contact_info_main');
   toggleOverlay_mobile();
   contactInfoDiv.innerHTML = '';
-
-  // Fülle die "contact_info_main" mit den Informationen des ausgewählten Kontakts
   const contactInfoHtml = `
     <div class="contact_info_upper">
     <img onclick="mobileclose()" class="mobile_back" src="assets/Login/arrow-left-line.png">
@@ -145,9 +130,9 @@ function showContactInfo(index) {
       <h2>Phone</h2>
       <span>${contact.phone}</span>
     </div>
-  `
-  ;
+  `;
   contactInfoDiv.innerHTML = contactInfoHtml;
+  contactInfoDiv.classList.add('slide-in');
   document.getElementById('editContactInitials').textContent = contact.name.split(' ').map(word => word[0]).join('')
   document.getElementById('editContactInitialsColor').style.backgroundColor = contact.color;
 }
@@ -195,14 +180,18 @@ function toggleOverlay() {
   if (overlay.classList.contains('d-none')) {
       overlay.classList.remove('d-none');
   } else {
+      
       overlay.classList.add('d-none');
   }
 }
 
+
 function toggleEditOverlay() {
   var overlay = document.getElementById('overlay_editcontact_main');
+  var overlay_content = document.getElementById('overlay_addcontact_content');
   if (overlay.classList.contains('d-none')) {
       overlay.classList.remove('d-none');
+      overlay_content.classList.add('slide-in');
   } else {
       overlay.classList.add('d-none');
   }
@@ -217,9 +206,7 @@ document.getElementById('addcontact_number').value = "";
 function toggleOverlay_mobile() {
   var contactContainer = document.getElementById('contact_container');
   var showInfo = document.getElementById('info_main');
-
   if (window.innerWidth < 1000) {
-    // Wenn Fensterbreite unter 1000px ist
     contactContainer.classList.add('d-none');
     showInfo.classList.add('show');
   }
@@ -228,7 +215,6 @@ function toggleOverlay_mobile() {
 function mobileclose () {
   var contactContainer = document.getElementById('contact_container');
   var showInfo = document.getElementById('info_main');
-
   contactContainer.classList.remove('d-none');
     showInfo.classList.remove('show');
 }
