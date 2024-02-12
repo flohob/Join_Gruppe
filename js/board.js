@@ -1,8 +1,3 @@
-
-
-
-
-
 function renderCard(){
     return `<div class="card">
                         <div class="task_category">Category</div>

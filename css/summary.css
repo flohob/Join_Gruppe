@@ -1,6 +1,6 @@
 .summary_container {
   margin-left: 380px;
-  margin-top: 264.5px;
+  margin-top: 50px;
   height: 591px;
   width: 912px;
   display: flex;
@@ -133,3 +133,18 @@
   font-weight: 400;
   color: rgba(69, 137, 255, 1);
 }
+
+.noshow {
+  display: none;
+}
+
+
+@media (max-width: 1000px) {
+
+  .sidebar {
+      display: none;
+  }
+  
+  .mobilebar_resp {
+      display: flex !important;
+  }}

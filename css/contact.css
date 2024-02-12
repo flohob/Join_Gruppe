@@ -405,6 +405,12 @@ cursor: pointer;
     color: #333; /* Farbe nach Bedarf anpassen */
   }
 
+  .current-contact {
+    background-color:rgb(69, 132, 241);
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
   .rotate-animation {
     animation: rotateImage 2s ease-in-out forwards;
   }

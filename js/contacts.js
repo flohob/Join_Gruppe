@@ -86,7 +86,7 @@ function renderContacts() {
     const initials = contact.name.split(' ').map(word => word[0]).join('');
 
     const contactHtml = `
-      <div class="contact" onclick="showContactInfo(${i})">
+      <div class="contact" id="con${i}" onclick="showContactInfo(${i})">
         <div class="initials_pic" style="background-color: ${contact.color}">
           <span>${initials}</span>
         </div>
@@ -102,22 +102,31 @@ function renderContacts() {
 }
 
 
+
 function showContactInfo(index) {
   const contact = contacts[index];
   const contactInfoDiv = document.querySelector('.contact_info_main');
+  const hover = document.getElementById(`con${index}`);
   toggleOverlay_mobile();
   contactInfoDiv.innerHTML = '';
+  
+  // Entfernen Sie die Klasse 'current-contact' von allen Elementen
+  const allContacts = document.querySelectorAll('.contact');
+  allContacts.forEach(contactElement => {
+    contactElement.classList.remove('current-contact');
+  });
+
   const contactInfoHtml = `
     <div class="contact_info_upper">
-    <img onclick="mobileclose()" class="mobile_back" src="assets/Login/arrow-left-line.png">
+      <img onclick="mobileclose()" class="mobile_back" src="assets/Login/arrow-left-line.png">
       <div class="Profile_picture_info">
-      <div class="initials_pic_big" style="background-color: ${contact.color}">
-            <span>${contact.name.split(' ').map(word => word[0]).join('')}</span>
-            </div>
+        <div class="initials_pic_big" style="background-color: ${contact.color}">
+          <span>${contact.name.split(' ').map(word => word[0]).join('')}</span>
+        </div>
         <div class="flex_align">
           <h2>${contact.name}</h2>
           <div class="main_icons" onclick="editContact(${index})">
-            <img src="assets/Login/edit.png"  alt="" /> <span>Edit</span>
+            <img src="assets/Login/edit.png" alt="" /> <span>Edit</span>
             <img src="assets/Login/delete.png" alt="" /> <span>Delete</span>
           </div>
         </div>
@@ -131,11 +140,17 @@ function showContactInfo(index) {
       <span>${contact.phone}</span>
     </div>
   `;
+  
   contactInfoDiv.innerHTML = contactInfoHtml;
   contactInfoDiv.classList.add('slide-in');
-  document.getElementById('editContactInitials').textContent = contact.name.split(' ').map(word => word[0]).join('')
+  
+  // Fügen Sie die Klasse 'current-contact' nur zum aktuellen Element hinzu
+  hover.classList.add('current-contact');
+
+  document.getElementById('editContactInitials').textContent = contact.name.split(' ').map(word => word[0]).join('');
   document.getElementById('editContactInitialsColor').style.backgroundColor = contact.color;
 }
+
 
 function editContact(index) {
   const contact = contacts[index];
