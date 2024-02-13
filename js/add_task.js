@@ -3,7 +3,8 @@ let categoryOpen = false;
 let selectedContacts = [];
 let subtasks = [];
 let prioity = "medium";
-let tasks= [];
+let tasks = [];
+let contacts = [];
 
 
 function checkForms() {
@@ -21,6 +22,23 @@ function checkForms() {
         } else addRequiered("category");
     } else addRequiered("date");
   } else addRequiered("title");
+}
+
+
+async function loadContacts() {
+  try {
+      const loadedContacts = await getItem('contacts');
+      if (loadedContacts.data.value) {
+          const contact = JSON.parse(loadedContacts.data.value);
+          console.log('Kontakte erfolgreich geladen:', contact);
+          contacts.push(contact);
+          
+      }
+      return [];
+  } catch (error) {
+      console.error('Fehler beim Laden der Kontakte:', error);
+      return [];
+  }
 }
 
 function addRequiered(where) {
@@ -104,12 +122,16 @@ function openContacts(contactsContainer) {
     .setAttribute("placeholder", "Search contacts");
   contactsOpen = true;
   contactsContainer.innerHTML = "";
-  for (let index = 0; index < contacts.length; index++) {
-    const contact = contacts[index];
+
+  const contactsArray = contacts[0]; 
+
+  for (let index = 0; index < contactsArray.length; index++) {
+    const contact = contactsArray[index];
     let initials = getInitials(contact);
-    contactsContainer.innerHTML += renderDropdownContacts(contact, initials, i);
+    contactsContainer.innerHTML += renderDropdownContacts(contact, initials, index);
   }
 }
+
 
 function getInitials(contact){
   let namesSplit = contact.name.split(" ")
@@ -118,22 +140,27 @@ function getInitials(contact){
     return(firstName + lastName)
 }
 
-function contactSelectToggle(i){
- let img = document.getElementById(`contactSelect(${i})`);
- let notSelectedImg = "/assets/add_task/not_selected.png";  
- let selectedImg = "/assets/add_task/selected.png";
- let activImg = notSelectedImg;
+function contactSelectToggle(i) {
+  let img = document.getElementById(`contactSelect(${i})`);
+  let notSelectedImg = "/assets/add_task/not_selected.png";
+  let selectedImg = "/assets/add_task/selected.png";
 
- if(activImg === notSelectedImg){
-  img.src = selectedImg;
-  activImg = selectedImg
-  selectedContacts.push(contacts[i])
- } else {
-  img.src = notSelectedImg;
-  activImg = notSelectedImg;
-  selectedContacts.slice(contacts[i])
- }
+  // Prüfen, ob der Kontakt bereits ausgewählt ist
+  const isSelected = selectedContacts.some(contact => contact.id === contacts[0][i].id);
+
+  if (!isSelected) {
+    // Kontakt ist nicht ausgewählt, füge ihn dem Array hinzu
+    selectedContacts.push(contacts[0][i]);
+    img.src = selectedImg; // Ändere das Bild, da der Kontakt jetzt ausgewählt ist
+  } else {
+    // Kontakt ist bereits ausgewählt, entferne ihn aus dem Array
+    selectedContacts = selectedContacts.filter(contact => contact.id !== contacts[0][i].id);
+    img.src = notSelectedImg; // Ändere das Bild, da der Kontakt jetzt nicht mehr ausgewählt ist
+  }
 }
+
+
+
 
 function closeContacts(contactsContainer) {
   contactsContainer.classList.add("d-none");
@@ -143,18 +170,6 @@ function closeContacts(contactsContainer) {
   contactsOpen = false;
 }
 
-function searchContacts() {
-  let input = document.getElementById('task_contacts').value.toLowerCase()
-  let contactsContainer = document.getElementById("dropdown_contacts");
-  contactsContainer.innerHTML = ""
-  for (let index = 0; index < contacts.length; index++) {
-    const contact = contacts[index].name.toLowerCase();
-      if(contact.includes(input)){
-        let initials = getInitials(contact)
-        contactsContainer.innerHTML += renderDropdownContacts(contact, initials, index);
-      }
-  }
-}
 
 function toggleCatDrop() {
   let inputField = document.getElementById("task_category");
@@ -185,7 +200,7 @@ function closeCategory(categoryContainer) {
 
 function selectCategory(category){
 document.getElementById('task_category').value = category;
-toggleCatDrop()
+toggleCatDrop();
 }
 
 function toggleSubDrop() {
@@ -198,8 +213,6 @@ function toggleSubDrop() {
 function addSubtask() {
   let text = document.getElementById("task_subtask");
   let title = document.getElementById("task_title");
-  if (text.value !== "") {
-    if (title.value !== "") {
       let subtask = {
         "title": title.value,
         "text": text.value,
@@ -207,14 +220,9 @@ function addSubtask() {
       subtasks.push(subtask);
       text.value = "";
       removeRequiered("title");
-      document.getElementById("subtask_confirm_cancel").style.display = "none"
-      renderSubtask()
-    } else {
-      addRequiered("title");
       document.getElementById("subtask_confirm_cancel").style.display = "none";
-    }
-  }  else document.getElementById("subtask_confirm_cancel").style.display = "none";
-}
+      renderSubtask();
+    };
 
 function removeSubInput(){
  document.getElementById("task_subtask").value = '';
@@ -237,10 +245,31 @@ function addTask(){
     'subtask': subtasks,
     'position': 'todo',
   }
-  tasks.push(task)
+  tasks.push(task);
+  saveTasks();
+
 }
 
+function deleteSubtask(index) {
+  if (index >= 0 && index < subtasks.length) {
+    subtasks.splice(index, 1); // Entferne den Subtask an der angegebenen Position
+    renderSubtask(); // Aktualisiere die Anzeige der Subtasks
+  }
+}
+
+function editSubtask(index) {
+  const subtask = subtasks[index];
+
+  // Setze die Werte des Subtasks in die Inputfelder
+  document.getElementById("task_title").value = subtask.title;
+  document.getElementById("task_subtask").value = subtask.text;
+}
+
+
+
 function renderDropdownContacts(contact, initials, i) {
+  const isSelected = selectedContacts.some(selectedContact => selectedContact.id === contact.id);
+  const imgSrc = isSelected ? "/assets/add_task/selected.png" : "/assets/add_task/not_selected.png";
   return `<div class="dropdown_contact">
                 <div class="contact_name">
                   <svg width="42px" height="42px" xmlns="http://www.w3.org/2000/svg">
@@ -254,8 +283,62 @@ function renderDropdownContacts(contact, initials, i) {
                   </svg>
                   <span>${contact.name}</span>
                 </div>
-                <img id="contactSelect(${i})" onclick="contactSelectToggle(${i})" src="/assets/add_task/not_selected.png">
+                <img id="contactSelect(${i})" onclick="contactSelectToggle(${i})" src="${imgSrc}">
               </div>`;
 }
 
 
+
+function renderSubtask() {
+  const subtasksContainer = document.getElementById("sub");
+
+  // Leere das Container-Element, um es neu zu füllen
+  subtasksContainer.innerHTML = "";
+
+  // Iteriere durch die Subtasks und füge sie dem Container hinzu
+  subtasks.forEach((subtask, index) => {
+    const subtaskElement = createSubtaskElement(subtask, index);
+    subtasksContainer.appendChild(subtaskElement);
+  });
+}
+
+function createSubtaskElement(subtask, index) {
+  // Erstelle ein neues HTML-Element für den Subtask
+  const subtaskElement = document.createElement("div");
+  subtaskElement.classList.add("subtask");
+
+  // Füge den Titel und Text des Subtasks hinzu
+  subtaskElement.innerHTML = `
+    <div class="subtask-title">${subtask.title}</div>
+    <div class="subtask-text">${subtask.text}</div>
+    <div class="subtask-actions">
+      <button onclick="editSubtask(${index})">Editieren</button>
+      <button onclick="deleteSubtask(${index})">Löschen</button>
+    </div>
+  `;
+
+  return subtaskElement;
+}
+
+  async function saveTasks() {
+    console.log(tasks);
+    try {
+        await setItem('tasks', JSON.stringify(tasks));
+    } catch (error) {
+        console.error('Saving error:', error);
+    }
+  }
+
+  async function loadTasks() {
+    try {
+        const loadedTasks = await getItem('tasks');
+        console.log(loadedTasks);
+        if (loadedTasks.data.value) {
+          console.log(loadedTasks);
+            tasks = JSON.parse(loadedTasks.data.value);
+            console.log(tasks);
+            console.log('tasks loaded successfully.');
+        }
+    } catch (error) {
+        console.error('Loading error:', error);
+    }}

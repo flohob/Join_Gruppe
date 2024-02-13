@@ -13,11 +13,12 @@
         
          <!-- Scripts -->
         <script src="./js/includeHTML.js"></script>
-        <script src="./js/add_task.js"></script>
+        <script src="js/storage.js"></script>
+        <script src="js/board.js"></script>
         <script src="js/sidebar.js"></script>
 
 </head>
-<body onload="includeHTML()">
+<body onload="includeHTML(), init()">
     <div w3-include-html="sidebar.html"></div>
     <div class="find_task">
         <input type="text" placeholder="Find task">
@@ -32,6 +33,7 @@
         <div class="to_do">
             <span class="title">To do <img src="./assets/board/plus button.png"></span>
             <div id="task_todo">
+                <div id="render_container"></div>
                 <div id="no_tasks_in_todo" class="no_task">
                     <span>No tasks in todo</span>
                 </div>
@@ -62,6 +64,8 @@
             </div>
         </div>
     </div>
+
+    
 
     <div class="card_big d-none">
         <div class="task_category_big_container">

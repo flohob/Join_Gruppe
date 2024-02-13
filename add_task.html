@@ -13,12 +13,12 @@
 
     <!-- Scripts -->
     <script src="./js/includeHTML.js"></script>
-    <script src="/js/contacts.js"></script>
+    <script src="js/storage.js"></script>
     <script src="/js/add_task.js"></script>
     <script src="js/sidebar.js"></script>
 
   </head>
-  <body onload="includeHTML()">
+  <body onload="includeHTML(), loadContacts(), loadTasks()">
     <div w3-include-html="sidebar.html"></div>
     <div class="add_task_container">
       <form id="title">
@@ -72,7 +72,7 @@
           <span>Assigned to</span><span class="task_optional"> (optional)</span>
         </div>
         <div class="dropdown contact">
-          <input onclick="toggleContDrop()" onkeydown="searchContact()" id="task_contacts" type="text" placeholder="Select contacts to assign">
+          <input onclick="toggleContDrop()"  id="task_contacts" type="text" placeholder="Select contacts to assign">
           <div id="dropdown_contacts" class="d-none"> </div>
         </div>
       </div>
@@ -102,12 +102,13 @@
           </div>
         </div>
       </div>
+      <div id="sub"></div>
       <div class="add_task_option">
         <button onclick="clearForm()" class="option_button" id="task_cancel">
           Clear
           <div class="cancel_img"></div>
         </button>
-        <button onclick="checkForms()" class="option_button" id="task_confirm">
+        <button onclick="addTask()" class="option_button" id="task_confirm">
           Create Task
           <img src="./assets/add_task/confirm_white.png" />
         </button>
