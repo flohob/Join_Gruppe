@@ -48,6 +48,52 @@ font-size: 23px;
   margin-left: 232px;
   padding: 0 64px;
   gap: 24px;
+  height: 100%;
+}
+
+.add_task_container2 {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 440px;
+    height: 88%;
+    padding: 0px 40px 0 0px;
+    gap: 24px;
+    overflow-y: auto;
+      scrollbar-width: thin;
+      scroll-behavior: smooth;
+  
+}
+
+.imgclose {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+
+.add_task_container2 input {
+  width: 408px;
+  height: 38px;
+  padding: 13px 16px;
+  border: none;
+  border-bottom: 1px solid rgba(209, 209, 209, 1);
+  font-size: 32px;
+}
+
+.add_task_container input:hover{
+  border-bottom: 1px solid rgba(69, 137, 255, 1);
+}
+
+.add_task_container2 input::placeholder {
+  color: rgba(209, 209, 209, 1);
+}
+
+.add_task_container2 input:focus-visible {
+  outline: none;
+  border-bottom: 1px solid rgba(69, 137, 255, 1) !important;
 }
 
 .title {
@@ -78,6 +124,12 @@ font-size: 23px;
   gap: 10px;
 }
 
+.card_container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
 .no_task span {
   color: #a8a8a8;
   font-size: 16px;
@@ -90,13 +142,20 @@ font-size: 23px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 30px;
+}
+
+#render_container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .card{
   padding: 16px;
   border-radius: 24px;
   box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+  background-color: white;
 }
 
 .task_category {
@@ -147,10 +206,11 @@ font-size: 23px;
 .card_big{
     display: flex;
 width: 528px;
-padding: 48px 40px;
+padding: 20px 40px;
 flex-direction: column;
 align-items: flex-start;
-gap: 24px;
+max-height: 680px;
+overflow-y: auto;
 border-radius: 30px;
 box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
 position: absolute;
@@ -216,7 +276,7 @@ gap: 25px;
 .contact_big{
     display: flex;
 padding: 7px 16px;
-justify-content: space-between;
+gap: 10px;
 align-items: center;
 border-radius: 10px;
 }
@@ -242,4 +302,96 @@ border-radius: 10px;
     width: 100%;
     align-items: center;
     gap: 8px;
+}
+
+.hidden {
+  display: none;
+}
+
+.draggable {
+  cursor: grab;
+  user-select: none;
+}
+
+.card_container {
+  min-height: 100%; /* Beispiel-Mindesthöhe */
+  background-color: rgb(247, 240, 240) /* Beispiel-Hintergrundfarbe */
+}
+
+.drag-over {
+  border: 2px dashed #4589FF;
+}
+
+.card_big_edit {
+  display: flex;
+  width: 528px;
+  padding: 48px 40px;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  border-radius: 30px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  position: absolute;
+  background-color: white;
+  top: 97px;
+  left: 25%;
+}
+
+.card_big_edit form {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+/* Füge diese CSS-Regeln hinzu */
+
+#dropdown_editContacts {
+  position: absolute;
+  background-color: white;
+  min-width: 90%;
+  max-height: 280px;
+  z-index: 1;
+  overflow-y: auto;
+  border-radius: 0 0 8px 8px;
+}
+
+#dropdown_editContacts span {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 19px;
+  font-weight: 400;
+  color: black;
+  font-family: 'Open Sans';
+  display: block;
+}
+
+#dropdown_editContacts span:hover {
+  background-color: rgba(210, 227, 255, 1);
+}
+
+.editBTN {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  gap: 10px;
+
+}
+
+.editBTN button {
+  width: 50px;
+  height: 20px;
+}
+
+.editBTN:hover {
+  cursor: pointer;
+}
+
+.board_intitials {
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

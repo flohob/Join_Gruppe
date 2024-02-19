@@ -3,7 +3,6 @@ let categoryOpen = false;
 let selectedContacts = [];
 let subtasks = [];
 let prioity = "medium";
-let tasks = [];
 let contacts = [];
 
 
@@ -159,35 +158,6 @@ function contactSelectToggle(i) {
   }
 }
 
-function addTask() {
-  let description = document.getElementById('task_description').value;
-  let title = document.getElementById('task_title').value;
-  let date = document.getElementById('task_date').value;
-  let category = document.getElementById('task_category').value;
-
-  if (description === "") {
-    description = 'Keine Beschreibung';
-  }
-
-  // Extrahiere nur die Namen der ausgewählten Kontakte
-  let selectedContactsNames = selectedContacts.map(contact => contact.name);
-
-  let task = {
-    'title': title,
-    'description': description,
-    'date': date,
-    'priority': prioity,
-    'contacts': selectedContactsNames, 
-    'category': category,
-    'subtask': subtasks,
-    'position': 'todo',
-  };
-  
-
-  tasks.push(task);
-  saveTasks();
-  clearForm();
-}
 
 
 
@@ -239,128 +209,101 @@ function toggleSubDrop() {
   }
 }
 
-function addSubtask() {
-  let text = document.getElementById("task_subtask");
-  let title = document.getElementById("task_title");
-
-  // Füge einen neuen Subtask hinzu
-  let subtask = {
-    "title": title.value,
-    "text": text.value,
-  };
-  subtasks.push(subtask);
-
-  text.value = "";
-  removeRequiered("title");
-  document.getElementById("subtask_confirm_cancel").style.display = "none";
-  renderSubtask();
-}
-
-
-
-function removeSubInput(){
- document.getElementById("task_subtask").value = '';
- document.getElementById("subtask_confirm_cancel").style.display = "none"
-}
-
-
-function deleteSubtask(index) {
-  if (index >= 0 && index < subtasks.length) {
-    subtasks.splice(index, 1); // Entferne den Subtask an der angegebenen Position
-    renderSubtask(); // Aktualisiere die Anzeige der Subtasks
-  }
-}
-
-function editSubtask(index) {
-  const subtask = subtasks[index];
-
-  // Setze die Werte des Subtasks in die Inputfelder
-  document.getElementById("task_title").value = subtask.title;
-  document.getElementById("task_subtask").value = subtask.text;
-  
-  // Entferne den bearbeiteten Subtask aus dem subtasks-Array
-  subtasks.splice(index, 1);
-
-  // Aktualisiere die dargestellten Subtasks
-  renderSubtask();
-}
-
-
-
 function renderDropdownContacts(contact, initials, i) {
-  const isSelected = selectedContacts.some(selectedContact => selectedContact.id === contact.id);
-  const imgSrc = isSelected ? "/assets/add_task/selected.png" : "/assets/add_task/not_selected.png";
-  return `<div class="dropdown_contact">
-                <div class="contact_name">
-                  <svg width="42px" height="42px" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Äußerer Kreis -->
-                    <circle cx="21px" cy="21px" r="20px" stroke="white" stroke-width="3" fill="transparent" />
-                    <!-- Innerer Kreis -->
-                    <circle cx="21px" cy="21px" r="19px" fill="${contact.color}" />
-                    <text fill="white" x="21px" y="23px"  alignment-baseline="middle" text-anchor="middle" >
-                        ${initials}
-                      </text>
-                  </svg>
-                  <span>${contact.name}</span>
-                </div>
-                <img id="contactSelect(${i})" onclick="contactSelectToggle(${i})" src="${imgSrc}">
-              </div>`;
-}
+    const isSelected = selectedContacts.some(selectedContact => selectedContact.id === contact.id);
+    const imgSrc = isSelected ? "/assets/add_task/selected.png" : "/assets/add_task/not_selected.png";
+    return `<div class="dropdown_contact">
+                  <div class="contact_name">
+                    <svg width="42px" height="42px" xmlns="http://www.w3.org/2000/svg">
+                      <!-- Äußerer Kreis -->
+                      <circle cx="21px" cy="21px" r="20px" stroke="white" stroke-width="3" fill="transparent" />
+                      <!-- Innerer Kreis -->
+                      <circle cx="21px" cy="21px" r="19px" fill="${contact.color}" />
+                      <text fill="white" x="21px" y="23px"  alignment-baseline="middle" text-anchor="middle" >
+                          ${initials}
+                        </text>
+                    </svg>
+                    <span>${contact.name}</span>
+                  </div>
+                  <img id="contactSelect(${i})" onclick="contactSelectToggle(${i})" src="${imgSrc}">
+                </div>`;
+  }
 
+  
+  function renderSubtask() {
+    const subtasksContainer = document.getElementById("sub");
+  
+    // Leere das Container-Element, um es neu zu füllen
+    subtasksContainer.innerHTML = "";
+  
+    // Iteriere durch die Subtasks und füge sie dem Container hinzu
+    subtasks.forEach((subtask, index) => {
+      const subtaskElement = createSubtaskElement(subtask, index);
+      subtasksContainer.appendChild(subtaskElement);
+    });
+  }
+  
+  function createSubtaskElement(subtask, index) {
+    // Erstelle ein neues HTML-Element für den Subtask
+    const subtaskElement = document.createElement("div");
+    subtaskElement.classList.add("subtask");
+  
+    // Füge den Titel und Text des Subtasks hinzu
+    subtaskElement.innerHTML = `
+      <div class="subtask-title">${subtask.title}</div>
+      <div class="subtask-text">${subtask.text}</div>
+      <div class="subtask-actions">
+        <img src="assets/add_task/edit.png" class="edit_addtask_sub" onclick="editSubtask(${index})">
+        <img src="assets/add_task/cancel_blue.png" class="btn-close" onclick="deleteSubtask(${index})">
+      </div>
+    `;
+  
+    return subtaskElement;
+  }
 
-
-function renderSubtask() {
-  const subtasksContainer = document.getElementById("sub");
-
-  // Leere das Container-Element, um es neu zu füllen
-  subtasksContainer.innerHTML = "";
-
-  // Iteriere durch die Subtasks und füge sie dem Container hinzu
-  subtasks.forEach((subtask, index) => {
-    const subtaskElement = createSubtaskElement(subtask, index);
-    subtasksContainer.appendChild(subtaskElement);
-  });
-}
-
-function createSubtaskElement(subtask, index) {
-  // Erstelle ein neues HTML-Element für den Subtask
-  const subtaskElement = document.createElement("div");
-  subtaskElement.classList.add("subtask");
-
-  // Füge den Titel und Text des Subtasks hinzu
-  subtaskElement.innerHTML = `
-    <div class="subtask-title">${subtask.title}</div>
-    <div class="subtask-text">${subtask.text}</div>
-    <div class="subtask-actions">
-      <img src="assets/add_task/edit.png" class="edit_addtask_sub" onclick="editSubtask(${index})">
-      <img src="assets/add_task/cancel_blue.png" class="btn-close" onclick="deleteSubtask(${index})">
-    </div>
-  `;
-
-  return subtaskElement;
-}
-
-  async function saveTasks() {
-    console.log(tasks);
-    try {
-        await setItem('tasks', JSON.stringify(tasks));
-    } catch (error) {
-        console.error('Saving error:', error);
+  function addSubtask() {
+    let text = document.getElementById("task_subtask");
+    let title = document.getElementById("task_title");
+  
+    // Füge einen neuen Subtask hinzu
+    let subtask = {
+      "title": title.value,
+      "text": text.value,
+    };
+    subtasks.push(subtask);
+  
+    text.value = "";
+    removeRequiered("title");
+    document.getElementById("subtask_confirm_cancel").style.display = "none";
+    renderSubtask();
+  }
+  
+  
+  
+  function removeSubInput(){
+   document.getElementById("task_subtask").value = '';
+   document.getElementById("subtask_confirm_cancel").style.display = "none"
+  }
+  
+  
+  
+  function deleteSubtask(index) {
+    if (index >= 0 && index < subtasks.length) {
+      subtasks.splice(index, 1); // Entferne den Subtask an der angegebenen Position
+      renderSubtask(); // Aktualisiere die Anzeige der Subtasks
     }
   }
-
   
-
-  async function loadTasks() {
-    try {
-        const loadedTasks = await getItem('tasks');
-        console.log(loadedTasks);
-        if (loadedTasks.data.value) {
-          console.log(loadedTasks);
-            tasks = JSON.parse(loadedTasks.data.value);
-            console.log(tasks);
-            console.log('tasks loaded successfully.');
-        }
-    } catch (error) {
-        console.error('Loading error:', error);
-    }}
+  function editSubtask(index) {
+    const subtask = subtasks[index];
+  
+    // Setze die Werte des Subtasks in die Inputfelder
+    document.getElementById("task_title").value = subtask.title;
+    document.getElementById("task_subtask").value = subtask.text;
+    
+    // Entferne den bearbeiteten Subtask aus dem subtasks-Array
+    subtasks.splice(index, 1);
+  
+    // Aktualisiere die dargestellten Subtasks
+    renderSubtask();
+  }

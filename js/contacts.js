@@ -172,7 +172,7 @@ function saveEditedContact() {
   contacts[currentEditIndex].phone = editedPhone;
   saveContacts();
   renderContacts();
-  showContactInfo(currentEditIndex); // Hier wird showContactInfo mit dem Index des bearbeiteten Kontakts aufgerufen
+  showContactInfo(currentEditIndex); 
   toggleEditOverlay();
 }
 
@@ -181,7 +181,7 @@ function deleteContact() {
     contacts.splice(currentEditIndex, 1);
     saveContacts();
     renderContacts();
-    showContactInfo(contacts.length > 0 ? 0 : null); // Hier wird showContactInfo mit dem Index des ersten verbleibenden Kontakts aufgerufen oder null, wenn keine Kontakte mehr vorhanden sind
+    showContactInfo(contacts.length > 0 ? 0 : null); 
     toggleEditOverlay();
   }
 }
