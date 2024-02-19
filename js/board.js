@@ -1,5 +1,5 @@
 tasksloaded = [];
-let tasks = []; // Füge dies am Anfang deines Codes hinzu
+let tasks = [];
 const containerIds = ['todo', 'task_in_progress', 'task_await_feedback', 'task_done'];
 
 async function loadTasks() {
@@ -412,7 +412,7 @@ function addTask() {
       'contacts': selectedContactsNames, 
       'category': category,
       'subtask': subtasks,
-      'position': 'todo',
+      'position': currentContainer,
     };
     
   

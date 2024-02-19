@@ -33,7 +33,7 @@
     </div>
     <div class="titles">
         <div class="to_do">
-            <span class="title">To do <img src="./assets/board/plus button.png" onclick="openAddTask('todo')"></span>
+            <span class="title">To do <img src="./assets/board/plus button.png" onclick="openAddTask(todo)"></span>
             <div id="todo" class="card_container draggable" ondragover="handleDragOver(event)" ondrop="handleDrop(event)"></div>
             <div id="no_task_todo" class="no_task hidden">
                 <span>No tasks in todo</span>
@@ -41,7 +41,7 @@
         </div>
         
         <div class="in_progress">
-            <span class="title">In Progress <img src="./assets/board/plus button.png" onclick="openAddTask('in_progress')"></span>
+            <span class="title">In Progress <img src="./assets/board/plus button.png" onclick="openAddTask('task_in_progress')"></span>
             <div id="task_in_progress" class="card_container draggable" ondragover="handleDragOver(event)" ondrop="handleDrop(event)"></div>
             <div id="no_task_in_progress" class="no_task hidden">
                 <span>No tasks in progress</span>
@@ -49,7 +49,7 @@
         </div>
         
         <div class="await_feedback">
-            <span class="title">Await feedback <img src="./assets/board/plus button.png" onclick="openAddTask('await_feedback')"></span>
+            <span class="title">Await feedback <img src="./assets/board/plus button.png" onclick="openAddTask('task_await_feedback')"></span>
             <div id="task_await_feedback" class="card_container draggable" ondragover="handleDragOver(event)" ondrop="handleDrop(event)"></div>
             <div id="no_task_await_feedback" class="no_task hidden">
                 <span>No tasks await feedback</span>
@@ -57,7 +57,7 @@
         </div>
         
         <div class="done">
-            <span class="title">Done <img src="./assets/board/plus button.png" onclick="openAddTask('done')"></span>
+            <span class="title">Done <img src="./assets/board/plus button.png" onclick="openAddTask('task_done')"></span>
             <div id="task_done" class="card_container draggable" ondragover="handleDragOver(event)" ondrop="handleDrop(event)"></div>
             <div id="no_task_done" class="no_task hidden">
                 <span>No tasks done</span>
