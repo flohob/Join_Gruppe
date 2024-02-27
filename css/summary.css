@@ -1,12 +1,12 @@
 .summary_container {
   margin-left: 380px;
   margin-top: 50px;
-  height: 591px;
+  height: 84vh;
   width: 912px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+gap: 20px;
 }
 
 .number {
@@ -17,7 +17,7 @@
 
 .headline {
   display: flex;
-  width: 745px;
+
   height: 77px;
   gap: 22px;
   font-size: 48px;
@@ -40,13 +40,13 @@
 
 .task_container img {
   height: 76px;
-  width: 76px;
+  
 }
 
 .task_urgent {
   cursor: pointer;
   color: white;
-  width: 576px;
+
   height: 135px;
   background-color: rgba(69, 137, 255, 1);
   border-radius: 30px;
@@ -77,7 +77,7 @@
 .task_urgent_right {
   display: flex;
   flex-direction: column;
-  width: 274px;
+ 
   height: 81px;
   gap: 13px;
 }
@@ -88,7 +88,7 @@
 }
 
 .task_urgent_info {
-  width: 140px;
+
   height: 113px;
   display: flex;
   flex-direction: column;
@@ -98,7 +98,7 @@
 }
 
 .tasks_img {
-  width: 124px;
+
   height: 76px;
   display: flex;
   align-items: center;
@@ -106,7 +106,7 @@
 }
 
 .task_board {
-  width: 128px !important;
+ 
   height: 111px !important;
 }
 
@@ -139,7 +139,7 @@
 }
 
 
-@media (max-width: 1000px) {
+@media (max-width: 1325px) {
 
   .sidebar {
       display: none;
@@ -147,4 +147,52 @@
   
   .mobilebar_resp {
       display: flex !important;
-  }}
+  }
+
+  .summary_container {
+    margin-left: 20px;
+    margin-top: 40px;
+    height: 591px;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task_urgent {
+  cursor: pointer;
+  color: white;
+  height: 135px;
+  background-color: rgba(69, 137, 255, 1);
+  border-radius: 30px;
+  padding: 28px 10px;
+  gap: 35px;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);}
+
+.task_container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 442px;
+  justify-content: space-between;
+  align-content: space-between;
+  margin-left: 0px;
+  overflow-y: auto;
+}
+
+.tasks {
+  width: 90px;
+}
+
+.task_urgent_right span {
+  font-size: 12px;
+}
+
+.headline {
+  width: 100%;
+}
+}

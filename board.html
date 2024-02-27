@@ -15,16 +15,18 @@
     <!-- Scripts -->
     <script src="./js/includeHTML.js"></script>
     <script src="js/storage.js"></script>
-    <script src="js/board.js"></script>
     <script src="js/board_addtask.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/board.js"></script>
     <script src="js/sidebar.js"></script>
 </head>
 <body onload="includeHTML(), init()">
-    <div class="sidebar" w3-include-html="sidebar.html"></div>
+  <div class="sidebar" w3-include-html="sidebar.html"></div>
+  <div class="mobilebar_resp noshow" w3-include-html="mobilebar.html"></div>
     
     <div class="find_task">
         <input type="text" id="search_input" placeholder="Find task" oninput="searchTask()">
-        <button onclick="openAddTask()">Add task 
+        <button onclick="openAddTask('todo')">Add task 
             <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
                 <path d="M8.5 1V16" stroke="white" stroke-width="2" stroke-linecap="round"/>
                 <path d="M16 8.6416L1 8.6416" stroke="white" stroke-width="2" stroke-linecap="round"/>
@@ -33,7 +35,7 @@
     </div>
     <div class="titles">
         <div class="to_do">
-            <span class="title">To do <img src="./assets/board/plus button.png" onclick="openAddTask(todo)"></span>
+            <span class="title">To do <img src="./assets/board/plus button.png" onclick="openAddTask('todo')"></span>
             <div id="todo" class="card_container draggable" ondragover="handleDragOver(event)" ondrop="handleDrop(event)"></div>
             <div id="no_task_todo" class="no_task hidden">
                 <span>No tasks in todo</span>
@@ -66,6 +68,10 @@
     </div>
 
     <div id="info_container"></div>
+    <div id="task_added_board" class="d-none">
+      Task added to board
+      <img src="../assets/add_task/board_white.png">
+    </div>
 
     <div id="imgclose"  class="card_big d-none">
         <div id="imgclose" class="imgclose"> <img onclick="closeAddTask()" src="assets/add_task/cancel_blue.png" alt=""></div>
@@ -79,14 +85,14 @@
                   <span>Description</span><span class="task_optional"> (optional)</span>
                 </div>
                 <div class="task_description_container">
-                  <textarea id="task_description" cols="30" rows="10" placeholder="Enter a description" required></textarea>
+                  <textarea id="task_description" cols="30" rows="10" placeholder="Enter a description"></textarea>
                   <img class="resizer" src="./assets/add_task/resizer.png">
                   </div>
             <form id="date">
               <div class="title_gap">   
                 <span>Due date</span>
                 <div class="date-div">             
-                  <input type="date" onchange="changeTextColor()" id="task_date" class="custom-date-input" max="2099-12-31" required>
+                  <input type="date" onchange="changeTextColor()" id="task_date" class="custom-date-input" min="2024-02-22" max="2099-12-31" required>
                   <div id="date_reqiuered" class="field_requiered d-none">This field is required</div>
                 </div>         
               </div>
@@ -125,11 +131,13 @@
                 <div id="dropdown_contacts" class="d-none"> </div>
               </div>
             </div>
+
+            <div id="rendercontacts_container_small2"></div>
             <form id="category">
               <div class="title_gap">
                 <span>Category</span>
                 <div class="dropdown category">
-                  <input onclick="toggleCatDrop()" id="task_category" type="text" placeholder="Select task category" required>
+                  <input onclick="toggleCatDrop()" id="task_category" type="text" placeholder="Select task category">
                   <div id="category_reqiuered" class="field_requiered d-none">This field is required</div>
                   <div id="dropdown_category" class="d-none">
                     <span onclick="selectCategory('Technical Task')">Technical Task</span>
@@ -152,10 +160,6 @@
               </div>
             </div>
             <div id="sub"></div>
-            <div id="task_added">
-              Task added to board
-              <img src="/assets/add_task/board_white.png">
-            </div>
           </div>
           <div class="add_task_option">
             <button onclick="clearForm()" class="option_button" id="task_cancel">
@@ -168,5 +172,114 @@
             </button>
           </div>
     </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="card_big d-none" id="editTaskOverlay">
+  <div class="add_task_container2">
+  <form id="edit_title">
+    <input type="text" id="edit_task_title" class="task_title" placeholder="Edit title"/>
+    <div id="edit_title_required" class="field_required d-none">This field is required</div>
+  </form>
+  <div class="title_gap">
+    <div>
+      <span class="task_optional">Edit Description</span><span class="task_optional"> (optional)</span>
+    </div>
+    <div class="task_description_container">
+      <textarea id="edit_task_description" class="task_description" cols="30" rows="10" placeholder="Edit description"></textarea>
+      <img class="resizer" src="./assets/add_task/resizer.png">
+    </div>
+  </div>
+  <form id="edit_date">
+    <div class="title_gap">   
+      <span class="task_optional">Edit Due date</span>
+      <div class="date-div">             
+        <input type="date" id="edit_task_date" class="custom-date-input" min="2024-02-22" max="2099-12-31 required">
+        <div id="edit_date_required" class="field_required d-none">This field is required</div>
+      </div>         
+    </div>
+  </form>
+  <div class="title_gap">
+    <span class="task_optional">Edit Priority</span>
+    <div class="priority_button_container">
+      <button onclick="changePrioEdit('urgent')" id="urgent_edit" class="button_prio hover_urgent edit_selected" data-priority="urgent">
+        Urgent
+        <svg id="urgent_svg" xmlns="http://www.w3.org/2000/svg" width="30px" height="21px" fill="#FF3D00" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708z"/>
+          <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+        </svg>
+      </button>
+      <button onclick="changePrioEdit('medium')" id="medium_edit" class="button_prio hover_medium medium edit_selected" data-priority="medium">
+        Medium
+        <svg id="medium_svg" xmlns="http://www.w3.org/2000/svg" width="45px" height="30px" fill="white" class="bi bi-pause" viewBox="0 0 16 16">
+          <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5"/>
+        </svg>
+      </button>
+      <button onclick="changePrioEdit('low')" id="low_edit" class="button_prio hover_low edit_selected" data-priority="low">
+        Low
+        <svg id="low_svg" xmlns="http://www.w3.org/2000/svg" width="30px" height="21px" fill="#7AE229" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+          <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  
+  <div class="title_gap">
+    <div>
+      <span>Assigned to</span><span class="task_optional"> (optional)</span>
+    </div>
+    <div class="dropdown contact">
+      <input onclick=" toggleContactsDropdown();"  id="task_contacts" type="text" placeholder="Select contacts to assign">
+      <div id="dropdown_contacts2" class="d-none"></div>
+      <div id="rendercontacts_container_small3" class="rendercontacts_container_small3"></div>
+    </div>
+  </div>
+  <form id="category2">
+    <div class="title_gap">
+      <span>Category</span>
+      <div class="dropdown category2">
+        <input onclick="toggleCategoryDropdown()" id="task_category_edit" type="text" placeholder="Select task category">
+        <div id="category_reqiuered" class="field_requiered d-none">This field is required</div>
+        <div id="dropdown_category2" class="noshowEdit" onchange="selectCategory(this.value)">
+          <span onclick="selectCategory2('Technical Task')">Technical Task</span>
+          <span onclick="selectCategory2('User Story')">User Story</span>
+        </select>
+      </div>
+    </div>
+  </form>
+  
+  <div class="title_gap">
+    <div>
+      <span class="task_optional">Edit Subtask</span><span class="task_optional"> (optional)</span>
+    </div>
+    <div class="dropdown subtask">
+      <input onclick="toggleEditSubDrop()" id="edit_task_subtask" class="task_subtask" type="text" placeholder="Add new subtask">
+      <div id="edit_subtask_confirm_cancel" class="confirm_cancel noshow">
+        <div class="confirm" onclick="addEditSubtask()"></div>
+        <div class="spacer"></div>
+        <div class="cancel" onclick="removeEditSubInput()"></div>
+      </div>
+    </div>
+  </div>
+  <div id="edit_sub" class="sub"></div>
+  <div class="edit_task_option">
+    <button onclick="cancelEdit()" class="option_button" id="edit_task_cancel">
+      Cancel
+      <div class="cancel_img"></div>
+    </button>
+    <button onclick="saveEditTask()" class="option_button" id="edit_task_confirm">
+      Save Changes
+      <img src="./assets/add_task/confirm_white.png" />
+    </button>
+  </div>
+</div>
+</div>
+
 </body>
+
 </html>

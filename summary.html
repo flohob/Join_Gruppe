@@ -11,19 +11,21 @@
 
     <!-- Scripts -->
     <script src="./js/includeHTML.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/summary.js"></script>
     <script src="js/sidebar.js"></script>
 
 
 </head>
-<body onload="includeHTML()">
+<body onload="includeHTML(), loadTasks()">
     <div class="sidebar" w3-include-html="sidebar.html"></div>
     <div class="mobilebar_resp noshow" w3-include-html="mobilebar.html"></div>
     <div class="summary_container">
         <div class="headline">
-            <span>Good morning,</span><span class="headline_name"></span>
+            <span>Hello</span><span id="currentUser" class="headline_name"></span>
         </div>
         <div class="task_container">
-            <div class="task_urgent">
+            <div class="task_urgent" onclick="redirettoBoard ()">
                 <div class="task_urgent_info">
                     <div class="tasks_img"> 
                         <img src="./assets/summary/task_urgent_border.png">
@@ -32,43 +34,43 @@
                     <span>Task Urgent</span>
                 </div>
                 <div class="task_urgent_spacer"></div>
-                <div class="task_urgent_right">
-                    <span id="task_urgent_date">October 16, 2022</span>
+                <div class="task_urgent_right" onclick="redirettoBoard ()">
+                    <span id="task_urgent_date">March 16, 2024</span>
                     <span>Upcoming Deadline</span>
                 </div>
             </div>
             <div class="tasks task_board">
                 <div class="tasks_img">
                     <img src="./assets/summary/task_in_board.png">
-                    <span class="number" id="task_board_number">5</span>
+                    <span class="number" id="task_board_number"></span>
                 </div>
                 <span>Task in Board</span>
             </div>
-            <div class="tasks">
+            <div class="tasks" onclick="redirettoBoard ()">
                 <div class="tasks_img">
                     <img src="./assets/summary/task_todo.png">
-                    <span class="number" id="task_todod_number">1</span>
+                    <span class="number" id="task_todod_number"></span>
                 </div>
                 <span>Tasks To-do</span>
             </div>
-            <div class="tasks">
+            <div class="tasks" onclick="redirettoBoard ()">
                 <div class="tasks_img">
                     <img src="./assets/summary/task_in_progress.png">
-                    <span class="number" id="task_progress_number">2</span>
+                    <span class="number" id="task_progress_number"></span>
                 </div>
                 <span>Tasks in Progress</span>
             </div>
-            <div class="tasks">
+            <div class="tasks" onclick="redirettoBoard ()">
                 <div class="tasks_img">
                     <img src="./assets/summary/await_feedback.png">
-                    <span class="number" id="await_feedback_number">2</span>
+                    <span class="number" id="await_feedback_number"></span>
                 </div >
                 <span>Await Feedback</span>
             </div>
-            <div class="tasks">
+            <div class="tasks" onclick="redirettoBoard ()">
                 <div class="tasks_img">
                     <img src="./assets/summary/task_done.png">
-                    <span class="number" id="task_done_number">1</span>
+                    <span class="number" id="task_done_number"></span>
                 </div>
                 <span>Tasks Done</span>
             </div>

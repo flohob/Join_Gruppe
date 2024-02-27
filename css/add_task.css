@@ -10,6 +10,25 @@ body {
   display: none !important;
 }
 
+/* CSS-Stil für die Animation */
+@keyframes your-animation-name {
+  /* Definition der Animationsschlüsselbilder */
+  from {
+      /* Stil des Startzustands */
+      opacity: 0;
+  }
+  to {
+      /* Stil des Endzustands */
+      opacity: 1;
+  }
+}
+
+.your-animation-class {
+  /* Anwenden der Animation auf das Element */
+  animation: your-animation-name 1s ease; /* Ändern Sie die Zeit und den Timing-Funktion nach Bedarf */
+}
+
+
 .add_task_container {
   margin-left: 232px;
   display: flex;
@@ -105,7 +124,7 @@ body {
 
 input[type="date"]::-webkit-calendar-picker-indicator {
   -webkit-appearance: none;
-  background-image: url('/assets/add_task/calender.png');
+  background-image: url('../assets/add_task/calender.png');
   background-repeat: no-repeat;
   background-position: right center
 }
@@ -171,7 +190,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 24px;
   padding: 12px 18px;
   font-size: 19px;
-  background-image: url("/assets/add_task/arow_drop_down.png");
+  background-image: url("../assets/add_task/arow_drop_down.png");
   background-position: right center;
   background-repeat: no-repeat;
   background-size: 24px 24px;
@@ -183,15 +202,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .dropdown input:hover {
-  background-image: url("/assets/add_task/arrow_drop_down_hover.png");
+  background-image: url("../assets/add_task/arrow_drop_down_hover.png");
 }
 
 .dropdown input:focus-visible{
-  background-image: url('/assets/add_task/arrow_dropdown_close.png');
+  background-image: url('../assets/add_task/arrow_dropdown_close.png');
 }
 
 .dropdown input:focus-visible:hover{
-  background-image: url('/assets/add_task/arrow_dropdown_close_hover.png');
+  background-image: url('../assets/add_task/arrow_dropdown_close_hover.png');
 }
 
 #dropdown_contacts {
@@ -258,11 +277,11 @@ background-color: rgba(210, 227, 255, 1);
 }
 
 .subtask input {
-  background-image: url("/assets/add_task/add.png");
+  background-image: url("../assets/add_task/add.png");
 }
 
 .subtask input:hover {
-  background-image: url("/assets/add_task/add_hover.png");
+  background-image: url("../assets/add_task/add_hover.png");
 }
 
 .subtask input::placeholder {
@@ -294,7 +313,7 @@ background-color: rgba(210, 227, 255, 1);
 .confirm {
   width: 24px;
   height: 24px;
-  background-image: url("/assets/add_task/confirm_blue.png");
+  background-image: url("../assets/add_task/confirm_blue.png");
   background-position: right center;
   background-repeat: no-repeat;
   cursor: pointer;
@@ -303,18 +322,18 @@ background-color: rgba(210, 227, 255, 1);
 .cancel {
   width: 24px;
   height: 24px;
-  background-image: url("/assets/add_task/cancel_blue.png");
+  background-image: url("../assets/add_task/cancel_blue.png");
   background-position: right center;
   background-repeat: no-repeat;
   cursor: pointer;
 }
 
 .confirm:hover {
-  background-image: url("/assets/add_task/confirm_hover.png");
+  background-image: url("../assets/add_task/confirm_hover.png");
 }
 
 .cancel:hover {
-  background-image: url("/assets/add_task/cancel_hover.png");
+  background-image: url("../assets/add_task/cancel_hover.png");
 }
 
 .add_task_option {
@@ -342,7 +361,7 @@ background-color: rgba(210, 227, 255, 1);
 .cancel_img {
   width: 24px;
   height: 24px;
-  background-image: url("/assets/add_task/cancel_gray.png");
+  background-image: url("../assets/add_task/cancel_gray.png");
 }
 
 #task_cancel {
@@ -360,7 +379,7 @@ background-color: rgba(210, 227, 255, 1);
 }
 
 #task_cancel:hover .cancel_img {
-  background-image: url("/assets/add_task/cancel_blue.png");
+  background-image: url("../assets/add_task/cancel_blue.png");
 }
 
 #task_confirm {
@@ -387,7 +406,7 @@ background-color: rgba(210, 227, 255, 1);
 
 
 #task_added{
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
@@ -400,7 +419,7 @@ background-color: rgba(210, 227, 255, 1);
   font-size: 23px;
   position: absolute;
   right: 35%;
-  top: 100%;
+  top: 50%;
   transition: top 0.5s ease-in-out;
 }
 
@@ -441,7 +460,7 @@ background-color: rgba(210, 227, 255, 1);
     flex-direction: column;
     align-items: flex-start;
     width: 85%;
-    height: 60%;
+    height: 65%;
     padding: 48px 24px 0 24px;
     gap: 24px;
     overflow-y: auto;
@@ -487,7 +506,7 @@ gap: 10px;
 @media (max-width: 450px) {
 
   .button_prio {
-    width: 88px;
+    width: 78px;
     height: 51px;
   gap: 10px;
     font-size: 11px;

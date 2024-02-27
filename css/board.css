@@ -7,6 +7,10 @@ body {
     display: none !important;
 }
 
+.noshow {
+  display: none;
+}
+
 .find_task {
   display: flex;
   justify-content: flex-start;
@@ -15,6 +19,34 @@ body {
   height: 51px;
   padding: 72px 0 48px 64px;
   gap: 47px;
+}
+
+.edit_remove_subtask {
+  
+}
+
+#task_added_board{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background-color: rgba(69, 137, 255, 1);
+  border-radius: 20px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  width: 326px;
+  height: 74px;
+  color: white;
+  font-size: 23px;
+  position: absolute;
+  right: 35%;
+  top: 50%;
+  transition: top 0.5s ease-in-out;
+}
+
+.confirm_cancel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .find_task input {
@@ -48,8 +80,72 @@ font-size: 23px;
   margin-left: 232px;
   padding: 0 64px;
   gap: 24px;
-  height: 100%;
+  height: 60%;
+  overflow-y: auto;
 }
+
+
+
+.imgclose {
+position: relative;
+width: 100%;
+display: flex;
+justify-content: flex-end;
+padding-top: 20px;
+}
+
+.add_task_container3 input {
+width: 408px;
+height: 38px;
+padding: 13px 16px;
+border: none;
+border-bottom: 1px solid rgba(209, 209, 209, 1);
+font-size: 32px;
+}
+
+.add_task_containe3 input:hover{
+border-bottom: 1px solid rgba(69, 137, 255, 1);
+}
+
+.add_task_container3 input::placeholder {
+color: rgba(209, 209, 209, 1);
+}
+
+.add_task_container2 input:focus-visible {
+outline: none;
+border-bottom: 1px solid rgba(69, 137, 255, 1) !important;
+}
+
+.edit_input {
+  width: 408px;
+  height: 38px;
+  padding: 13px 16px;
+  border: none;
+  border-bottom: 1px solid rgba(209, 209, 209, 1);
+  font-size: 32px;
+}
+
+.edit_description {
+  resize: none;
+    width: 90%;
+    height: 75px;
+    border: 1px solid rgba(209, 209, 209, 1);
+    border-radius: 0 10px 10px 10px;
+    position: relative;
+    font-size: 19px;
+    padding: 18px 10px 10px 16px;
+}
+
+.edit_date {
+  cursor: pointer;
+    width: 90%;
+    height: 24px;
+    padding: 12px 18px;
+    font-size: 19px;
+    color: rgba(209, 209, 209, 1);
+    font-family: "Open Sans";
+}
+
 
 .add_task_container2 {
     
@@ -98,7 +194,7 @@ font-size: 23px;
 
 .title {
   display: flex;
-  width: 244px;
+  
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
@@ -108,6 +204,7 @@ font-size: 23px;
   font-style: normal;
   font-weight: 700;
   padding-bottom: 16px;
+  min-width: 240px;
 }
 
 .no_task {
@@ -128,6 +225,7 @@ font-size: 23px;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  min-width: 200px;
 }
 
 .no_task span {
@@ -156,7 +254,51 @@ font-size: 23px;
   border-radius: 24px;
   box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
   background-color: white;
+  width: 70%;
+  max-width: 250px;
 }
+
+#dropdown_contacts2 {
+  position: absolute;
+  background-color: white;
+  min-width: 90%;
+  max-height: 280px;
+  z-index: 1;
+  overflow-y: auto;
+  border-radius: 0 0 8px 8px;
+}
+
+
+@keyframes slideInAnimation {
+  from {
+      transform: translateX(100%);
+  }
+  to {
+      transform: translateX(0);
+  }
+}
+
+/* Fügen Sie dies zu Ihrer vorhandenen CSS-Datei hinzu */
+.dropdown-content {
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.contact-item {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.contact-item:hover {
+  background-color: #ddd;
+}
+
+
+.slide-in {
+  animation: slideInAnimation 2s forwards;}
 
 .task_category {
   display: flex;
@@ -183,12 +325,44 @@ font-size: 23px;
   font-weight: 400;
 }
 
+.title_gap {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+}
 .task_subtask {
   color: #000;
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
 }
+
+#dropdown_category2 {
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  max-height: 280px;
+  z-index: 1;
+  overflow-y: auto;
+  border-radius: 0 0 8px 8px;
+  display: flex;
+  flex-direction: column;
+ 
+  padding: 13px 16px;
+  border: none;
+  border-bottom: 1px solid rgba(209, 209, 209, 1);
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+#dropdown_category2 span {
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 19px;
+  font-weight: 400;
+  color: black;
+  font-family: 'Open Sans';}
 
 .task_contacts_prio {
   display: flex;
@@ -217,6 +391,23 @@ position: absolute;
 background-color: white;
 top: 97px;
 left: 25%;
+}
+
+.card_big_info{
+  display: flex;
+width: 528px;
+padding: 20px 40px;
+flex-direction: column;
+align-items: flex-start;
+max-height: 680px;
+overflow-y: auto;
+border-radius: 30px;
+box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+position: absolute;
+background-color: white;
+top: 97px;
+left: 25%;
+gap: 25px;
 }
 
 .task_category_big_container{
@@ -249,6 +440,10 @@ font-weight: 700;
 
 .task_date_big{
 gap: 25px;
+}
+
+.rendercontacts_container_small3 {
+  margin-top: 10px;
 }
 
 .task_date_big span{
@@ -315,8 +510,12 @@ border-radius: 10px;
 
 .card_container {
   min-height: 100%; /* Beispiel-Mindesthöhe */
-  background-color: rgb(247, 240, 240) /* Beispiel-Hintergrundfarbe */
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 
 .drag-over {
   border: 2px dashed #4589FF;
@@ -335,14 +534,18 @@ border-radius: 10px;
   background-color: white;
   top: 97px;
   left: 25%;
+  
 }
 
 .card_big_edit form {
   display: flex;
   flex-direction: column;
   width: 90%;
+  gap: 10px;
 }
-
+#category2 {
+  width: 100%;
+}
 /* Füge diese CSS-Regeln hinzu */
 
 #dropdown_editContacts {
@@ -378,6 +581,43 @@ border-radius: 10px;
 
 }
 
+.btns_edit {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btns_cancel {
+  color: rgba(100, 113, 136, 1);
+  border: 2px solid grey;
+  border-radius: 6px;
+  height: 42px;
+  width: 120px;
+  background-color: white;
+  background-image: url(/assets/Login/Vector.png);
+  background-repeat: no-repeat;
+  background-position-x: 90%;
+  background-position-y: center;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.btns_save {
+  color: white;
+    border: none;
+    border-radius: 6px;
+    height: 42px;
+    width: 120px;
+    background-color: rgba(0, 93, 255, 1);
+    background-image: url(/assets/Login/check.png);
+    background-repeat: no-repeat;
+    background-position-x: 90%;
+    background-position-y: center;
+    font-size: 17px;
+    font-weight: bold;
+}
+
 .editBTN button {
   width: 50px;
   height: 20px;
@@ -395,3 +635,192 @@ border-radius: 10px;
   justify-content: center;
   align-items: center;
 }
+
+@media (max-width: 1000px) {
+
+  .sidebar {
+      display: none;
+  }
+  
+  .card_big {
+    display: flex;
+    width: 528px;
+    padding: 20px 40px;
+    flex-direction: column;
+    align-items: flex-start;
+    max-height: 680px;
+    overflow-y: auto;
+    border-radius: 30px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    position: absolute;
+    background-color: white;
+    top: 97px;
+    left: 6%;}
+
+  .mobilebar_resp {
+      display: flex !important;
+  }
+
+  .card_big_edit {
+    display: flex;
+    width: 52%;
+    padding: 48px 40px;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    position: absolute;
+    background-color: white;
+    top: 75px;
+    left: 12%;
+    height: 60%;
+    overflow-x: auto;}
+
+    .edit_input {
+      width: 80%;
+    }
+
+  .titles {
+    display: flex;
+    margin-left: 0px;
+    padding: 0 64px;
+    gap: 24px;
+    height: 100%;
+    flex-direction: column;
+  }
+
+  .card {
+    width: 70%;
+  }
+
+  .titles {
+    display: flex;
+    margin-left: 0px;
+    padding: 0 64px;
+    gap: 24px;
+    height: 60%;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .find_task {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0px;
+  height: 51px;
+  width: 100%;
+  gap: 47px;
+  padding: 72px 0px 50px 0px;
+  }
+
+.find_task button {
+  display: flex;
+  height: 51px;
+  padding: 16px 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  border: 1px solid #4589ff;
+  background: #4589ff;
+  color: white;
+  font-family: "Open Sans";
+  font-size: 15px;
+}
+
+.card_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.card_big_info {
+  display: flex;
+  width: 72%;
+  padding: 20px 40px;
+  flex-direction: column;
+  align-items: flex-start;
+  max-height: 680px;
+  overflow-y: auto;
+  border-radius: 30px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  position: absolute;
+  background-color: white;
+  top: 97px;
+left: 10px;
+  gap: 25px;
+
+
+}
+
+.btns_save {
+  color: white;
+  border: none;
+  border-radius: 6px;
+  height: 42px;
+  width: 140px;
+  background-color: rgba(0, 93, 255, 1);
+  background-image: url(/assets/Login/check.png);
+  background-repeat: no-repeat;
+  background-position-x: 90%;
+  background-position-y: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.btns_cancel {
+  color: rgba(100, 113, 136, 1);
+  border: 2px solid grey;
+  border-radius: 6px;
+  height: 42px;
+  width: 140px;
+  background-color: white;
+  background-image: url(/assets/Login/Vector.png);
+  background-repeat: no-repeat;
+  background-position-x: 94%;
+  background-position-y: center;
+  font-size: 12px;
+  font-weight: bold;
+
+
+}
+
+@media (min-width: 700px) and (max-width: 1400px) {
+  .titles {
+    display: flex;
+    margin-left: 0px;
+    padding: 0px 10px;
+    gap: 10px;
+    height: 100%;
+} 
+
+.card_big {
+  display: flex;
+  width: 528px;
+  padding: 20px 40px;
+  flex-direction: column;
+  align-items: flex-start;
+  max-height: 680px;
+  overflow-y: auto;
+  border-radius: 30px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  position: absolute;
+  background-color: white;
+  top: 97px;
+  left: 12%;}
+
+
+.sidebar {
+  display: none;
+}
+
+.mobilebar_resp {
+  display: flex !important;
+}
+
+
+}}

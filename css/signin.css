@@ -12,7 +12,7 @@ body {
     }
 
     .d-none1 {
-        display: none;
+        display: none !important;
     }
     
     
@@ -68,7 +68,7 @@ body {
         margin-bottom: 20px;
         cursor: pointer;
         padding-left: 10px;
-        background-image: url('/assets/Login/person.png');
+        background-image: url('../assets/Login/person.png');
         background-repeat: no-repeat;
         background-position-x: 95%;
         background-position-y:center;
@@ -82,7 +82,7 @@ body {
         margin-bottom: 20px;
         cursor: pointer;
         padding-left: 10px;
-        background-image: url('/assets/Login/lock.png');
+        background-image: url('../assets/Login/lock.png');
         background-repeat: no-repeat;
         background-position-x: 95%;
         background-position-y:center;
@@ -103,7 +103,7 @@ body {
         margin-bottom: 20px;
         cursor: pointer;
         padding-left: 10px;
-        background-image: url('/assets/Login/mail.png');
+        background-image: url('../assets/Login/mail.png');
         background-repeat: no-repeat;
         background-position-x: 95%;
         background-position-y:center;
@@ -132,6 +132,24 @@ body {
         margin-bottom: 20px;
         
     }
+
+    #success_register{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        background-color: rgba(69, 137, 255, 1);
+        border-radius: 20px;
+        box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+        width: 326px;
+        height: 74px;
+        color: white;
+        font-size: 23px;
+        position: absolute;
+        right: 35%;
+        top: 50%;
+        transition: top 0.5s ease-in-out;
+      }
     
     .SignIn_Section_Login {
         display: flex;
@@ -145,6 +163,11 @@ body {
         margin-top: 40px;
         margin-bottom: 40px;
         color: #F6F7F8;
+    }
+
+    .End_section_login a {
+        text-decoration: none;
+        color: white;
     }
     
     .Login_Logo {

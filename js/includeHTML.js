@@ -1,8 +1,11 @@
+/**
+ * include Function for Header usw.
+ */
 async function includeHTML() {
     let includeElements = document.querySelectorAll("[w3-include-html]");
     for (let i = 0; i < includeElements.length; i++) {
       const element = includeElements[i];
-      file = element.getAttribute("w3-include-html"); // "includes/header.html"
+      file = element.getAttribute("w3-include-html"); 
       let resp = await fetch(file);
       if (resp.ok) {
         element.innerHTML = await resp.text();
@@ -12,5 +15,3 @@ async function includeHTML() {
     }
   }
 
-  //   <body onload="includeHTML()">
-    // <div w3-include-html="./templates/header.html"></div>

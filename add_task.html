@@ -14,7 +14,7 @@
     <!-- Scripts -->
     <script src="./js/includeHTML.js"></script>
     <script src="js/storage.js"></script>
-    <script src="/js/add_task.js"></script>
+    <script src="js/add_task.js"></script>
     <script src="js/sidebar.js"></script>
 
   </head>
@@ -31,14 +31,13 @@
             <span>Description</span><span class="task_optional"> (optional)</span>
           </div>
           <div class="task_description_container">
-            <textarea id="task_description" cols="30" rows="10" placeholder="Enter a description" required></textarea>
-            <img class="resizer" src="./assets/add_task/resizer.png">
+            <textarea id="task_description" cols="30" rows="10" placeholder="Enter a description"></textarea>
             </div>
       <form id="date">
         <div class="title_gap">   
           <span>Due date</span>
           <div class="date-div">             
-            <input type="date" onchange="changeTextColor()" id="task_date" class="custom-date-input" max="2099-12-31" required>
+            <input type="date" onchange="changeTextColor()" id="task_date" class="custom-date-input" min="2024-02-22" max="2099-12-31" required>
             <div id="date_reqiuered" class="field_requiered d-none">This field is required</div>
           </div>         
         </div>
@@ -77,6 +76,9 @@
           <div id="dropdown_contacts" class="d-none"> </div>
         </div>
       </div>
+      <div id="rendercontacts_container_small">
+        
+      </div>
       <form id="category">
         <div class="title_gap">
           <span>Category</span>
@@ -104,7 +106,7 @@
         </div>
       </div>
       <div id="sub"></div>
-      <div id="task_added">
+      <div id="task_added" class="d-none">
         Task added to board
         <img src="/assets/add_task/board_white.png">
       </div>

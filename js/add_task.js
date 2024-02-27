@@ -6,7 +6,8 @@ let prioity = "medium";
 let tasks = [];
 let contacts = [];
 
-
+/**Checks Forms
+ */
 function checkForms() {
   let checkTitle = document.getElementById("title");
   let checkDate = document.getElementById("date");
@@ -24,16 +25,15 @@ function checkForms() {
   } else addRequiered("title");
 }
 
-
+/**
+ * load Contacts
+ */
 async function loadContacts() {
   try {
       const loadedContacts = await getItem('contacts');
       if (loadedContacts.data.value) {
           const contact = JSON.parse(loadedContacts.data.value);
-          console.log('Kontakte erfolgreich geladen:', contact);
-          contacts.push(contact);
-          
-      }
+          contacts.push(contact); }
       return [];
   } catch (error) {
       console.error('Fehler beim Laden der Kontakte:', error);
@@ -41,33 +41,51 @@ async function loadContacts() {
   }
 }
 
+document.addEventListener('click', function(event) {
+  const contactsContainer = document.getElementById('dropdown_contacts');
+  const categoryContainer = document.getElementById('dropdown_category');
+  const taskContactsInput = document.getElementById('task_contacts');
+  const taskCategoryInput = document.getElementById('task_category');
+
+  if (!contactsContainer.contains(event.target) && !taskContactsInput.contains(event.target)) {
+    // Der Klick war außerhalb des Kontakte-Dropdowns und des Input-Felds
+    closeContacts(contactsContainer);
+  }
+  if (!categoryContainer.contains(event.target) && !taskCategoryInput.contains(event.target)) {
+    // Der Klick war außerhalb des Kategorie-Dropdowns und des Input-Felds
+    closeCategory(categoryContainer);
+  }
+});
+
+/**
+ * Adds required for Form Validation
+ */
 function addRequiered(where) {
   document.getElementById(`${where}_reqiuered`).classList.remove("d-none");
   if (where === "description") {
-    document
-      .getElementById(`task_${where}`)
-      .classList.add(`requiered_${where}`);
+    document.getElementById(`task_${where}`) .classList.add(`requiered_${where}`);
   } else document.getElementById(`task_${where}`).classList.add("requiered");
 }
-
+/**
+ * Removes
+ */
 function removeRequiered(where) {
   document.getElementById(`${where}_reqiuered`).classList.add("d-none");
   if (where === "description") {
-    document
-      .getElementById(`task_${where}`)
-      .classList.remove(`requiered_${where}`);
+    document.getElementById(`task_${where}`).classList.remove(`requiered_${where}`);
   } else document.getElementById(`task_${where}`).classList.remove("requiered");
 }
 
+/**
+ * clears Forms
+ */
 function clearForm() {
-  document.getElementById("task_title").value = "";
-  document.getElementById("task_description").value = "";
-  changePrio("medium");
-  document.getElementById("task_contacts").value = "";
-  document.getElementById("task_category").value = "";
-  document.getElementById("task_subtask").value = "";
+ location.reload();
 }
 
+/**
+ * Changes the Textcolor
+ */
 function changeTextColor() {
   let dateInput = document.getElementById("task_date");
   let selectedDate = dateInput.value;
@@ -79,6 +97,10 @@ function changeTextColor() {
   }
 }
 
+/**
+ * 
+ * Changes the Prio 
+ */
 function changePrio(prio) {
   clearPrio();
   prioity = prio;
@@ -104,6 +126,10 @@ function clearPrio() {
   prioity = 'medium';
 }
 
+/**
+ * toggles Function for dropdown
+ */
+
 function toggleContDrop() {
   let inputField = document.getElementById("task_contacts");
   let contactsContainer = document.getElementById("dropdown_contacts");
@@ -115,16 +141,19 @@ function toggleContDrop() {
   }
 }
 
+/**
+ * 
+ * Opens Contacts Dropdown
+ */
+
 function openContacts(contactsContainer) {
   contactsContainer.classList.remove("d-none");
   document
     .getElementById("task_contacts")
-    .setAttribute("placeholder", "Search contacts");
+    .setAttribute("placeholder", "Select Contact");
   contactsOpen = true;
   contactsContainer.innerHTML = "";
-
   const contactsArray = contacts[0]; 
-
   for (let index = 0; index < contactsArray.length; index++) {
     const contact = contactsArray[index];
     let initials = getInitials(contact);
@@ -132,6 +161,10 @@ function openContacts(contactsContainer) {
   }
 }
 
+/**
+ * 
+ * Get initials for Dropdown
+ */
 
 function getInitials(contact){
   let namesSplit = contact.name.split(" ")
@@ -140,66 +173,70 @@ function getInitials(contact){
     return(firstName + lastName)
 }
 
+/**
+ * for selecting Conatcts in Dropdown
+ */
+
 function contactSelectToggle(i) {
   let img = document.getElementById(`contactSelect(${i})`);
-  let notSelectedImg = "/assets/add_task/not_selected.png";
-  let selectedImg = "/assets/add_task/selected.png";
-
-  // Prüfen, ob der Kontakt bereits ausgewählt ist
+  let notSelectedImg = "../assets/add_task/not_selected.png";
+  let selectedImg = "../assets/add_task/selected.png";
   const isSelected = selectedContacts.some(contact => contact.id === contacts[0][i].id);
-
   if (!isSelected) {
-    // Kontakt ist nicht ausgewählt, füge ihn dem Array hinzu
     selectedContacts.push(contacts[0][i]);
-    img.src = selectedImg; // Ändere das Bild, da der Kontakt jetzt ausgewählt ist
+    img.src = selectedImg; 
   } else {
-    // Kontakt ist bereits ausgewählt, entferne ihn aus dem Array
     selectedContacts = selectedContacts.filter(contact => contact.id !== contacts[0][i].id);
-    img.src = notSelectedImg; // Ändere das Bild, da der Kontakt jetzt nicht mehr ausgewählt ist
+    img.src = notSelectedImg; 
   }
+  renderContactsSmall();
 }
+/**
+ * Adds certain Tasks
+ */
 
 function addTask() {
   let description = document.getElementById('task_description').value;
   let title = document.getElementById('task_title').value;
   let date = document.getElementById('task_date').value;
   let category = document.getElementById('task_category').value;
-
-  if (description === "") {
-    description = 'Keine Beschreibung';
+  if (title.trim() === "" || date.trim() === "" || category.trim() === "") {
+      checkForms();
+      return; 
   }
-
-  // Extrahiere nur die Namen der ausgewählten Kontakte
+  if (description === "") {
+      description = 'Keine Beschreibung';
+  }
   let selectedContactsNames = selectedContacts.map(contact => contact.name);
-
   let task = {
-    'title': title,
-    'description': description,
-    'date': date,
-    'priority': prioity,
-    'contacts': selectedContactsNames, 
-    'category': category,
-    'subtask': subtasks,
-    'position': 'todo',
+      'title': title,
+      'description': description,
+      'date': date,
+      'priority': prioity,
+      'contacts': selectedContactsNames, 
+      'category': category,
+      'subtask': subtasks,
+      'position': 'todo',
   };
-  
-
   tasks.push(task);
   saveTasks();
-  clearForm();
+  AnimationTasksAdded();
 }
 
 
-
+/**
+ * 
+ * closes Contacts
+ */
 function closeContacts(contactsContainer) {
   contactsContainer.classList.add("d-none");
-  document
-    .getElementById("task_contacts")
-    .setAttribute("placeholder", "Select contacts to assign");
+  document.getElementById("task_contacts").setAttribute("placeholder", "Select contacts to assign");
   contactsOpen = false;
 }
 
-
+/**
+ * toogles dropdown category
+ */
 function toggleCatDrop() {
   let inputField = document.getElementById("task_category");
   let categoryContainer = document.getElementById("dropdown_category");
@@ -210,7 +247,10 @@ function toggleCatDrop() {
     openCategory(categoryContainer);
   }
 }
-
+/**
+ * 
+ * Opens Category close and select
+ */
 function openCategory(categoryContainer) {
   categoryContainer.classList.remove("d-none");
   document
@@ -221,9 +261,7 @@ function openCategory(categoryContainer) {
 
 function closeCategory(categoryContainer) {
   categoryContainer.classList.add("d-none");
-  document
-    .getElementById("task_category")
-    .setAttribute("placeholder", "Select task category");
+  document.getElementById("task_category").setAttribute("placeholder", "Select task category");
   categoryOpen = false;
 }
 
@@ -232,6 +270,9 @@ document.getElementById('task_category').value = category;
 toggleCatDrop();
 }
 
+/**
+ * toggle for Subtask
+ */
 function toggleSubDrop() {
   let inputField = document.getElementById("task_subtask");
   if (document.activeElement === inputField) {
@@ -239,57 +280,58 @@ function toggleSubDrop() {
   }
 }
 
+/**
+ * Adds Subtasks
+ */
+
 function addSubtask() {
   let text = document.getElementById("task_subtask");
-  let title = document.getElementById("task_title");
-
-  // Füge einen neuen Subtask hinzu
   let subtask = {
-    "title": title.value,
-    "text": text.value,
-  };
+    "text": text.value,};
   subtasks.push(subtask);
-
   text.value = "";
   removeRequiered("title");
   document.getElementById("subtask_confirm_cancel").style.display = "none";
   renderSubtask();
 }
 
-
+/**
+ * Removes Subtask Input
+ */
 
 function removeSubInput(){
  document.getElementById("task_subtask").value = '';
  document.getElementById("subtask_confirm_cancel").style.display = "none"
 }
-
-
+/**
+ * 
+ * deletes subtask 
+ */
 function deleteSubtask(index) {
   if (index >= 0 && index < subtasks.length) {
-    subtasks.splice(index, 1); // Entferne den Subtask an der angegebenen Position
-    renderSubtask(); // Aktualisiere die Anzeige der Subtasks
+    subtasks.splice(index, 1); 
+    renderSubtask(); 
   }
 }
+/**
+ * 
+ * edits subtask
+ */
 
 function editSubtask(index) {
   const subtask = subtasks[index];
-
-  // Setze die Werte des Subtasks in die Inputfelder
   document.getElementById("task_title").value = subtask.title;
   document.getElementById("task_subtask").value = subtask.text;
-  
-  // Entferne den bearbeiteten Subtask aus dem subtasks-Array
   subtasks.splice(index, 1);
-
-  // Aktualisiere die dargestellten Subtasks
   renderSubtask();
 }
-
-
-
+/**
+ * 
+ * rendering dropdown
+ */
 function renderDropdownContacts(contact, initials, i) {
   const isSelected = selectedContacts.some(selectedContact => selectedContact.id === contact.id);
-  const imgSrc = isSelected ? "/assets/add_task/selected.png" : "/assets/add_task/not_selected.png";
+  const imgSrc = isSelected ? "assets/add_task/selected.png" : "assets/add_task/not_selected.png";
   return `<div class="dropdown_contact">
                 <div class="contact_name">
                   <svg width="42px" height="42px" xmlns="http://www.w3.org/2000/svg">
@@ -308,40 +350,56 @@ function renderDropdownContacts(contact, initials, i) {
 }
 
 
-
+/**
+ * render subtasks
+ */
 function renderSubtask() {
   const subtasksContainer = document.getElementById("sub");
-
-  // Leere das Container-Element, um es neu zu füllen
   subtasksContainer.innerHTML = "";
-
-  // Iteriere durch die Subtasks und füge sie dem Container hinzu
   subtasks.forEach((subtask, index) => {
     const subtaskElement = createSubtaskElement(subtask, index);
     subtasksContainer.appendChild(subtaskElement);
   });
 }
 
+function renderContactsSmall() {
+  let smallContainer = document.getElementById("rendercontacts_container_small");
+  smallContainer.innerHTML = ""; 
+  selectedContacts.forEach(contact => {
+    const initials = getInitials(contact);
+    smallContainer.innerHTML += `
+      <svg width="42px" height="42px" xmlns="http://www.w3.org/2000/svg">
+        <!-- Äußerer Kreis -->
+        <circle cx="21px" cy="21px" r="20px" stroke="white" stroke-width="3" fill="transparent" />
+        <!-- Innerer Kreis -->
+        <circle cx="21px" cy="21px" r="19px" fill="${contact.color}" />
+        <text fill="white" x="21px" y="23px"  alignment-baseline="middle" text-anchor="middle" >
+          ${initials}
+        </text>
+      </svg>`;
+  });
+}
+
+
+/**
+ * 
+ * creates Subtask Element
+ */
+
 function createSubtaskElement(subtask, index) {
-  // Erstelle ein neues HTML-Element für den Subtask
   const subtaskElement = document.createElement("div");
   subtaskElement.classList.add("subtask");
-
-  // Füge den Titel und Text des Subtasks hinzu
   subtaskElement.innerHTML = `
-    <div class="subtask-title">${subtask.title}</div>
     <div class="subtask-text">${subtask.text}</div>
     <div class="subtask-actions">
       <img src="assets/add_task/edit.png" class="edit_addtask_sub" onclick="editSubtask(${index})">
       <img src="assets/add_task/cancel_blue.png" class="btn-close" onclick="deleteSubtask(${index})">
     </div>
   `;
-
   return subtaskElement;
 }
 
   async function saveTasks() {
-    console.log(tasks);
     try {
         await setItem('tasks', JSON.stringify(tasks));
     } catch (error) {
@@ -349,18 +407,21 @@ function createSubtaskElement(subtask, index) {
     }
   }
 
-  
-
   async function loadTasks() {
     try {
         const loadedTasks = await getItem('tasks');
-        console.log(loadedTasks);
         if (loadedTasks.data.value) {
-          console.log(loadedTasks);
             tasks = JSON.parse(loadedTasks.data.value);
-            console.log(tasks);
-            console.log('tasks loaded successfully.');
         }
     } catch (error) {
         console.error('Loading error:', error);
     }}
+
+    function AnimationTasksAdded() {
+      let animationElement = document.getElementById('task_added');
+      animationElement.classList.remove('d-none');
+      setTimeout(() => {
+          animationElement.classList.add('d-none');
+      }, 2000);
+  }
+  

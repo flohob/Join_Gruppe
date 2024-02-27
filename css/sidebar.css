@@ -12,6 +12,11 @@ body{
     display: none !important;
 }
 
+.noshowEdit {
+
+display: none !important;
+}
+
 .sidebar_top{
     background-color: rgba(69, 137, 255, 1);
     display: flex;
@@ -19,6 +24,10 @@ body{
     align-items: center;
     padding: 20px 39px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1) ;
+}
+
+.sidebar_mainlinks a.current {
+    background-color: rgba(210, 227, 255, 1);
 }
 
 .sidebar_top img{
@@ -161,4 +170,8 @@ body{
 .overlay_logout2 a:hover {
     color: rgba(69, 137, 255, 1); 
     transform: scale(1.015);
+}
+
+.sidebar_mainlinks a.current {
+    background-color: blue
 }

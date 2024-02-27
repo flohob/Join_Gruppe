@@ -53,7 +53,7 @@ body {
     border-radius: 10px;
     padding:16px 10px 16px 10px;
     font-family: 'Opens Sans';
-    background-image: url('/assets/Login/person_add.png');
+    background-image: url('../assets/Login/person_add.png');
     background-repeat: no-repeat;
     background-position-x: 90%;
     background-position-y:center;
@@ -160,7 +160,7 @@ transform: scale(1.1);
     margin-bottom: 20px;
     cursor: pointer;
     padding-left: 10px;
-    background-image: url('/assets/Login/person.png');
+    background-image: url('../assets/Login/person.png');
     background-repeat: no-repeat;
     background-position-x: 95%;
     background-position-y:center;
@@ -174,7 +174,7 @@ transform: scale(1.1);
     margin-bottom: 20px;
     cursor: pointer;
     padding-left: 10px;
-    background-image: url('/assets/Login/mail.png');
+    background-image: url('../assets/Login/mail.png');
     background-repeat: no-repeat;
     background-position-x: 95%;
     background-position-y:center;
@@ -188,7 +188,7 @@ transform: scale(1.1);
     margin-bottom: 20px;
     cursor: pointer;
     padding-left: 10px;
-    background-image: url('/assets/Login/call.png');
+    background-image: url('../assets/Login/call.png');
     background-repeat: no-repeat;
     background-position-x: 95%;
     background-position-y:center;
@@ -224,7 +224,7 @@ border-radius: 6px;
 height: 42px;
 width: 120px;
 background-color: white;
-background-image: url('/assets/Login/Vector.png');
+background-image: url('../assets/Login/Vector.png');
 background-repeat: no-repeat;
 background-position-x: 90%;
 background-position-y:center;
@@ -239,7 +239,7 @@ border-radius: 6px;
 height: 42px;
 width: 120px;
 background-color: rgba(0, 93, 255, 1);
-background-image: url('/assets/Login/check.png');
+background-image: url('../assets/Login/check.png');
 background-repeat: no-repeat;
 background-position-x: 90%;
 background-position-y:center;
@@ -485,7 +485,7 @@ cursor: pointer;
     }
 
     .addcontact_container {
-        width: 350px;
+        width: 300px;
     }
 
     .contact_container {

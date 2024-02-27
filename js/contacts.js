@@ -1,10 +1,16 @@
 let currentEditIndex;
 let contacts = [];
 
-
+/**
+ * calls Contacts
+ */
 function initContacts() {
   loadContacts();
 }
+
+/**
+ * Saves Contacts in the backend
+ */
 
 async function saveContacts() {
   try {
@@ -14,26 +20,29 @@ async function saveContacts() {
   }
 }
 
+/**
+ * Loads Contacts from the Backend
+ */
+
 async function loadContacts() {
   try {
       const loadedContacts = await getItem('contacts');
       if (loadedContacts.data.value) {
-        console.log(loadedContacts);
-          contacts = JSON.parse(loadedContacts.data.value);
-          console.log('Contacts loaded successfully.');
-      }
+          contacts = JSON.parse(loadedContacts.data.value);}
   } catch (error) {
       console.error('Loading error:', error);
   }
   renderContacts();
 }
 
+/**
+ * saves new Contact
+ */
+
 function saveContact() {
   const fullName = document.getElementById('addcontact_fullname').value;
   const email = document.getElementById('addcontact_email').value;
   const phoneNumber = document.getElementById('addcontact_number').value;
-
-  // Überprüfen, ob alle Felder ausgefüllt sind
   if (fullName && email && phoneNumber) {
     const newContact = {
       id: generateUniqueId(),
@@ -46,19 +55,25 @@ function saveContact() {
     saveContacts();
     toggleOverlay();
     loadContacts();
-    showContactInfo(contacts.length - 1); // Hier wird showContactInfo mit dem Index des neu hinzugefügten Kontakts aufgerufen
+    showContactInfo(contacts.length - 1);
    clearButton();
   } else {
-    // Zeigen Sie eine Benachrichtigung an oder tun Sie etwas anderes, um den Benutzer darauf hinzuweisen, dass alle Felder erforderlich sind
     alert('Bitte füllen Sie alle Felder aus.');
   }
 }
 
-
+/**
+ * 
+ * generates Unique ID
+ */
 function generateUniqueId() {
   return Date.now().toString();
 }
 
+/**
+ * 
+ * generates Random Color for Picture
+ */
 function getRandomColor() {
   const letters = '0123456789ABCDEF';
   let color = '#';
@@ -68,6 +83,9 @@ function getRandomColor() {
   return color;
 }
 
+/**
+ * Renders Contacts
+ */
 function renderContacts() {
   const contactContentDiv = document.getElementById('contact_content_2');
   sortJSON();
@@ -81,10 +99,8 @@ function renderContacts() {
                             <h2>${firstLetter}</h2>
                           </div>`;
       contactContentDiv.innerHTML += sectionHtml;
-      currentLetter = firstLetter;
-    }
+      currentLetter = firstLetter;}
     const initials = contact.name.split(' ').map(word => word[0]).join('');
-
     const contactHtml = `
       <div class="contact" id="con${i}" onclick="showContactInfo(${i})">
         <div class="initials_pic" style="background-color: ${contact.color}">
@@ -102,20 +118,19 @@ function renderContacts() {
 }
 
 
-
+/**
+ * 
+ * Shows Info for Contacts
+ */
 function showContactInfo(index) {
   const contact = contacts[index];
   const contactInfoDiv = document.querySelector('.contact_info_main');
   const hover = document.getElementById(`con${index}`);
   toggleOverlay_mobile();
   contactInfoDiv.innerHTML = '';
-  
-  // Entfernen Sie die Klasse 'current-contact' von allen Elementen
   const allContacts = document.querySelectorAll('.contact');
   allContacts.forEach(contactElement => {
-    contactElement.classList.remove('current-contact');
-  });
-
+    contactElement.classList.remove('current-contact');});
   const contactInfoHtml = `
     <div class="contact_info_upper">
       <img onclick="mobileclose()" class="mobile_back" src="assets/Login/arrow-left-line.png">
@@ -140,21 +155,19 @@ function showContactInfo(index) {
       <span>${contact.phone}</span>
     </div>
   `;
-  
   contactInfoDiv.innerHTML = contactInfoHtml;
   contactInfoDiv.classList.add('slide-in');
-  
-  // Fügen Sie die Klasse 'current-contact' nur zum aktuellen Element hinzu
-  hover.classList.add('current-contact');
-
   document.getElementById('editContactInitials').textContent = contact.name.split(' ').map(word => word[0]).join('');
   document.getElementById('editContactInitialsColor').style.backgroundColor = contact.color;
 }
 
+/**
+ * 
+ * Function for Editing the Contacts
+ */
 
 function editContact(index) {
   const contact = contacts[index];
-  console.log(contact);
   document.getElementById('editcontact_fullname').value = contact.name;
   document.getElementById('editcontact_email').value = contact.email;
   document.getElementById('editcontact_phone').value = contact.phone;
@@ -162,6 +175,10 @@ function editContact(index) {
   toggleEditOverlay();
 
 }
+
+/**
+ * Saves Edited Contact
+ */
 
 function saveEditedContact() {
   const editedName = document.getElementById('editcontact_fullname').value;
@@ -176,30 +193,38 @@ function saveEditedContact() {
   toggleEditOverlay();
 }
 
+/**
+ * Deletes the selected Contact
+ */
+
 function deleteContact() {
-  if (confirm('Are you sure you want to delete this contact?')) {
     contacts.splice(currentEditIndex, 1);
     saveContacts();
     renderContacts();
     showContactInfo(contacts.length > 0 ? 0 : null); 
     toggleEditOverlay();
-  }
+  
 }
+
+/**
+ * Sorts the Contacts
+ */
 
 function sortJSON() {
   contacts.sort((a, b) => a.name.localeCompare(b.name));
 }
 
+/**
+ * Toogles the Overlay
+ */
 function toggleOverlay() {
   var overlay = document.getElementById('overlay_addcontact_main');
   if (overlay.classList.contains('d-none')) {
       overlay.classList.remove('d-none');
   } else {
-      
       overlay.classList.add('d-none');
   }
 }
-
 
 function toggleEditOverlay() {
   var overlay = document.getElementById('overlay_editcontact_main');
@@ -212,6 +237,9 @@ function toggleEditOverlay() {
   }
 }
 
+/**
+ * clears the Inputs
+ */
 function clearButton() {
 document.getElementById('addcontact_fullname').value = "";
 document.getElementById('addcontact_email').value = "";
@@ -226,6 +254,10 @@ function toggleOverlay_mobile() {
     showInfo.classList.add('show');
   }
 }
+
+/**
+ * Function for mobile close overlay
+ */
 
 function mobileclose () {
   var contactContainer = document.getElementById('contact_container');
