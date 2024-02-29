@@ -10,9 +10,7 @@ let contacts_board = [];
 let subtask_loaded = [];
 let contactsDropdown;
 let categoryOpen2 = false;
-let editedPrioity = 'medium';
-
-
+let editedPrioity = "medium";
 
 async function loadTasks() {
   try {
@@ -31,8 +29,6 @@ async function loadTasks() {
 function init() {
   loadTasks();
 }
-
-
 
 async function loadContacts_board() {
   try {
@@ -190,7 +186,6 @@ function clearFormular() {
   changePrio("medium");
   selectedContacts = [];
   subtasks = [];
-
 }
 
 function addTask() {
@@ -230,8 +225,6 @@ function addTask() {
   closeAddTask();
 }
 
-
-
 function UpdateHtml() {
   containerIds.forEach((containerId) => {
     renderTasks1(containerId);
@@ -241,7 +234,6 @@ function UpdateHtml() {
 function closeAddTask() {
   let addtaskoverlay = document.getElementById("imgclose");
   addtaskoverlay.classList.add("d-none");
- 
 }
 
 let currentContainer = null;
@@ -314,14 +306,16 @@ function removeEditSubInput() {
   document.getElementById("edit_subtask_confirm_cancel").style.display = "none";
 }
 
-let originalTitle; 
+let originalTitle;
 
 function editTask(title) {
+  closeCardbig();
   const selectedTask = tasks.find((task) => task.title === title);
   if (selectedTask) {
     originalTitle = selectedTask.title;
     document.getElementById("edit_task_title").value = selectedTask.title;
-    document.getElementById("edit_task_description").value = selectedTask.description;
+    document.getElementById("edit_task_description").value =
+      selectedTask.description;
     document.getElementById("edit_task_date").value = selectedTask.date;
 
     // Setze die ausgewählten Kontakte
@@ -340,18 +334,19 @@ function editTask(title) {
   }
 }
 
-
-  
-
 function saveEditTask() {
   console.log("saveEditTask aufgerufen");
   const editedTitle = document.getElementById("edit_task_title").value;
-  const editedDescription = document.getElementById("edit_task_description").value;
+  const editedDescription = document.getElementById(
+    "edit_task_description"
+  ).value;
   const editedDate = document.getElementById("edit_task_date").value;
   const editedCategory = document.getElementById("task_category_edit").value;
 
   // Finde den Index des bearbeiteten Tasks anhand des ursprünglichen Titels
-  const editedTaskIndex = tasks.findIndex((task) => task.title === originalTitle);
+  const editedTaskIndex = tasks.findIndex(
+    (task) => task.title === originalTitle
+  );
 
   if (editedTaskIndex !== -1) {
     // Aktualisiere die Werte des bearbeiteten Tasks
@@ -372,32 +367,28 @@ function saveEditTask() {
     // Speichere die aktualisierten Tasks
     saveTasks();
     renderTasks1();
-    console.log("YE");
   }
 }
 
-
-
-
 function toggleContactsDropdown() {
   const dropdown = document.getElementById("dropdown_contacts2");
-  const isVisible = !dropdown.classList.contains('d-none');
+  const isVisible = !dropdown.classList.contains("d-none");
   renderContactsSmall3();
   if (isVisible) {
-      dropdown.classList.add('d-none');
+    dropdown.classList.add("d-none");
   } else {
-      dropdown.classList.remove('d-none');
-      showContactsDropdown(!isVisible);
-  }  
+    dropdown.classList.remove("d-none");
+    showContactsDropdown(!isVisible);
+  }
 }
 
-
-
 function renderContactsSmall3() {
-  let smallContainer = document.getElementById("rendercontacts_container_small3");
-  smallContainer.innerHTML = ""; 
+  let smallContainer = document.getElementById(
+    "rendercontacts_container_small3"
+  );
+  smallContainer.innerHTML = "";
 
-  selectedContacts.forEach(contact => {
+  selectedContacts.forEach((contact) => {
     const initials = getInitials(contact);
     smallContainer.innerHTML += `
       <svg width="42px" height="42px" xmlns="http://www.w3.org/2000/svg">
@@ -411,7 +402,6 @@ function renderContactsSmall3() {
       </svg>`;
   });
 }
-
 
 // Funktion zum Ändern der Priorität während der Bearbeitung eines Tasks
 function changePrioEdit(prio) {
@@ -437,8 +427,5 @@ function clearPrioEdit() {
   low.classList.remove("low");
   low.classList.add("hover_low");
   document.getElementById(`low_svg`).style.fill = "#7AE229";
-  editedPrioity = 'medium';
+  editedPrioity = "medium";
 }
-
-
-

@@ -1,23 +1,49 @@
+
 function renderCard(task) {
+  // Funktion, um SVG für die Initialen zu generieren
+  function generateInitialsSVG(contact) {
+      return `<svg width="42px" height="42px" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Äußerer Kreis -->
+                  <circle cx="21px" cy="21px" r="20px" stroke="white" stroke-width="3" fill="transparent" />
+                  <!-- Innerer Kreis -->
+                  <circle cx="21px" cy="21px" r="19px" fill="${contact.color}" />
+                  <text fill="white" x="21px" y="23px" alignment-baseline="middle" text-anchor="middle">
+                      ${getInitials2(contact.name)}
+                  </text>
+              </svg>`;
+  }
+
+  // Funktion, um alle Kontakt-SVGs zu generieren
+  function generateContactSVGs(contacts) {
+      return contacts.map(contact => generateInitialsSVG(contact)).join('');
+  }
+
   return `<div class="card" onclick="openCard('${task.title}')" draggable="true" ondragstart="handleDragStart(event,'${task.title}')">
-        <div class="task_category">${task.category}</div>
-        <p class="task_title">${task.title}</p>
-        <p class="task_description">${task.description}</p>
-        <div>
-        <p>2/2 Subtasks</p>
-        <svg id="progress_bar" width="128px" height="8px" xmlns="http://www.w3.org/2000/svg">
-            <rect width="128px" height="8px" fill="#F4F4F4" rx="4px" ry="4px"/>
-            <rect width="100%" height="100%" fill="#4589FF" rx="4px" ry="4px"/>
-        </svg>
-        <div class="task_contacts_prio">
-            <div class="task_prio">
-                <svg id="task_urgent_svg" xmlns="http://www.w3.org/2000/svg" width="45px" height="30px" fill="#FFA800" class="bi bi-pause" viewBox="0 0 16 16">
-                    <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5"/>
-                </svg>
-            </div>
-        </div>
-    </div>`;
+      <div class="task_category">${task.category}</div>
+      <p class="task_title">${task.title}</p>
+      <p class="task_description">${task.description}</p>
+      <div>
+          <svg id="progress_bar" width="128px" height="8px" xmlns="http://www.w3.org/2000/svg">
+              <rect width="128px" height="8px" fill="#F4F4F4" rx="4px" ry="4px"/>
+              <rect width="10%" height="100%" fill="#4589FF" rx="4px" ry="4px"/>
+          </svg>
+          </div>
+          <div class="icons">
+              ${generateContactSVGs(task.contacts)}
+              </div>
+          <div class="task_contacts_prio">
+              <div class="task_prio">
+              <img id="img_prio" src="${getPriorityImageSrc(task.priority)}">
+              </div>
+             
+             
+          </div>
+      </div>
+  </div>`;
 }
+
+
+
 
 function showInfoTasks(selectedTask) {
   const contactInitials = selectedTask.contacts ? selectedTask.contacts.map(contact => getInitials(contact)) : [];
@@ -33,11 +59,13 @@ function showInfoTasks(selectedTask) {
 
   const subtasksTexts = getAllSubtaskTexts(selectedTask);
   const subtasksCheckboxes = selectedTask.subtask ? selectedTask.subtask.map((subtask, index) => {
+    const checkboxId = `subtaskCheckbox${index}`;
+    const isChecked = subtask.completed ? 'checked' : '';
     return `<div class="subtask_info">
-      <input type="checkbox" id="subtaskCheckbox${index}" onclick="updateProgressBar()" ${subtask.completed ? 'checked' : ''}>
-      <label for="subtaskCheckbox${index}">${subtask.text}</label>
+      <input type="checkbox" id="${checkboxId}" onclick="updateProgressBar()" ${isChecked}>
+      <label for="${checkboxId}">${subtask.text}</label>
     </div>`;
-  }).join('') : '';
+}).join('') : '';
 
   const taskInfoHTML = `<div id="card-big" class="card_big_info">
     <div class="task_category_big_container">
@@ -56,6 +84,7 @@ function showInfoTasks(selectedTask) {
       <span>Assigned To:</span>
       <div>${assignedToText}</div>
       <div>
+      <div class="subtasks_info_headline">Subtasks:</div>
         <span>
           ${subtasksCheckboxes}
         </span>
@@ -86,6 +115,8 @@ function createEditSubtaskElement(subtask, index) {
   `;
   return subtaskElement;
 }
+
+
 
 function showContactsDropdown() {
   document.getElementById('dropdown_contacts2').classList.remove('d-none');
@@ -148,3 +179,24 @@ function getRandomColor() {
 }
 
 
+function getInitials2(name) {
+  if (!name) return '';
+
+  const nameParts = name.trim().split(' ');
+  const initials = nameParts.map(part => part.charAt(0).toUpperCase()).join('');
+
+  return initials;
+}
+
+
+function getPriorityImageSrc(priority) {
+  switch (priority) {
+      case 'low':
+          return 'js/assets/add_task/Priority symbols (1).png';
+      case 'medium':
+          return 'js/assets/add_task/Priority symbols Kopie.png';
+      case 'urgent':
+          return 'js/assets/add_task/Priority symbols.png';
+      default:
+          return 'default_image_path.png'; // Passe dies an die tatsächliche Standardbildpfad an
+  }}

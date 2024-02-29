@@ -368,9 +368,14 @@ border-bottom: 1px solid rgba(69, 137, 255, 1) !important;
   display: flex;
   height: 32px;
   width: 100%;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   align-self: stretch;
+}
+
+
+.icons {
+  margin-top: 15px;
 }
 
 #task_medium_svg{
@@ -510,7 +515,7 @@ border-radius: 10px;
 
 .card_container {
   min-height: 100%; /* Beispiel-Mindesthöhe */
-  background-color: white;
+  background-color: rgb(249, 247, 247);
   display: flex;
   flex-direction: column;
   align-items: center;
