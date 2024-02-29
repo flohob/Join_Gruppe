@@ -636,6 +636,57 @@ border-radius: 10px;
   align-items: center;
 }
 
+.edit_task_option {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+#edit_task_cancel {
+  width: 136px;
+  height: 61px;
+  border: 1px solid rgba(100, 113, 136, 1);
+  background-color: white;
+  color: rgba(100, 113, 136, 1);
+  font-size: 1rem;
+}
+
+.edit_task_description {
+  resize: none;
+    width: 90%;
+    height: 75px;
+    border: 1px solid rgba(209, 209, 209, 1);
+    border-radius: 0 10px 10px 10px;
+    position: relative;
+    font-size: 19px;
+    padding: 18px 10px 10px 16px;
+}
+
+#edit_task_confirm {
+  width: 174px;
+  height: 60px;
+  border: none;
+  background-color: rgba(69, 137, 255, 1);
+  color: white;
+  font-size: 1rem;
+}
+
+.Info_contact_container {
+  display: flex;
+ 
+  gap: 10px;
+}
+
+.initials_info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  height: 25px;
+    width: 25px;
+}
+
 @media (max-width: 1000px) {
 
   .sidebar {

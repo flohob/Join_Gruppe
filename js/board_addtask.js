@@ -62,6 +62,7 @@ function clearForm() {
   document.getElementById("task_contacts").value = "";
   document.getElementById("task_category").value = "";
   document.getElementById("task_subtask").value = "";
+  
 }
 
 function changeTextColor() {
@@ -124,13 +125,13 @@ function openContacts(contactsContainer) {
   }
 }
 
-
 function getInitials(contact){
   let namesSplit = contact.name.split(" ")
   let firstName = namesSplit[0].charAt(0);
     let lastName = namesSplit[1].charAt(0);
     return(firstName + lastName)
 }
+
 
 function contactSelectToggle(i) {
   let img = document.getElementById(`contactSelect(${i})`);
@@ -211,7 +212,7 @@ function renderDropdownContacts(contact, initials, i) {
                     </svg>
                     <span>${contact.name}</span>
                   </div>
-                  <img id="contactSelect(${i})" onclick="contactSelectToggle(${i})" src="assets/add_task/not_selected.png">
+                  <img id="contactSelect(${i})" onclick="contactSelectToggle(${i})" src="${imgSrc}">
                 </div>`;
   }
 
@@ -286,6 +287,4 @@ function renderDropdownContacts(contact, initials, i) {
         </svg>`;
     });
   }
-
- 
   

@@ -162,11 +162,11 @@
             <div id="sub"></div>
           </div>
           <div class="add_task_option">
-            <button onclick="clearForm()" class="option_button" id="task_cancel">
+            <button type="button" onclick="clearFormular()" class="option_button" id="task_cancel">
               Clear
               <div class="cancel_img"></div>
             </button>
-            <button onclick="addTask()" class="option_button" id="task_confirm">
+            <button type="button" onclick="addTask()" class="option_button" id="task_confirm">
               Create Task
               <img src="./assets/add_task/confirm_white.png" />
             </button>
@@ -190,8 +190,7 @@
       <span class="task_optional">Edit Description</span><span class="task_optional"> (optional)</span>
     </div>
     <div class="task_description_container">
-      <textarea id="edit_task_description" class="task_description" cols="30" rows="10" placeholder="Edit description"></textarea>
-      <img class="resizer" src="./assets/add_task/resizer.png">
+      <textarea id="edit_task_description" class="edit_task_description" cols="30" rows="10" placeholder="Edit description"></textarea>
     </div>
   </div>
   <form id="edit_date">
@@ -268,11 +267,11 @@
   </div>
   <div id="edit_sub" class="sub"></div>
   <div class="edit_task_option">
-    <button onclick="cancelEdit()" class="option_button" id="edit_task_cancel">
+    <button type="button" onclick="cancelEdit()" class="option_button" id="edit_task_cancel">
       Cancel
       <div class="cancel_img"></div>
     </button>
-    <button onclick="saveEditTask()" class="option_button" id="edit_task_confirm">
+    <button type="button" onclick="saveEditTask()" class="option_button" id="edit_task_confirm">
       Save Changes
       <img src="./assets/add_task/confirm_white.png" />
     </button>

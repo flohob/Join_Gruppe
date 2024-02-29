@@ -13,6 +13,7 @@ let categoryOpen2 = false;
 let editedPrioity = 'medium';
 
 
+
 async function loadTasks() {
   try {
     const loadedTasks = await getItem("tasks");
@@ -139,6 +140,10 @@ function redirectToAddTask() {
   window.location.href = "add_task.html";
 }
 
+function redirectToBoard() {
+  window.location.href = "board.html";
+}
+
 function closeCardbig() {
   document.getElementById("card-big").classList.add("d-none");
 }
@@ -175,36 +180,57 @@ function handleDrop(event) {
   }
 }
 
+function clearFormular() {
+  document.getElementById("task_description").value = "";
+  document.getElementById("task_title").value = "";
+  document.getElementById("task_date").value = "";
+  document.getElementById("task_category").value = "";
+  document.getElementById("rendercontacts_container_small3").innerHTML = "";
+  document.getElementById("rendercontacts_container_small2").innerHTML = "";
+  changePrio("medium");
+  selectedContacts = [];
+  subtasks = [];
+
+}
+
 function addTask() {
   let description = document.getElementById("task_description").value;
   let title = document.getElementById("task_title").value;
   let date = document.getElementById("task_date").value;
   let category = document.getElementById("task_category").value;
+
   if (title.trim() === "" || date.trim() === "" || category.trim() === "") {
-    alert("Bitte felder ausfüllen");
+    alert("Bitte Felder ausfüllen");
     return;
   }
+
   if (description === "") {
     description = "Keine Beschreibung";
   }
-  let selectedContactsNames = selectedContacts.map((contact) => contact.name);
+  const selectedContactsNames2 = selectedContacts.map((contact) => {
+    return { name: contact.name, color: contact.color };
+  });
+
   let task = {
     title: title,
     description: description,
     date: date,
-    priority: prioity,
-    contacts: selectedContactsNames,
+    priority: prioity, // Bitte sicherstellen, dass prioity definiert ist
+    contacts: selectedContactsNames2,
     category: category,
-    subtask: subtasks,
+    subtask: subtasks, // Bitte sicherstellen, dass subtasks definiert ist
     position: currentContainer,
   };
+
   tasks.push(task);
   saveTasks();
-  clearForm();
+  clearFormular();
   AnimationTasksAdded2();
   renderTasks1();
   closeAddTask();
 }
+
+
 
 function UpdateHtml() {
   containerIds.forEach((containerId) => {
@@ -215,6 +241,7 @@ function UpdateHtml() {
 function closeAddTask() {
   let addtaskoverlay = document.getElementById("imgclose");
   addtaskoverlay.classList.add("d-none");
+ 
 }
 
 let currentContainer = null;
@@ -232,6 +259,7 @@ function openAddTask(containerId) {
 
 function cancelEdit() {
   document.getElementById("editTaskOverlay").classList.add("d-none");
+  selectedContacts = [];
 }
 
 function AnimationTasksAdded2() {
@@ -289,30 +317,31 @@ function removeEditSubInput() {
 let originalTitle; 
 
 function editTask(title) {
-
   const selectedTask = tasks.find((task) => task.title === title);
   if (selectedTask) {
-      originalTitle = selectedTask.title;
-      document.getElementById("edit_task_title").value = selectedTask.title;
-      document.getElementById("edit_task_description").value = selectedTask.description;
-      document.getElementById("edit_task_date").value = selectedTask.date;
+    originalTitle = selectedTask.title;
+    document.getElementById("edit_task_title").value = selectedTask.title;
+    document.getElementById("edit_task_description").value = selectedTask.description;
+    document.getElementById("edit_task_date").value = selectedTask.date;
 
-      // Setze die ausgewählten Kontakte
-      selectedContacts = [];
-      selectedTask.contacts.forEach((contact) => {
-          const contactObj = contacts_board[0].find((c) => c.name === contact);
-          if (contactObj) {
-              selectedContacts.push(contactObj);
-          }
-      });
+    // Setze die ausgewählten Kontakte
+    selectedTask.contacts.forEach((contact) => {
+      const contactObj = contacts_board[0].find((c) => c.name === contact.name);
+      if (contactObj) {
+        selectedContacts.push(contactObj);
+      }
+    });
 
-      document.getElementById("task_category_edit").value = selectedTask.category;
-      subtasks = [...selectedTask.subtask];
-      renderEditSubtask();
-      renderContactsSmall3();
-      document.getElementById("editTaskOverlay").classList.remove("d-none");
+    document.getElementById("task_category_edit").value = selectedTask.category;
+    subtasks = [...selectedTask.subtask];
+    renderEditSubtask();
+    renderContactsSmall3();
+    document.getElementById("editTaskOverlay").classList.remove("d-none");
   }
 }
+
+
+  
 
 function saveEditTask() {
   console.log("saveEditTask aufgerufen");
@@ -330,8 +359,13 @@ function saveEditTask() {
     tasks[editedTaskIndex].description = editedDescription;
     tasks[editedTaskIndex].date = editedDate;
     tasks[editedTaskIndex].subtask = [...subtasks]; // Aktualisiere Subtasks
-    const selectedContactsNames = selectedContacts.map((contact) => contact.name);
-    tasks[editedTaskIndex].contacts = selectedContactsNames;
+
+    // Hier das Format Name:... Color:... für Kontakte speichern
+    const selectedContactsData = selectedContacts.map((contact) => {
+      return { name: contact.name, color: contact.color };
+    });
+
+    tasks[editedTaskIndex].contacts = selectedContactsData;
     tasks[editedTaskIndex].category = editedCategory;
     tasks[editedTaskIndex].priority = editedPrioity; // Speichere die aktualisierte Priorität
 
@@ -341,6 +375,7 @@ function saveEditTask() {
     console.log("YE");
   }
 }
+
 
 
 
@@ -358,16 +393,10 @@ function toggleContactsDropdown() {
 
 
 
-function getInitials(contact) {
-  let namesSplit = contact.name.split(" ");
-  let firstName = namesSplit[0].charAt(0);
-  let lastName = namesSplit[1].charAt(0);
-  return firstName + lastName;
-}
-
 function renderContactsSmall3() {
   let smallContainer = document.getElementById("rendercontacts_container_small3");
   smallContainer.innerHTML = ""; 
+
   selectedContacts.forEach(contact => {
     const initials = getInitials(contact);
     smallContainer.innerHTML += `
@@ -410,9 +439,6 @@ function clearPrioEdit() {
   document.getElementById(`low_svg`).style.fill = "#7AE229";
   editedPrioity = 'medium';
 }
-
-// Füge die editedPrioity-Variable der globalen Bereich hinzu (vor deinen anderen globalen Variablen)
-
 
 
 

@@ -200,29 +200,34 @@ function addTask() {
   let title = document.getElementById('task_title').value;
   let date = document.getElementById('task_date').value;
   let category = document.getElementById('task_category').value;
+
   if (title.trim() === "" || date.trim() === "" || category.trim() === "") {
-      checkForms();
-      return; 
+    return; 
   }
+
   if (description === "") {
-      description = 'Keine Beschreibung';
+    description = 'Keine Beschreibung';
   }
-  let selectedContactsNames = selectedContacts.map(contact => contact.name);
+
+  const selectedContactsNames = selectedContacts.map((contact) => {
+    return { name: contact.name, color: contact.color };
+  });
+
   let task = {
-      'title': title,
-      'description': description,
-      'date': date,
-      'priority': prioity,
-      'contacts': selectedContactsNames, 
-      'category': category,
-      'subtask': subtasks,
-      'position': 'todo',
+    'title': title,
+    'description': description,
+    'date': date,
+    'priority': prioity, // Achtung: prioity muss definiert sein
+    'contacts': selectedContactsNames, 
+    'category': category,
+    'subtask': subtasks, // Achtung: subtasks muss definiert sein
+    'position': 'todo',
   };
+
   tasks.push(task);
   saveTasks();
   AnimationTasksAdded();
 }
-
 
 /**
  * 
@@ -424,4 +429,3 @@ function createSubtaskElement(subtask, index) {
           animationElement.classList.add('d-none');
       }, 2000);
   }
-  
