@@ -10,12 +10,19 @@
     <link rel="stylesheet" href="./css/add_task.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="./css/scrollbar.css">
+    <link
+    rel="shortcut icon"
+    href="assets/Login/Login_Logo.png"
+    type="image/x-icon"
+  />
 
     <!-- Scripts -->
+    <script src="js/sidebar.js"></script>
     <script src="./js/includeHTML.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/add_task.js"></script>
-    <script src="js/sidebar.js"></script>
+    <script src="js/add_task_rendering.js"></script>
+    
 
   </head>
   <body onload="includeHTML(), loadContacts(), loadTasks()">
@@ -108,7 +115,7 @@
       <div id="sub"></div>
       <div id="task_added" class="d-none">
         Task added to board
-        <img src="/assets/add_task/board_white.png">
+        <img src="assets/add_task/board_white.png">
       </div>
     </div>
     <div class="add_task_option">
@@ -118,7 +125,7 @@
       </button>
       <button type="button" onclick="addTask()" class="option_button" id="task_confirm">
         Create Task
-        <img src="./assets/add_task/confirm_white.png" />
+        <img src="assets/add_task/confirm_white.png" />
       </button>
     </div>
   </body>

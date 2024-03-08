@@ -6,17 +6,24 @@
     <title>Board</title>
 
     <!-- stylesheets -->
+    <link
+    rel="shortcut icon"
+    href="assets/Login/Login_Logo.png"
+    type="image/x-icon"
+  />
     <link rel="stylesheet" href="./fonts/fonts.css" />
     <link rel="stylesheet" href="./css/board.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="./css/scrollbar.css">
     <link rel="stylesheet" href="css/add_task.css">
+   
     
     <!-- Scripts -->
     <script src="./js/includeHTML.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/board_addtask.js"></script>
     <script src="js/render.js"></script>
+    <script src="js/board_assets.js"></script>
     <script src="js/board.js"></script>
     <script src="js/sidebar.js"></script>
 </head>
@@ -35,42 +42,43 @@
     </div>
     <div class="titles">
         <div class="to_do">
-            <span class="title">To do <img src="./assets/board/plus button.png" onclick="openAddTask('todo')"></span>
-            <div id="todo" class="card_container draggable" ondragover="handleDragOver(event)" ondrop="handleDrop(event)"></div>
-            <div id="no_task_todo" class="no_task hidden">
-                <span>No tasks in todo</span>
-            </div>
+            <span class="title">To do <img src="./assets/board/plus button.png" onclick="openAddTask('task_todo')"></span>
+            <div id="no_todo" class="no_task hidden">
+              <span>No tasks in todo</span>
+          </div>
+            <div id="todo" class="card_container draggable" ondragleave="removeHighlight('todo')" ondragover="handleDragOver(event);  highlight('todo') " ondrop="handleDrop(event) ; removeHighlight('todo')" ></div>
         </div>
         
         <div class="in_progress">
             <span class="title">In Progress <img src="./assets/board/plus button.png" onclick="openAddTask('task_in_progress')"></span>
-            <div id="task_in_progress" class="card_container draggable" ondragover="handleDragOver(event)" ondrop="handleDrop(event)"></div>
             <div id="no_task_in_progress" class="no_task hidden">
-                <span>No tasks in progress</span>
-            </div>
+              <span>No tasks in progress</span>
+          </div>
+            <div id="task_in_progress" class="card_container draggable" ondragleave="removeHighlight('task_in_progress')" ondragover="handleDragOver(event);  highlight('task_in_progress') " ondrop="handleDrop(event); removeHighlight('task_in_progress')" ></div>
         </div>
         
         <div class="await_feedback">
             <span class="title">Await feedback <img src="./assets/board/plus button.png" onclick="openAddTask('task_await_feedback')"></span>
-            <div id="task_await_feedback" class="card_container draggable" ondragover="handleDragOver(event)" ondrop="handleDrop(event)"></div>
             <div id="no_task_await_feedback" class="no_task hidden">
-                <span>No tasks await feedback</span>
+              <span>No tasks await feedback</span>
+          </div>
+            <div id="task_await_feedback" class="card_container draggable" ondragleave="removeHighlight('task_await_feedback')" ondragover="handleDragOver(event);  highlight('task_await_feedback') " ondrop="handleDrop(event); removeHighlight('task_await_feedback')" >
             </div>
         </div>
         
         <div class="done">
             <span class="title">Done <img src="./assets/board/plus button.png" onclick="openAddTask('task_done')"></span>
-            <div id="task_done" class="card_container draggable" ondragover="handleDragOver(event)" ondrop="handleDrop(event)"></div>
             <div id="no_task_done" class="no_task hidden">
-                <span>No tasks done</span>
-            </div>
+              <span>No tasks done</span>
+          </div>
+            <div id="task_done" class="card_container draggable" ondragleave="removeHighlight('task_done')" ondragover="handleDragOver(event);  highlight('task_done') " ondrop="handleDrop(event); removeHighlight('task_done')" ></div>
         </div>
     </div>
 
     <div id="info_container"></div>
     <div id="task_added_board" class="d-none">
       Task added to board
-      <img src="../assets/add_task/board_white.png">
+      <img src="assets/add_task/board_white.png">
     </div>
 
     <div id="imgclose"  class="card_big d-none">
@@ -86,7 +94,7 @@
                 </div>
                 <div class="task_description_container">
                   <textarea id="task_description" cols="30" rows="10" placeholder="Enter a description"></textarea>
-                  <img class="resizer" src="./assets/add_task/resizer.png">
+                  
                   </div>
             <form id="date">
               <div class="title_gap">   
@@ -174,6 +182,8 @@
     </div>
   </div>
 </div>
+
+
 
 
 
@@ -273,11 +283,14 @@
     </button>
     <button type="button" onclick="saveEditTask()" class="option_button" id="edit_task_confirm">
       Save Changes
-      <img src="./assets/add_task/confirm_white.png" />
+      <img src="./assets/add_task/confirm_white.png"/>
     </button>
   </div>
 </div>
 </div>
+
+
+
 
 </body>
 

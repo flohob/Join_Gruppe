@@ -14,6 +14,15 @@ font-weight: 400;
     display: none !important;
 }
 
+.field_requiered{
+    color: rgba(255, 129, 144, 1);
+    font-size: 13px;
+    border-bottom: 1px dotted red;
+    text-align: justify;
+    width: 100%;
+}
+  
+
 
 .login_container {
     display: flex;
@@ -93,6 +102,7 @@ input::placeholder {
     gap: 30px;
     padding-top: 20px;
     padding-bottom: 20px;
+    justify-content: center;
 }
 
 .Login_seperator {
@@ -144,13 +154,28 @@ input::placeholder {
 
 @media (max-width: 500px) {
     .middle-container_Login {
-        width: 317px;
+        width: 290px;
         height: 443px;
     }
 
     .SignIn_Section_Login {
        display: none;
     }
+
+    #loginAnimation_container2 {
+        height: 80vh;
+        width: 70%;
+        top: 82px;
+        left: 80px;
+        transform: translate(-50, -50);
+        position: absolute;
+        background-color: white;
+        z-index: 999;
+        animation-name: logoContainerDisappear;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-in-out;
+        animation-duration: 0.6s;
+        animation-delay: 1s;}
 
     .Upper_Section_Login {
         display: flex;
@@ -173,6 +198,12 @@ input::placeholder {
      }
 }
 
+@media(min-width: 400px) and (max-width:500px) {
+    .middle-container_Login {
+        width: 320px;
+    }
+}
+
 
 @media (min-width: 501px) and (max-width: 655px) {
     .middle-container_Login {
@@ -191,6 +222,10 @@ input::placeholder {
 /* login Animation */
 
 #loginAnimation_container {
+    display: flex;
+    justify-content: center;
+
+    align-items: center;
     height: 100vh;
     width: 100%;
     top: 0px;
@@ -209,7 +244,6 @@ input::placeholder {
     height: 80vh;
     width: 70%;
     top: 82px;
-    left: 106px;
     transform: translate(-50, -50);
     position: absolute;
     background-color: white;

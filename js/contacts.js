@@ -14,35 +14,46 @@ function initContacts() {
 
 async function saveContacts() {
   try {
-      await setItem('contacts', JSON.stringify(contacts));
+    await setItem("contacts", JSON.stringify(contacts));
   } catch (error) {
-      console.error('Saving error:', error);
+    console.error("Saving error:", error);
   }
 }
-
 /**
  * Loads Contacts from the Backend
  */
-
 async function loadContacts() {
   try {
-      const loadedContacts = await getItem('contacts');
-      if (loadedContacts.data.value) {
-          contacts = JSON.parse(loadedContacts.data.value);}
+    const loadedContacts = await getItem("contacts");
+    if (loadedContacts.data.value) {
+      contacts = JSON.parse(loadedContacts.data.value);
+    }
   } catch (error) {
-      console.error('Loading error:', error);
+    console.error("Loading error:", error);
   }
   renderContacts();
 }
-
 /**
  * saves new Contact
  */
-
 function saveContact() {
-  const fullName = document.getElementById('addcontact_fullname').value;
-  const email = document.getElementById('addcontact_email').value;
-  const phoneNumber = document.getElementById('addcontact_number').value;
+  const fullName = document.getElementById("addcontact_fullname").value;
+  const email = document.getElementById("addcontact_email").value;
+  const phoneNumber = document.getElementById("addcontact_number").value;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    document
+      .getElementById("title_reqiuered_addc_email")
+      .classList.remove("noshow");
+    setTimeout(() => {
+      document
+        .getElementById("title_reqiuered_addc_email")
+        .classList.add("noshow");
+    }, 3000);
+
+    return;
+  }
+
   if (fullName && email && phoneNumber) {
     const newContact = {
       id: generateUniqueId(),
@@ -54,16 +65,26 @@ function saveContact() {
     contacts.push(newContact);
     saveContacts();
     toggleOverlay();
-    loadContacts();
-    showContactInfo(contacts.length - 1);
-   clearButton();
+    renderContacts();
+    const newIndex = contacts.findIndex(
+      (contact) => contact.id === newContact.id
+    );
+    showContactInfo(newIndex);
+    clearButton();
   } else {
-    alert('Bitte füllen Sie alle Felder aus.');
+    document
+      .getElementById("title_reqiuered_addc_phone")
+      .classList.remove("noshow");
+    setTimeout(() => {
+      document
+        .getElementById("title_reqiuered_addc_phone")
+        .classList.add("noshow");
+    }, 3000);
   }
 }
 
 /**
- * 
+ *
  * generates Unique ID
  */
 function generateUniqueId() {
@@ -71,12 +92,12 @@ function generateUniqueId() {
 }
 
 /**
- * 
+ *
  * generates Random Color for Picture
  */
 function getRandomColor() {
-  const letters = '0123456789ABCDEF';
-  let color = '#';
+  const letters = "0123456789ABCDEF";
+  let color = "#";
   for (let i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
@@ -87,10 +108,10 @@ function getRandomColor() {
  * Renders Contacts
  */
 function renderContacts() {
-  const contactContentDiv = document.getElementById('contact_content_2');
+  const contactContentDiv = document.getElementById("contact_content_2");
   sortJSON();
-  contactContentDiv.innerHTML = '';
-  let currentLetter = '';
+  contactContentDiv.innerHTML = "";
+  let currentLetter = "";
   for (let i = 0; i < contacts.length; i++) {
     const contact = contacts[i];
     const firstLetter = contact.name[0].toUpperCase();
@@ -99,8 +120,12 @@ function renderContacts() {
                             <h2>${firstLetter}</h2>
                           </div>`;
       contactContentDiv.innerHTML += sectionHtml;
-      currentLetter = firstLetter;}
-    const initials = contact.name.split(' ').map(word => word[0]).join('');
+      currentLetter = firstLetter;
+    }
+    const initials = contact.name
+      .split(" ")
+      .map((word) => word[0])
+      .join("");
     const contactHtml = `
       <div class="contact" id="con${i}" onclick="showContactInfo(${i})">
         <div class="initials_pic" style="background-color: ${contact.color}">
@@ -113,30 +138,37 @@ function renderContacts() {
       </div>
     `;
     const sectionId = `section_${firstLetter}`;
-    document.getElementById(sectionId).insertAdjacentHTML('beforeend', contactHtml);
+    document
+      .getElementById(sectionId)
+      .insertAdjacentHTML("beforeend", contactHtml);
   }
 }
 
-
 /**
- * 
+ *
  * Shows Info for Contacts
  */
 function showContactInfo(index) {
   const contact = contacts[index];
-  const contactInfoDiv = document.querySelector('.contact_info_main');
+  const contactInfoDiv = document.querySelector(".contact_info_main");
   const hover = document.getElementById(`con${index}`);
   toggleOverlay_mobile();
-  contactInfoDiv.innerHTML = '';
-  const allContacts = document.querySelectorAll('.contact');
-  allContacts.forEach(contactElement => {
-    contactElement.classList.remove('current-contact');});
+  contactInfoDiv.innerHTML = "";
+  const allContacts = document.querySelectorAll(".contact");
+  allContacts.forEach((contactElement) => {
+    contactElement.classList.remove("current-contact");
+  });
   const contactInfoHtml = `
     <div class="contact_info_upper">
       <img onclick="mobileclose()" class="mobile_back" src="assets/Login/arrow-left-line.png">
       <div class="Profile_picture_info">
-        <div class="initials_pic_big" style="background-color: ${contact.color}">
-          <span>${contact.name.split(' ').map(word => word[0]).join('')}</span>
+        <div class="initials_pic_big" style="background-color: ${
+          contact.color
+        }">
+          <span>${contact.name
+            .split(" ")
+            .map((word) => word[0])
+            .join("")}</span>
         </div>
         <div class="flex_align">
           <h2>${contact.name}</h2>
@@ -156,24 +188,27 @@ function showContactInfo(index) {
     </div>
   `;
   contactInfoDiv.innerHTML = contactInfoHtml;
-  contactInfoDiv.classList.add('slide-in');
-  document.getElementById('editContactInitials').textContent = contact.name.split(' ').map(word => word[0]).join('');
-  document.getElementById('editContactInitialsColor').style.backgroundColor = contact.color;
+  contactInfoDiv.classList.add("slide-in");
+  document.getElementById("editContactInitials").textContent = contact.name
+    .split(" ")
+    .map((word) => word[0])
+    .join("");
+  document.getElementById("editContactInitialsColor").style.backgroundColor =
+    contact.color;
 }
 
 /**
- * 
+ *
  * Function for Editing the Contacts
  */
 
 function editContact(index) {
   const contact = contacts[index];
-  document.getElementById('editcontact_fullname').value = contact.name;
-  document.getElementById('editcontact_email').value = contact.email;
-  document.getElementById('editcontact_phone').value = contact.phone;
+  document.getElementById("editcontact_fullname").value = contact.name;
+  document.getElementById("editcontact_email").value = contact.email;
+  document.getElementById("editcontact_phone").value = contact.phone;
   currentEditIndex = index;
   toggleEditOverlay();
-
 }
 
 /**
@@ -181,16 +216,51 @@ function editContact(index) {
  */
 
 function saveEditedContact() {
-  const editedName = document.getElementById('editcontact_fullname').value;
-  const editedEmail = document.getElementById('editcontact_email').value;
-  const editedPhone = document.getElementById('editcontact_phone').value;
-  contacts[currentEditIndex].name = editedName;
-  contacts[currentEditIndex].email = editedEmail;
-  contacts[currentEditIndex].phone = editedPhone;
-  saveContacts();
-  renderContacts();
-  showContactInfo(currentEditIndex); 
-  toggleEditOverlay();
+  const editedName = document.getElementById("editcontact_fullname").value;
+  const editedEmail = document.getElementById("editcontact_email").value;
+  const editedPhone = document.getElementById("editcontact_phone").value;
+
+  // Überprüfe, ob alle Felder gefüllt sind
+  if (editedName && editedEmail && editedPhone) {
+    // Benutzerdefinierte Validierung für die E-Mail-Adresse
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(editedEmail)) {
+      document
+        .getElementById("title_reqiuered_addc_email2")
+        .classList.remove("noshow");
+
+      // Hide the error messages after 3 seconds
+      setTimeout(() => {
+        document
+          .getElementById("title_reqiuered_addc_email2")
+          .classList.add("noshow");
+      }, 3000);
+      return; // Beende die Funktion, wenn die E-Mail ungültig ist
+    }
+
+    // Speichere die bearbeiteten Kontaktdaten
+    contacts[currentEditIndex].name = editedName;
+    contacts[currentEditIndex].email = editedEmail;
+    contacts[currentEditIndex].phone = editedPhone;
+
+    // Speichere die Kontakte und aktualisiere die Benutzeroberfläche
+    saveContacts();
+    renderContacts();
+    showContactInfo(currentEditIndex);
+    toggleEditOverlay();
+  } else {
+    // Anzeige der Fehlermeldung für leere Felder
+    document
+      .getElementById("title_reqiuered_addc_Numbber2")
+      .classList.remove("noshow");
+
+    // Hide the error messages after 3 seconds
+    setTimeout(() => {
+      document
+        .getElementById("title_reqiuered_addc_Numbber2")
+        .classList.add("noshow");
+    }, 3000);
+  }
 }
 
 /**
@@ -198,12 +268,11 @@ function saveEditedContact() {
  */
 
 function deleteContact() {
-    contacts.splice(currentEditIndex, 1);
-    saveContacts();
-    renderContacts();
-    showContactInfo(contacts.length > 0 ? 0 : null); 
-    toggleEditOverlay();
-  
+  contacts.splice(currentEditIndex, 1);
+  saveContacts();
+  renderContacts();
+  showContactInfo(contacts.length > 0 ? 0 : null);
+  toggleEditOverlay();
 }
 
 /**
@@ -218,22 +287,22 @@ function sortJSON() {
  * Toogles the Overlay
  */
 function toggleOverlay() {
-  var overlay = document.getElementById('overlay_addcontact_main');
-  if (overlay.classList.contains('d-none')) {
-      overlay.classList.remove('d-none');
+  var overlay = document.getElementById("overlay_addcontact_main");
+  if (overlay.classList.contains("d-none")) {
+    overlay.classList.remove("d-none");
   } else {
-      overlay.classList.add('d-none');
+    overlay.classList.add("d-none");
   }
 }
 
 function toggleEditOverlay() {
-  var overlay = document.getElementById('overlay_editcontact_main');
-  var overlay_content = document.getElementById('overlay_addcontact_content');
-  if (overlay.classList.contains('d-none')) {
-      overlay.classList.remove('d-none');
-      overlay_content.classList.add('slide-in');
+  var overlay = document.getElementById("overlay_editcontact_main");
+  var overlay_content = document.getElementById("overlay_addcontact_content");
+  if (overlay.classList.contains("d-none")) {
+    overlay.classList.remove("d-none");
+    overlay_content.classList.add("slide-in");
   } else {
-      overlay.classList.add('d-none');
+    overlay.classList.add("d-none");
   }
 }
 
@@ -241,17 +310,17 @@ function toggleEditOverlay() {
  * clears the Inputs
  */
 function clearButton() {
-document.getElementById('addcontact_fullname').value = "";
-document.getElementById('addcontact_email').value = "";
-document.getElementById('addcontact_number').value = "";
+  document.getElementById("addcontact_fullname").value = "";
+  document.getElementById("addcontact_email").value = "";
+  document.getElementById("addcontact_number").value = "";
 }
 
 function toggleOverlay_mobile() {
-  var contactContainer = document.getElementById('contact_container');
-  var showInfo = document.getElementById('info_main');
+  var contactContainer = document.getElementById("contact_container");
+  var showInfo = document.getElementById("info_main");
   if (window.innerWidth < 1000) {
-    contactContainer.classList.add('d-none');
-    showInfo.classList.add('show');
+    contactContainer.classList.add("d-none");
+    showInfo.classList.add("show");
   }
 }
 
@@ -259,10 +328,9 @@ function toggleOverlay_mobile() {
  * Function for mobile close overlay
  */
 
-function mobileclose () {
-  var contactContainer = document.getElementById('contact_container');
-  var showInfo = document.getElementById('info_main');
-  contactContainer.classList.remove('d-none');
-    showInfo.classList.remove('show');
+function mobileclose() {
+  var contactContainer = document.getElementById("contact_container");
+  var showInfo = document.getElementById("info_main");
+  contactContainer.classList.remove("d-none");
+  showInfo.classList.remove("show");
 }
-

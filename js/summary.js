@@ -1,4 +1,5 @@
 let tasksloaded = [];
+let currentUser_loaded = [];
 
 /**
  * Function for load Tasks
@@ -10,16 +11,14 @@ async function loadTasks() {
       tasksloaded = JSON.parse(loadedTasks.data.value);
       rendertasksNumbers();
       renderTotalTasksNumber();
-    } 
+    }
   } catch (error) {
     console.error("Loading error:", error);
   }
 }
-
 /**
  * Function for Rendering Numbers
  */
-
 function rendertasksNumbers() {
   renderTasksNumber("todo", "task_todod_number");
   renderTasksNumber("task_in_progress", "task_progress_number");
@@ -28,12 +27,10 @@ function rendertasksNumbers() {
   findUrgentTasks();
   greetUser();
 }
-
 /**
- * 
- * Rendering Task Numbers 
+ *
+ * Rendering Task Numbers
  */
-
 function renderTasksNumber(position, elementId) {
   const tasksForPosition = tasksloaded.filter(
     (task) => task.position === position
@@ -41,29 +38,34 @@ function renderTasksNumber(position, elementId) {
   const numberOfTasks = tasksForPosition.length;
   document.getElementById(elementId).innerHTML = numberOfTasks;
 }
-
 /**
- * Rendering Total Numbers
+ * Rendering Total Numbers for the Summary
  */
-
 function renderTotalTasksNumber() {
   const totalNumberOfTasks = tasksloaded.length;
   document.getElementById("task_board_number").innerHTML = totalNumberOfTasks;
 }
-
-function redirettoBoard () {
-  window.location.href ="board.html";
+/**
+ * redirect to Board
+ */
+function redirettoBoard() {
+  window.location.href = "board.html";
 }
-
+/**
+ * Function for finding Tasks which has the Priority URGENT
+ */
 function findUrgentTasks() {
-  let urgentTasks = tasksloaded.filter(task => task.priority === 'urgent');
+  let urgentTasks = tasksloaded.filter((task) => task.priority === "urgent");
   let urgentTasksNumber = urgentTasks.length;
 
   document.getElementById("task_urgent_number").innerHTML = urgentTasksNumber;
 }
+/**
+ * Greets the User after Login
+ */
 
 function greetUser() {
-  let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  console.log(currentUser);
-  document.getElementById('currentUser').innerHTML = currentUser.name;
+  let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  document.getElementById("currentUser").innerHTML = currentUser.name;
+  
 }

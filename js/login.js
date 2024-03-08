@@ -1,8 +1,8 @@
-let users = []; /**
+let users = [];
+/**
  * array Users
  */
 let currentUser;
-
 
 /**
  * Calls loadUsers
@@ -10,7 +10,6 @@ let currentUser;
 async function init() {
   await loadUsers();
 }
-
 /**
  * get Users from backend
  */
@@ -24,7 +23,6 @@ async function loadUsers() {
     console.error("Loading error:", e);
   }
 }
-
 /**
  * Register the User
  */
@@ -38,7 +36,14 @@ async function register() {
   }
 
   if (emailExists) {
-    console.error("E-Mail bereits registriert.");
+    document
+      .getElementById("title_reqiuered_register_signin")
+      .classList.remove("noshow");
+    setTimeout(() => {
+      document
+        .getElementById("title_reqiuered_register_signin")
+        .classList.add("noshow");
+    }, 3000);
   } else {
     AnimationUserAdded();
     users.push({
@@ -46,9 +51,7 @@ async function register() {
       email: email1.value,
       password: password1.value,
     });
-
     await setItem("users", JSON.stringify(users));
-
     setTimeout(() => {
       window.location.href = "login.html";
     }, 2000);
@@ -59,44 +62,61 @@ async function register() {
  * Checks wheter the User is a User (login)
  */
 
-// ...
+function displayErrorMessage() {
+  document.getElementById("title_reqiuered_login").classList.remove("noshow");
+  document.getElementById("email2").value = "";
+  document.getElementById("password2").value = "";
 
-// ...
+  // Verstecke die Fehlermeldung nach 3 Sekunden
+  setTimeout(() => {
+    document.getElementById("title_reqiuered_login").classList.add("noshow");
+  }, 3000);
+}
 
+// Funktion für die Anmeldung des Benutzers
 async function loginUser() {
   let email = document.getElementById("email2").value;
   let password = document.getElementById("password2").value;
+  let rememberMeCheckbox = document.getElementById("flexCheckDefault");
   await loadUsers();
-
-  let user = users.find((u) => u.email === email && u.password === password);
-
+  let user = findUser(email, password);
   if (user) {
-    currentUser = user;
-    // Speichere currentUser im Local Storage
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-    window.location.href = "summary.html";
+    handleSuccessfulLogin(user, rememberMeCheckbox);
   } else {
-    alert("Falsche E-Mail-Adresse oder Passwort");
+    displayErrorMessage();
   }
-}
-
-// ...
-
-
-// ...
-
-/**
- * Guest Login
- */
-
-function guestLogin() {
-  document.getElementById("email2").value = users[2].email;
-  document.getElementById("password2").value = users[2].password;
-  loginUser();
+  handleRememberMe();
 }
 
 /**
  * 
+ *Finds User
+ */
+function findUser(email, password) {
+  return users.find((u) => u.email === email && u.password === password);
+}
+
+// Funktion für die erfolgreiche Anmeldung
+function handleSuccessfulLogin(user, rememberMeCheckbox) {
+  currentUser = user;
+  localStorage.setItem("currentUser", JSON.stringify(currentUser));
+  if (rememberMeCheckbox.checked) {
+    localStorage.setItem("rememberedEmail", currentUser.email);
+  } else {
+    localStorage.removeItem("rememberedEmail");
+  }
+  window.location.href = "summary.html";
+}
+/**
+ * Guest Login
+ */
+function guestLogin() {
+  document.getElementById("email2").value = users[20].email;
+  document.getElementById("password2").value = users[20].password;
+  loginUser();
+}
+/**
+ *
  * Checks Password
  */
 async function passwordCheck() {
@@ -104,24 +124,48 @@ async function passwordCheck() {
   let pw2 = document.getElementById("password2").value;
 
   if (pw1 !== pw2) {
-    alert("Passwörter stimmen nicht überein!");
+    document
+      .getElementById("title_reqiuered_register")
+      .classList.remove("noshow");
+    setTimeout(() => {
+      document
+        .getElementById("title_reqiuered_register")
+        .classList.add("noshow");
+    }, 3000);
     return false;
   } else {
     return true;
   }
 }
-
 /**
  * Animation for Success Statement
  */
 function AnimationUserAdded() {
-  let animationElement = document.getElementById('success_register');
+  let animationElement = document.getElementById("success_register");
 
   // Entferne die Klasse "d-none"
-  animationElement.classList.remove('d-none1');
-
+  animationElement.classList.remove("d-none1");
 
   setTimeout(() => {
-      animationElement.classList.add('d-none1');
+    animationElement.classList.add("d-none1");
   }, 2000);
+}
+
+function handleRememberMe() {
+  const rememberMeCheckbox = document.getElementById("flexCheckDefault");
+  const emailInput = document.getElementById("email2");
+
+  // Beim Laden der Seite überprüfen, ob die Checkbox gespeichert ist
+  const savedEmail = localStorage.getItem("rememberedEmail");
+  if (savedEmail) {
+    rememberMeCheckbox.checked = true;
+    emailInput.value = savedEmail;
+  }
+  rememberMeCheckbox.addEventListener("change", function () {
+    if (this.checked) {
+      localStorage.setItem("rememberedEmail", emailInput.value);
+    } else {
+      localStorage.removeItem("rememberedEmail");
+    }
+  });
 }

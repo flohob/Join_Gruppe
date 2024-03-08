@@ -47,6 +47,17 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+}
+
+.additional-contacts {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    background: grey;
+    border-radius: 100%;
+    height: 40px;
+    width: 40px;
 }
 
 .find_task input {
@@ -58,6 +69,7 @@ body {
   gap: 10px;
   border-radius: 10px;
   border: 1px solid #a8a8a8;
+  cursor: pointer;
 }
 
 .find_task button {
@@ -73,6 +85,7 @@ body {
   color: white;
 font-family: "Open Sans";
 font-size: 23px;
+cursor: pointer;
 }
 
 .titles {
@@ -82,6 +95,7 @@ font-size: 23px;
   gap: 24px;
   height: 60%;
   overflow-y: auto;
+  cursor: pointer;
 }
 
 
@@ -92,6 +106,7 @@ width: 100%;
 display: flex;
 justify-content: flex-end;
 padding-top: 20px;
+cursor: pointer;
 }
 
 .add_task_container3 input {
@@ -101,6 +116,7 @@ padding: 13px 16px;
 border: none;
 border-bottom: 1px solid rgba(209, 209, 209, 1);
 font-size: 32px;
+
 }
 
 .add_task_containe3 input:hover{
@@ -123,6 +139,7 @@ border-bottom: 1px solid rgba(69, 137, 255, 1) !important;
   border: none;
   border-bottom: 1px solid rgba(209, 209, 209, 1);
   font-size: 32px;
+  cursor: pointer;
 }
 
 .edit_description {
@@ -134,6 +151,7 @@ border-bottom: 1px solid rgba(69, 137, 255, 1) !important;
     position: relative;
     font-size: 19px;
     padding: 18px 10px 10px 16px;
+    cursor: pointer;
 }
 
 .edit_date {
@@ -144,6 +162,7 @@ border-bottom: 1px solid rgba(69, 137, 255, 1) !important;
     font-size: 19px;
     color: rgba(209, 209, 209, 1);
     font-family: "Open Sans";
+    cursor: pointer;
 }
 
 
@@ -168,6 +187,7 @@ border-bottom: 1px solid rgba(69, 137, 255, 1) !important;
   display: flex;
   justify-content: flex-end;
   padding-top: 20px;
+  cursor: pointer;
 }
 
 .add_task_container2 input {
@@ -194,7 +214,7 @@ border-bottom: 1px solid rgba(69, 137, 255, 1) !important;
 
 .title {
   display: flex;
-  
+  cursor: pointer;
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
@@ -219,6 +239,7 @@ border-bottom: 1px solid rgba(69, 137, 255, 1) !important;
   justify-content: center;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 }
 
 .card_container {
@@ -238,7 +259,7 @@ border-bottom: 1px solid rgba(69, 137, 255, 1) !important;
   display: flex;
   width: 244px;
   flex-direction: column;
-  justify-content: center;
+ 
   align-items: center;
   gap: 30px;
 }
@@ -254,8 +275,9 @@ border-bottom: 1px solid rgba(69, 137, 255, 1) !important;
   border-radius: 24px;
   box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
   background-color: white;
-  width: 70%;
-  max-width: 250px;
+
+  min-width: 200px;
+  height: 290px;
 }
 
 #dropdown_contacts2 {
@@ -330,6 +352,7 @@ border-bottom: 1px solid rgba(69, 137, 255, 1) !important;
   flex-direction: column;
   gap: 28px;
   width: 100%;
+  cursor: pointer;
 }
 .task_subtask {
   color: #000;
@@ -373,8 +396,50 @@ border-bottom: 1px solid rgba(69, 137, 255, 1) !important;
   align-self: stretch;
 }
 
+.moveto {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+.overlay_logout3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+  position: absolute;
+  background-color: rgb(204, 195, 195);
+  padding: 10px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-right: 10px;
+  width: 200px;
+  top: 250px;
+  right:50%;
+  left: 50%;
+
+  height: 153px;
+  cursor: pointer;
+}
+
+.overlay_logout3 a {
+  font-size: 16px;
+  display: flex;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+
+.overlay_logout3 a:hover {
+  color: rgba(69, 137, 255, 1); 
+  transform: scale(1.015);
+}
 
 .icons {
+  display: flex;
+  flex-wrap: wrap;
   margin-top: 15px;
 }
 
@@ -433,7 +498,7 @@ background: #FF7A00;
 
 .task_title_big{
 font-family: "Open Sans";
-font-size: 61px;
+font-size: 36px;
 font-weight: 700;
 }
 
@@ -515,15 +580,21 @@ border-radius: 10px;
 
 .card_container {
   min-height: 100%; /* Beispiel-Mindesthöhe */
-  background-color: rgb(249, 247, 247);
+  
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: baseline
+}
+
+
+.drag-area-highlight {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 
 .drag-over {
   border: 2px dashed #4589FF;
+  
 }
 
 .card_big_edit {
@@ -692,11 +763,12 @@ border-radius: 10px;
     width: 25px;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1400px) {
 
   .sidebar {
       display: none;
   }
+  
   
   .card_big {
     display: flex;
@@ -711,11 +783,32 @@ border-radius: 10px;
     position: absolute;
     background-color: white;
     top: 97px;
-    left: 6%;}
+    left: 20%;}
 
   .mobilebar_resp {
       display: flex !important;
   }
+
+  .overlay_logout3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+    position: absolute;
+    background-color: rgb(204, 195, 195);
+    padding: 10px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-right: 10px;
+    width: 200px;
+    top: 250px;
+    left: 20px;
+    height: 153px;
+    cursor: pointer;
+  }
+  
 
   .card_big_edit {
     display: flex;
@@ -730,7 +823,7 @@ border-radius: 10px;
     background-color: white;
     top: 75px;
     left: 12%;
-    height: 60%;
+    height: 65%;
     overflow-x: auto;}
 
     .edit_input {
@@ -746,9 +839,6 @@ border-radius: 10px;
     flex-direction: column;
   }
 
-  .card {
-    width: 70%;
-  }
 
   .titles {
     display: flex;
@@ -789,26 +879,77 @@ border-radius: 10px;
 
 .card_container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  align-items: baseline;
   min-height: 200px;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.card_big {
+  display: flex;
+    padding: 20px 40px;
+    flex-direction: column;
+    align-items: flex-start;
+    max-height: 73%;
+    overflow-y: auto;
+    border-radius: 30px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    position: absolute;
+    background-color: white;
+    top: 97px;
+    left: 150px;
+    gap: 25px;
+    overflow-x: hidden;
+}
+
+#urgent_edit {
+  width: 60px;
+  height: 51px;
+gap: 10px;
+  font-size: 11px;
+}
+
+#medium_edit {
+  width: 60px;
+  height: 51px;
+gap: 10px;
+  font-size: 11px;
+}
+
+#low_edit {
+  width: 60px;
+  height: 51px;
+gap: 10px;
+  font-size: 11px;
+}
+
+#edit_task_cancel {
+  width: 100px;
+  font-size: 14px;
+}
+
+#edit_task_confirm {
+  width: 110px;
+  font-size: 14px;
 }
 
 .card_big_info {
   display: flex;
-  width: 72%;
   padding: 20px 40px;
   flex-direction: column;
   align-items: flex-start;
-  max-height: 680px;
+  max-height: 76%;
   overflow-y: auto;
   border-radius: 30px;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
   position: absolute;
   background-color: white;
   top: 97px;
-left: 10px;
+left: 200px;
+
   gap: 25px;
+  overflow-x: hidden;
 
 
 }
@@ -828,6 +969,25 @@ left: 10px;
   font-weight: bold;
 }
 
+.add_task_container2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 88%;
+  padding: 0px 40px 0 0px;
+  gap: 24px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
+}
+
+.add_task_container2 input {
+  width: 100%;
+  font-size: 20px;
+}
+}
+
 .btns_cancel {
   color: rgba(100, 113, 136, 1);
   border: 2px solid grey;
@@ -845,29 +1005,16 @@ left: 10px;
 
 }
 
-@media (min-width: 700px) and (max-width: 1400px) {
+@media (min-width: 700px) and (max-width: 1540px) {
   .titles {
     display: flex;
     margin-left: 0px;
     padding: 0px 10px;
     gap: 10px;
-    height: 100%;
+    height: 50%;
 } 
 
-.card_big {
-  display: flex;
-  width: 528px;
-  padding: 20px 40px;
-  flex-direction: column;
-  align-items: flex-start;
-  max-height: 680px;
-  overflow-y: auto;
-  border-radius: 30px;
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
-  position: absolute;
-  background-color: white;
-  top: 97px;
-  left: 12%;}
+
 
 
 .sidebar {
@@ -878,5 +1025,74 @@ left: 10px;
   display: flex !important;
 }
 
+
+}
+
+@media (max-width: 700px) {
+
+
+
+}
+
+@media (max-width: 450px) {
+
+  .button_prio {
+    width: 60px;
+    height: 51px;
+  gap: 10px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 840px) { 
+  .card_big_info {
+    width: 60%;
+    left: 29px;
+    gap: 10px;
+    height:fit-content ;
+  }
+
+  .task_title_big {
+    font-size: 20px;
+  }
+
+  .task_date_big span {
+    font-size: 15px;
+  }
+
+  .task_prio_big span {
+    font-size: 15px;
+  }
+
+  .task_contacts_big span  {
+    font-size: 15px;
+  }
+
+  .Info_contact_container {
+    font-size: small;
+  }
+
+  .subtask_info label {
+    font-size: small;
+  }
+}
+
+@media (max-width: 840px) { 
+
+.card_big {
+  display: flex;
+  width: 65%;
+  padding: 20px 40px;
+  flex-direction: column;
+  align-items: flex-start;
+  max-height: 680px;
+  overflow-y: auto;
+  border-radius: 30px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  position: absolute;
+  background-color: white;
+  top: 70px;
+  left: 5%;
+overflow-x: hidden;
 
 }}

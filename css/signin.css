@@ -14,6 +14,18 @@ body {
     .d-none1 {
         display: none !important;
     }
+
+    .noshow {
+        display: none !important;
+    }
+    
+    .field_requiered{
+        color: rgba(255, 129, 144, 1);
+        font-size: 13px;
+        border-bottom: 1px dotted red;
+        text-align: justify;
+        width: 100%;
+    }
     
     
     .login_container {

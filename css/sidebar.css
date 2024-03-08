@@ -55,10 +55,21 @@ display: none !important;
     cursor: pointer;
 }
 
+.sidebar_mainlinks a.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+
 .svg_text{
     font-size: 20px;
     fill: rgba(69, 137, 255, 1);
     font-weight: bold;
+
+    cursor: pointer;
+}
+
+.topright {
+    cursor: pointer;
 }
 
 .sidebar_left{
@@ -157,6 +168,7 @@ display: none !important;
     top: 72px;
     right: 18px;
     height: 113px;
+    cursor: pointer;
 }
 
 .overlay_logout2 a {

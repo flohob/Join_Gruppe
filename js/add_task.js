@@ -6,7 +6,7 @@ let prioity = "medium";
 let tasks = [];
 let contacts = [];
 
-/**Checks Forms
+/**Checks Forms for Right Form Validation, adds a Div which tells teh User which Fields are required
  */
 function checkForms() {
   let checkTitle = document.getElementById("title");
@@ -17,41 +17,49 @@ function checkForms() {
     removeRequiered("title");
     if (checkDate.checkValidity()) {
       removeRequiered("date");
-        if (selectedCategory.checkValidity()) {
-          removeRequiered("category");
-          addTask();
-        } else addRequiered("category");
+      if (selectedCategory.checkValidity()) {
+        removeRequiered("category");
+        addTask();
+      } else addRequiered("category");
     } else addRequiered("date");
   } else addRequiered("title");
 }
-
 /**
- * load Contacts
+ * loads Contacts form Backend for Contact Toogle, User gets to choose between all Contacts
  */
 async function loadContacts() {
   try {
-      const loadedContacts = await getItem('contacts');
-      if (loadedContacts.data.value) {
-          const contact = JSON.parse(loadedContacts.data.value);
-          contacts.push(contact); }
-      return [];
+    const loadedContacts = await getItem("contacts");
+    if (loadedContacts.data.value) {
+      const contact = JSON.parse(loadedContacts.data.value);
+      contacts.push(contact);
+    }
+    return [];
   } catch (error) {
-      console.error('Fehler beim Laden der Kontakte:', error);
-      return [];
+    console.error("Fehler beim Laden der Kontakte:", error);
+    return [];
   }
 }
+/**
+ * Eventlistener for clicking outside the Form to close the Dropdown
+ */
+document.addEventListener("click", function (event) {
+  const contactsContainer = document.getElementById("dropdown_contacts");
+  const categoryContainer = document.getElementById("dropdown_category");
+  const taskContactsInput = document.getElementById("task_contacts");
+  const taskCategoryInput = document.getElementById("task_category");
 
-document.addEventListener('click', function(event) {
-  const contactsContainer = document.getElementById('dropdown_contacts');
-  const categoryContainer = document.getElementById('dropdown_category');
-  const taskContactsInput = document.getElementById('task_contacts');
-  const taskCategoryInput = document.getElementById('task_category');
-
-  if (!contactsContainer.contains(event.target) && !taskContactsInput.contains(event.target)) {
+  if (
+    !contactsContainer.contains(event.target) &&
+    !taskContactsInput.contains(event.target)
+  ) {
     // Der Klick war außerhalb des Kontakte-Dropdowns und des Input-Felds
     closeContacts(contactsContainer);
   }
-  if (!categoryContainer.contains(event.target) && !taskCategoryInput.contains(event.target)) {
+  if (
+    !categoryContainer.contains(event.target) &&
+    !taskCategoryInput.contains(event.target)
+  ) {
     // Der Klick war außerhalb des Kategorie-Dropdowns und des Input-Felds
     closeCategory(categoryContainer);
   }
@@ -63,28 +71,31 @@ document.addEventListener('click', function(event) {
 function addRequiered(where) {
   document.getElementById(`${where}_reqiuered`).classList.remove("d-none");
   if (where === "description") {
-    document.getElementById(`task_${where}`) .classList.add(`requiered_${where}`);
+    document
+      .getElementById(`task_${where}`)
+      .classList.add(`requiered_${where}`);
   } else document.getElementById(`task_${where}`).classList.add("requiered");
 }
 /**
- * Removes
+ * Removes the required Forms
  */
 function removeRequiered(where) {
   document.getElementById(`${where}_reqiuered`).classList.add("d-none");
   if (where === "description") {
-    document.getElementById(`task_${where}`).classList.remove(`requiered_${where}`);
+    document
+      .getElementById(`task_${where}`)
+      .classList.remove(`requiered_${where}`);
   } else document.getElementById(`task_${where}`).classList.remove("requiered");
 }
 
 /**
- * clears Forms
+ * clears Forms with a refresh
  */
 function clearForm() {
- location.reload();
+  location.reload();
 }
-
 /**
- * Changes the Textcolor
+ * Changes the Textcolor of the Date
  */
 function changeTextColor() {
   let dateInput = document.getElementById("task_date");
@@ -96,10 +107,9 @@ function changeTextColor() {
     dateInput.style.color = "rgba(209, 209, 209, 1)";
   }
 }
-
 /**
- * 
- * Changes the Prio 
+ *
+ * Changes the Priority for the Task
  */
 function changePrio(prio) {
   clearPrio();
@@ -109,6 +119,9 @@ function changePrio(prio) {
   selectedPrio.classList.remove(`hover_${prio}`);
   document.getElementById(`${prio}_svg`).style.fill = "white";
 }
+/**
+ * clears the Priority and change it to medium
+ */
 
 function clearPrio() {
   let urgent = document.getElementById("urgent");
@@ -123,9 +136,8 @@ function clearPrio() {
   low.classList.remove("low");
   low.classList.add("hover_low");
   document.getElementById(`low_svg`).style.fill = "#7AE229";
-  prioity = 'medium';
+  prioity = "medium";
 }
-
 /**
  * toggles Function for dropdown
  */
@@ -140,9 +152,8 @@ function toggleContDrop() {
     openContacts(contactsContainer);
   }
 }
-
 /**
- * 
+ *
  * Opens Contacts Dropdown
  */
 
@@ -153,60 +164,43 @@ function openContacts(contactsContainer) {
     .setAttribute("placeholder", "Select Contact");
   contactsOpen = true;
   contactsContainer.innerHTML = "";
-  const contactsArray = contacts[0]; 
+  const contactsArray = contacts[0];
   for (let index = 0; index < contactsArray.length; index++) {
     const contact = contactsArray[index];
     let initials = getInitials(contact);
-    contactsContainer.innerHTML += renderDropdownContacts(contact, initials, index);
+    contactsContainer.innerHTML += renderDropdownContacts(
+      contact,
+      initials,
+      index
+    );
   }
 }
 
 /**
- * 
- * Get initials for Dropdown
+ *
+ * Get initials for Dropdown for better Design
  */
 
-function getInitials(contact){
-  let namesSplit = contact.name.split(" ")
+function getInitials(contact) {
+  let namesSplit = contact.name.split(" ");
   let firstName = namesSplit[0].charAt(0);
-    let lastName = namesSplit[1].charAt(0);
-    return(firstName + lastName)
+  let lastName = namesSplit.length > 1 ? namesSplit[1].charAt(0) : " ";
+  return firstName + lastName;
 }
-
-/**
- * for selecting Conatcts in Dropdown
- */
-
-function contactSelectToggle(i) {
-  let img = document.getElementById(`contactSelect(${i})`);
-  let notSelectedImg = "../assets/add_task/not_selected.png";
-  let selectedImg = "../assets/add_task/selected.png";
-  const isSelected = selectedContacts.some(contact => contact.id === contacts[0][i].id);
-  if (!isSelected) {
-    selectedContacts.push(contacts[0][i]);
-    img.src = selectedImg; 
-  } else {
-    selectedContacts = selectedContacts.filter(contact => contact.id !== contacts[0][i].id);
-    img.src = notSelectedImg; 
-  }
-  renderContactsSmall();
-}
-/**
- * Adds certain Tasks
- */
 
 function addTask() {
-  let description = document.getElementById('task_description').value;
-  let title = document.getElementById('task_title').value;
-  let date = document.getElementById('task_date').value;
-  let category = document.getElementById('task_category').value;
+  let description = document.getElementById("task_description").value;
+  let title = document.getElementById("task_title").value;
+  let date = document.getElementById("task_date").value;
+  let category = document.getElementById("task_category").value;
 
   if (title.trim() === "" || date.trim() === "" || category.trim() === "") {
-    return; 
+    checkForms();
+    return;
   }
 
   if (description === "") {
-    description = 'Keine Beschreibung';
+    description = "Keine Beschreibung";
   }
 
   const selectedContactsNames = selectedContacts.map((contact) => {
@@ -214,14 +208,14 @@ function addTask() {
   });
 
   let task = {
-    'title': title,
-    'description': description,
-    'date': date,
-    'priority': prioity, // Achtung: prioity muss definiert sein
-    'contacts': selectedContactsNames, 
-    'category': category,
-    'subtask': subtasks, // Achtung: subtasks muss definiert sein
-    'position': 'todo',
+    title: title,
+    description: description,
+    date: date,
+    priority: prioity,
+    contacts: selectedContactsNames,
+    category: category,
+    subtask: subtasks,
+    position: "todo",
   };
 
   tasks.push(task);
@@ -230,12 +224,14 @@ function addTask() {
 }
 
 /**
- * 
- * closes Contacts
+ *
+ * closes Contacts Dropdown
  */
 function closeContacts(contactsContainer) {
   contactsContainer.classList.add("d-none");
-  document.getElementById("task_contacts").setAttribute("placeholder", "Select contacts to assign");
+  document
+    .getElementById("task_contacts")
+    .setAttribute("placeholder", "Select contacts to assign");
   contactsOpen = false;
 }
 
@@ -253,7 +249,7 @@ function toggleCatDrop() {
   }
 }
 /**
- * 
+ *
  * Opens Category close and select
  */
 function openCategory(categoryContainer) {
@@ -266,13 +262,15 @@ function openCategory(categoryContainer) {
 
 function closeCategory(categoryContainer) {
   categoryContainer.classList.add("d-none");
-  document.getElementById("task_category").setAttribute("placeholder", "Select task category");
+  document
+    .getElementById("task_category")
+    .setAttribute("placeholder", "Select task category");
   categoryOpen = false;
 }
 
-function selectCategory(category){
-document.getElementById('task_category').value = category;
-toggleCatDrop();
+function selectCategory(category) {
+  document.getElementById("task_category").value = category;
+  toggleCatDrop();
 }
 
 /**
@@ -292,7 +290,9 @@ function toggleSubDrop() {
 function addSubtask() {
   let text = document.getElementById("task_subtask");
   let subtask = {
-    "text": text.value,};
+    text: text.value,
+    checked: false,
+  };
   subtasks.push(subtask);
   text.value = "";
   removeRequiered("title");
@@ -304,22 +304,22 @@ function addSubtask() {
  * Removes Subtask Input
  */
 
-function removeSubInput(){
- document.getElementById("task_subtask").value = '';
- document.getElementById("subtask_confirm_cancel").style.display = "none"
+function removeSubInput() {
+  document.getElementById("task_subtask").value = "";
+  document.getElementById("subtask_confirm_cancel").style.display = "none";
 }
 /**
- * 
- * deletes subtask 
+ *
+ * deletes subtask
  */
 function deleteSubtask(index) {
   if (index >= 0 && index < subtasks.length) {
-    subtasks.splice(index, 1); 
-    renderSubtask(); 
+    subtasks.splice(index, 1);
+    renderSubtask();
   }
 }
 /**
- * 
+ *
  * edits subtask
  */
 
@@ -330,30 +330,6 @@ function editSubtask(index) {
   subtasks.splice(index, 1);
   renderSubtask();
 }
-/**
- * 
- * rendering dropdown
- */
-function renderDropdownContacts(contact, initials, i) {
-  const isSelected = selectedContacts.some(selectedContact => selectedContact.id === contact.id);
-  const imgSrc = isSelected ? "assets/add_task/selected.png" : "assets/add_task/not_selected.png";
-  return `<div class="dropdown_contact">
-                <div class="contact_name">
-                  <svg width="42px" height="42px" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Äußerer Kreis -->
-                    <circle cx="21px" cy="21px" r="20px" stroke="white" stroke-width="3" fill="transparent" />
-                    <!-- Innerer Kreis -->
-                    <circle cx="21px" cy="21px" r="19px" fill="${contact.color}" />
-                    <text fill="white" x="21px" y="23px"  alignment-baseline="middle" text-anchor="middle" >
-                        ${initials}
-                      </text>
-                  </svg>
-                  <span>${contact.name}</span>
-                </div>
-                <img id="contactSelect(${i})" onclick="contactSelectToggle(${i})" src="${imgSrc}">
-              </div>`;
-}
-
 
 /**
  * render subtasks
@@ -367,65 +343,31 @@ function renderSubtask() {
   });
 }
 
-function renderContactsSmall() {
-  let smallContainer = document.getElementById("rendercontacts_container_small");
-  smallContainer.innerHTML = ""; 
-  selectedContacts.forEach(contact => {
-    const initials = getInitials(contact);
-    smallContainer.innerHTML += `
-      <svg width="42px" height="42px" xmlns="http://www.w3.org/2000/svg">
-        <!-- Äußerer Kreis -->
-        <circle cx="21px" cy="21px" r="20px" stroke="white" stroke-width="3" fill="transparent" />
-        <!-- Innerer Kreis -->
-        <circle cx="21px" cy="21px" r="19px" fill="${contact.color}" />
-        <text fill="white" x="21px" y="23px"  alignment-baseline="middle" text-anchor="middle" >
-          ${initials}
-        </text>
-      </svg>`;
-  });
+async function saveTasks() {
+  try {
+    await setItem("tasks", JSON.stringify(tasks));
+  } catch (error) {
+    console.error("Saving error:", error);
+  }
 }
 
-
-/**
- * 
- * creates Subtask Element
- */
-
-function createSubtaskElement(subtask, index) {
-  const subtaskElement = document.createElement("div");
-  subtaskElement.classList.add("subtask");
-  subtaskElement.innerHTML = `
-    <div class="subtask-text">${subtask.text}</div>
-    <div class="subtask-actions">
-      <img src="assets/add_task/edit.png" class="edit_addtask_sub" onclick="editSubtask(${index})">
-      <img src="assets/add_task/cancel_blue.png" class="btn-close" onclick="deleteSubtask(${index})">
-    </div>
-  `;
-  return subtaskElement;
-}
-
-  async function saveTasks() {
-    try {
-        await setItem('tasks', JSON.stringify(tasks));
-    } catch (error) {
-        console.error('Saving error:', error);
+async function loadTasks() {
+  try {
+    const loadedTasks = await getItem("tasks");
+    if (loadedTasks.data.value) {
+      tasks = JSON.parse(loadedTasks.data.value);
     }
+  } catch (error) {
+    console.error("Loading error:", error);
   }
+}
 
-  async function loadTasks() {
-    try {
-        const loadedTasks = await getItem('tasks');
-        if (loadedTasks.data.value) {
-            tasks = JSON.parse(loadedTasks.data.value);
-        }
-    } catch (error) {
-        console.error('Loading error:', error);
-    }}
-
-    function AnimationTasksAdded() {
-      let animationElement = document.getElementById('task_added');
-      animationElement.classList.remove('d-none');
-      setTimeout(() => {
-          animationElement.classList.add('d-none');
-      }, 2000);
-  }
+function AnimationTasksAdded() {
+  let animationElement = document.getElementById("task_added");
+  animationElement.classList.remove("d-none");
+  
+  setTimeout(() => {
+    animationElement.classList.add("d-none");
+    window.location.href = "board.html";
+  }, 3000);
+}

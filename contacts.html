@@ -6,11 +6,17 @@
     <title>Contacts</title>
     <link rel="stylesheet" href="css/contact.css" />
     <link rel="stylesheet" href="css/scrollbar.css">
+    <link rel="stylesheet" href="./fonts/fonts.css" />
+    <link
+    rel="shortcut icon"
+    href="assets/Login/Login_Logo.png"
+    type="image/x-icon"
+  />
     <!-- Scripts -->
+    <script src="js/sidebar.js"></script>
     <script src="./js/includeHTML.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/contacts.js"></script>
-    <script src="js/sidebar.js"></script>
   </head>
   <body onload="includeHTML(), initContacts()">
 
@@ -52,7 +58,8 @@
       <img src="assets/Login/Frame 79.png" alt="" />
     </div>
     <div class="addcontact_form">
-      <form id="addContactForm" class="addcontact_form" action="">
+      <form id="addContactForm" class="addcontact_form">
+        <div>
         <input
           id="addcontact_fullname"
           class="addcontact_fullname"
@@ -60,6 +67,9 @@
           placeholder="Full Name"
           required
         />
+        <div id="title_reqiuered_addc_name" class="field_requiered noshow">This field is required!</div>
+        </div>
+        <div>
         <input
           id="addcontact_email"
           class="addcontact_email"
@@ -67,17 +77,22 @@
           placeholder="Email Address"
           required
         />
+        <div id="title_reqiuered_addc_email" class="field_requiered noshow">Please Enter Valid Email!</div>
+        </div>
+        <div>
         <input
           id="addcontact_number"
           class="addcontact_number"
-          type="tel"
+          type="number"
           placeholder="Phone Number"
           required
         />
+        <div id="title_reqiuered_addc_phone" class="field_requiered noshow">All Fields are required</div>
+        </div>
       </form>
       <div class="addcontact_overlay_btn">
         <button onclick="clearButton()" class="delete_btn_overlay">Clear</button>
-        <button onclick="saveContact()" class="save_btn_overlay">Save</button>
+        <button type="button" onclick="saveContact()" class="save_btn_overlay">Save</button>
       </div>
     </div>
   </div>
@@ -110,6 +125,7 @@
           placeholder="Full Name"
           required
         />
+        <div id="title_reqiuered_addc_name2" class="field_requiered noshow">This field is required!</div>
         <input
           id="editcontact_email"
           class="addcontact_email"
@@ -117,13 +133,15 @@
           placeholder="Email Address"
           required
         />
+        <div id="title_reqiuered_addc_email2" class="field_requiered noshow">Please Enter Valid Email!</div>
         <input
           id="editcontact_phone"
           class="addcontact_number"
-          type="tel"
+          type="number"
           placeholder="Phone Number"
           required
         />
+        <div id="title_reqiuered_addc_Numbber2" class="field_requiered noshow">All fields are required!</div>
       </form>
       <div class="addcontact_overlay_btn">
         <button class="delete_btn_overlay" onclick="deleteContact()">Delete</button>

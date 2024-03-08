@@ -12,6 +12,10 @@ let contactsDropdown;
 let categoryOpen2 = false;
 let editedPrioity = "medium";
 
+/**
+ * loads Tasks from Backend 
+ */
+
 async function loadTasks() {
   try {
     const loadedTasks = await getItem("tasks");
@@ -26,10 +30,18 @@ async function loadTasks() {
   }
 }
 
+/**
+ * call Function
+ */
+
 function init() {
   loadTasks();
+  updateProgressBarWidth();
 }
 
+/**
+ * loads Contacts 
+ */
 async function loadContacts_board() {
   try {
     const loadedContacts = await getItem("contacts");
@@ -42,18 +54,44 @@ async function loadContacts_board() {
   }
 }
 
+/**
+ * Renders tasks for Container ID
+ */
+
 function renderTasks1() {
   containerIds.forEach((containerId) => {
     const renderContainer = document.getElementById(containerId);
+    if (!renderContainer) {
+      console.error("Container not found: " + containerId);
+      return;
+    }
+
     renderContainer.innerHTML = "";
+    
     const searchTerm = document
       .getElementById("search_input")
       .value.toLowerCase();
-    const tasksInContainer = tasks.filter(
-      (task) =>
-        task.position === containerId &&
-        task.title.toLowerCase().includes(searchTerm)
-    );
+    
+      const tasksInContainer = tasks.filter(
+        (task) =>
+          task.position === containerId &&
+          (task.title.toLowerCase().includes(searchTerm) ||
+            task.description.toLowerCase().includes(searchTerm))
+      );
+      
+
+    const noContainerElement = document.getElementById("no_" + containerId);
+    if (!noContainerElement) {
+      error("Element not found: no_" + containerId);
+      return;
+    }
+
+    if (tasksInContainer.length === 0) {
+      noContainerElement.classList.remove('hidden');
+    } else {
+      noContainerElement.classList.add('hidden');
+    }
+
     tasksInContainer.forEach((task) => {
       const cardElement = renderCard(task);
       renderContainer.innerHTML += cardElement;
@@ -61,6 +99,17 @@ function renderTasks1() {
   });
 }
 
+function highlight(id) {
+  document.getElementById(id).classList.add('drag-area-highlight');
+}
+
+function removeHighlight(id) {
+  document.getElementById(id).classList.remove('drag-area-highlight');
+}
+
+/**
+ * Extract initlas 
+ */
 function extractInitialsFromContact(contact) {
   if (typeof contact === "string") {
     return contact
@@ -78,12 +127,17 @@ function extractInitials(selectedTask) {
   return selectedTask.contacts?.map(extractInitialsFromContact) || [];
 }
 
+/**
+ * gets All Subtasks
+ */
 function getAllSubtaskTexts(selectedTask) {
   return selectedTask.subtask
     ? selectedTask.subtask.map((subtask) => subtask.text)
     : [];
 }
-
+/**
+ * Deletes Tasks
+ */
 function deleteTask(title) {
   const index = tasks.findIndex((task) => task.title === title);
   if (index !== -1) {
@@ -93,14 +147,17 @@ function deleteTask(title) {
     closeCardbig();
   }
 }
-
+/**
+ * Saves Tasks in the Backend
+ */
 function saveTasks() {
   setItem("tasks", JSON.stringify(tasks));
 }
-
+/**
+ * Opens Card
+ */
 function openCard(title) {
   const selectedTask = tasks.find((task) => task.title === title);
-  console.log(selectedTask);
   if (selectedTask) {
     const infoContainer = document.getElementById("info_container");
     infoContainer.innerHTML = showInfoTasks(selectedTask);
@@ -109,21 +166,36 @@ function openCard(title) {
   }
 }
 
+/**
+ * Function for Searching Tasks
+ */
+
 function searchTask() {
   containerIds.forEach((containerId) => {
     const container = document.getElementById(containerId);
     const searchTerm = document
       .getElementById("search_input")
       .value.toLowerCase();
-    const filteredTasks = tasksloaded.filter(
-      (task) =>
-        task.position === containerId &&
-        task.title.toLowerCase().includes(searchTerm)
-    );
+
+    const filteredTasks = tasksloaded.filter((task) => {
+      const titleMatch = task.title.toLowerCase().includes(searchTerm);
+      const descriptionMatch = task.description.toLowerCase().includes(searchTerm);
+      
+
+      return task.position === containerId && (titleMatch || descriptionMatch);
+    });
+
+
     renderTasks(filteredTasks, container);
   });
+
   UpdateHtml();
 }
+
+
+/**
+ * rendes Tasks
+ */
 
 function renderTasks(tasksToRender, container) {
   container.innerHTML = "";
@@ -131,18 +203,30 @@ function renderTasks(tasksToRender, container) {
     container.innerHTML += renderCard(task);
   });
 }
+/**
+ * redircts to Add Task
+ */
 
 function redirectToAddTask() {
   window.location.href = "add_task.html";
 }
-
+/**
+ * redircts to board
+ */
 function redirectToBoard() {
   window.location.href = "board.html";
 }
-
+/**
+ * closes Card big
+ */
 function closeCardbig() {
   document.getElementById("card-big").classList.add("d-none");
+
 }
+
+/**
+ * Functions for Drag and Drop 
+ */
 function startDragging(id) {
   currentDraggedElement = id;
 }
@@ -176,6 +260,9 @@ function handleDrop(event) {
   }
 }
 
+/**
+ * clears Formular
+ */
 function clearFormular() {
   document.getElementById("task_description").value = "";
   document.getElementById("task_title").value = "";
@@ -183,53 +270,24 @@ function clearFormular() {
   document.getElementById("task_category").value = "";
   document.getElementById("rendercontacts_container_small3").innerHTML = "";
   document.getElementById("rendercontacts_container_small2").innerHTML = "";
+  document.getElementById('sub').innerHTML = "";
   changePrio("medium");
   selectedContacts = [];
   subtasks = [];
 }
 
-function addTask() {
-  let description = document.getElementById("task_description").value;
-  let title = document.getElementById("task_title").value;
-  let date = document.getElementById("task_date").value;
-  let category = document.getElementById("task_category").value;
-
-  if (title.trim() === "" || date.trim() === "" || category.trim() === "") {
-    alert("Bitte Felder ausfüllen");
-    return;
-  }
-
-  if (description === "") {
-    description = "Keine Beschreibung";
-  }
-  const selectedContactsNames2 = selectedContacts.map((contact) => {
-    return { name: contact.name, color: contact.color };
-  });
-
-  let task = {
-    title: title,
-    description: description,
-    date: date,
-    priority: prioity, // Bitte sicherstellen, dass prioity definiert ist
-    contacts: selectedContactsNames2,
-    category: category,
-    subtask: subtasks, // Bitte sicherstellen, dass subtasks definiert ist
-    position: currentContainer,
-  };
-
-  tasks.push(task);
-  saveTasks();
-  clearFormular();
-  AnimationTasksAdded2();
-  renderTasks1();
-  closeAddTask();
-}
+/**
+ * Updates the HTML
+ */
 
 function UpdateHtml() {
   containerIds.forEach((containerId) => {
     renderTasks1(containerId);
   });
 }
+/**
+ * closes Add Task
+ */
 
 function closeAddTask() {
   let addtaskoverlay = document.getElementById("imgclose");
@@ -237,6 +295,10 @@ function closeAddTask() {
 }
 
 let currentContainer = null;
+
+/**
+ * opens Add Task
+ */
 
 function openAddTask(containerId) {
   if (window.innerWidth < 660) {
@@ -248,11 +310,17 @@ function openAddTask(containerId) {
     document.getElementById("imgclose").classList.add("slide-in");
   }
 }
+/**
+ * Cancel Edit 
+ */
 
 function cancelEdit() {
   document.getElementById("editTaskOverlay").classList.add("d-none");
   selectedContacts = [];
 }
+/**
+ * Animation 
+ */
 
 function AnimationTasksAdded2() {
   let animationElement = document.getElementById("task_added_board");
@@ -261,7 +329,9 @@ function AnimationTasksAdded2() {
     animationElement.classList.add("d-none");
   }, 2000);
 }
-
+/**
+ * Toogles Edit Subdrop 
+ */
 function toggleEditSubDrop() {
   let inputField = document.getElementById("edit_task_subtask");
   if (document.activeElement === inputField) {
@@ -269,7 +339,9 @@ function toggleEditSubDrop() {
       "flex";
   }
 }
-
+/**
+ *  Renders Subtask
+ */
 function renderEditSubtask() {
   const editSubtasksContainer = document.getElementById("edit_sub");
   editSubtasksContainer.innerHTML = "";
@@ -278,6 +350,9 @@ function renderEditSubtask() {
     editSubtasksContainer.appendChild(subtaskElement);
   });
 }
+/**
+ * adds Edit Subtask 
+ */
 
 function addEditSubtask() {
   let text = document.getElementById("edit_task_subtask");
@@ -288,18 +363,24 @@ function addEditSubtask() {
   text.value = "";
   renderEditSubtask();
 }
-
+/**
+ *  edits Subtask
+ */
 function editEditSubtask(index) {
   let text = document.getElementById("edit_task_subtask");
   text.value = subtasks[index].text;
   deleteEditSubtask(index);
 }
-
+/**
+ *  deletes Subtask
+ */
 function deleteEditSubtask(index) {
   subtasks.splice(index, 1);
   renderEditSubtask();
 }
-
+/**
+ *  remvoes Edit Subtask
+ */
 function removeEditSubInput() {
   let text = document.getElementById("edit_task_subtask");
   text.value = "";
@@ -308,124 +389,5 @@ function removeEditSubInput() {
 
 let originalTitle;
 
-function editTask(title) {
-  closeCardbig();
-  const selectedTask = tasks.find((task) => task.title === title);
-  if (selectedTask) {
-    originalTitle = selectedTask.title;
-    document.getElementById("edit_task_title").value = selectedTask.title;
-    document.getElementById("edit_task_description").value =
-      selectedTask.description;
-    document.getElementById("edit_task_date").value = selectedTask.date;
 
-    // Setze die ausgewählten Kontakte
-    selectedTask.contacts.forEach((contact) => {
-      const contactObj = contacts_board[0].find((c) => c.name === contact.name);
-      if (contactObj) {
-        selectedContacts.push(contactObj);
-      }
-    });
 
-    document.getElementById("task_category_edit").value = selectedTask.category;
-    subtasks = [...selectedTask.subtask];
-    renderEditSubtask();
-    renderContactsSmall3();
-    document.getElementById("editTaskOverlay").classList.remove("d-none");
-  }
-}
-
-function saveEditTask() {
-  console.log("saveEditTask aufgerufen");
-  const editedTitle = document.getElementById("edit_task_title").value;
-  const editedDescription = document.getElementById(
-    "edit_task_description"
-  ).value;
-  const editedDate = document.getElementById("edit_task_date").value;
-  const editedCategory = document.getElementById("task_category_edit").value;
-
-  // Finde den Index des bearbeiteten Tasks anhand des ursprünglichen Titels
-  const editedTaskIndex = tasks.findIndex(
-    (task) => task.title === originalTitle
-  );
-
-  if (editedTaskIndex !== -1) {
-    // Aktualisiere die Werte des bearbeiteten Tasks
-    tasks[editedTaskIndex].title = editedTitle;
-    tasks[editedTaskIndex].description = editedDescription;
-    tasks[editedTaskIndex].date = editedDate;
-    tasks[editedTaskIndex].subtask = [...subtasks]; // Aktualisiere Subtasks
-
-    // Hier das Format Name:... Color:... für Kontakte speichern
-    const selectedContactsData = selectedContacts.map((contact) => {
-      return { name: contact.name, color: contact.color };
-    });
-
-    tasks[editedTaskIndex].contacts = selectedContactsData;
-    tasks[editedTaskIndex].category = editedCategory;
-    tasks[editedTaskIndex].priority = editedPrioity; // Speichere die aktualisierte Priorität
-
-    // Speichere die aktualisierten Tasks
-    saveTasks();
-    renderTasks1();
-  }
-}
-
-function toggleContactsDropdown() {
-  const dropdown = document.getElementById("dropdown_contacts2");
-  const isVisible = !dropdown.classList.contains("d-none");
-  renderContactsSmall3();
-  if (isVisible) {
-    dropdown.classList.add("d-none");
-  } else {
-    dropdown.classList.remove("d-none");
-    showContactsDropdown(!isVisible);
-  }
-}
-
-function renderContactsSmall3() {
-  let smallContainer = document.getElementById(
-    "rendercontacts_container_small3"
-  );
-  smallContainer.innerHTML = "";
-
-  selectedContacts.forEach((contact) => {
-    const initials = getInitials(contact);
-    smallContainer.innerHTML += `
-      <svg width="42px" height="42px" xmlns="http://www.w3.org/2000/svg">
-        <!-- Äußerer Kreis -->
-        <circle cx="21px" cy="21px" r="20px" stroke="white" stroke-width="3" fill="transparent" />
-        <!-- Innerer Kreis -->
-        <circle cx="21px" cy="21px" r="19px" fill="${contact.color}" />
-        <text fill="white" x="21px" y="23px"  alignment-baseline="middle" text-anchor="middle" >
-          ${initials}
-        </text>
-      </svg>`;
-  });
-}
-
-// Funktion zum Ändern der Priorität während der Bearbeitung eines Tasks
-function changePrioEdit(prio) {
-  clearPrioEdit();
-  editedPrioity = prio;
-  let selectedPrio = document.getElementById(`${prio}_edit`);
-  selectedPrio.classList.add(`${prio}`);
-  selectedPrio.classList.remove(`hover_${prio}`);
-  document.getElementById(`${prio}_svg`).style.fill = "white";
-}
-
-// Funktion zum Zurücksetzen der Priorität während der Bearbeitung eines Tasks
-function clearPrioEdit() {
-  let urgent = document.getElementById("urgent_edit");
-  urgent.classList.remove("urgent");
-  urgent.classList.add("hover_urgent");
-  document.getElementById(`urgent_svg`).style.fill = "#FF3D00";
-  let medium = document.getElementById("medium_edit");
-  medium.classList.remove("medium");
-  medium.classList.add("hover_medium");
-  document.getElementById(`medium_svg`).style.fill = "white";
-  let low = document.getElementById("low_edit");
-  low.classList.remove("low");
-  low.classList.add("hover_low");
-  document.getElementById(`low_svg`).style.fill = "#7AE229";
-  editedPrioity = "medium";
-}

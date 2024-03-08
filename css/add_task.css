@@ -41,6 +41,8 @@ body {
   overflow-y: auto;
     scrollbar-width: thin;
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    
 }
 
 .add_task_container input {
@@ -134,6 +136,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 51px;
   display: flex;
   gap: 16px;
+  cursor: pointer;
 }
 
 .button_prio {
@@ -341,6 +344,7 @@ background-color: rgba(210, 227, 255, 1);
   justify-content: center;
  width: 100%;
   gap: 25px;
+  cursor: pointer;
 }
 
 .option_button {
@@ -351,6 +355,7 @@ background-color: rgba(210, 227, 255, 1);
   gap: 4px;
   border-radius: 10px;
   font-size: 23px;
+  cursor: pointer;
 }
 
 .option_button img {
@@ -370,6 +375,7 @@ background-color: rgba(210, 227, 255, 1);
   border: 1px solid rgba(100, 113, 136, 1);
   background-color: white;
   color: rgba(100, 113, 136, 1);
+  cursor: pointer;
 }
 
 #task_cancel:hover {
@@ -491,6 +497,7 @@ height: 38px;
   height: 51px;
   display: flex;
   gap: 16px;
+  cursor: pointer;
 
 }
 
